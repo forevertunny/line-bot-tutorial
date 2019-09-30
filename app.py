@@ -304,9 +304,10 @@ def test():
     res = rs.get(target_url, verify=False)
     res.encoding = 'utf-8'
     soup = BeautifulSoup(res.text, 'html.parser')
-    content =''
+    content = ""
     for data in soup.select('div.container div.col-lg-3 col-md-4 col-xs-6 thumb div.images')
-        print(data)
+        print(data.text)
+        content = ""
     return content
 
 

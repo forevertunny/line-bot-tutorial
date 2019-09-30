@@ -301,6 +301,7 @@ def oil_price():
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
+    print("Hello World")
     # print("event.reply_token:", event.reply_token)
     # print("event.message.text:", event.message.text)
     # if event.message.text.lower() == "eyny":
@@ -608,6 +609,7 @@ def handle_message(event):
 
 @handler.add(MessageEvent, message=StickerMessage)
 def handle_sticker_message(event):
+    print("Hello World")
     # print("package_id:", event.message.package_id)
     # print("sticker_id:", event.message.sticker_id)
     # # ref. https://developers.line.me/media/messaging-api/sticker_list.pdf

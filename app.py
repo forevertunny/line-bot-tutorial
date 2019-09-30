@@ -305,7 +305,7 @@ def test():
     res.encoding = 'utf-8'
     soup = BeautifulSoup(res.text, 'html.parser')
     content = ""
-    for data in soup.select('div.images')
+    for data in soup.select('div.container div.col-lg-3 col-md-4 col-xs-6 thumb div.images'):
         print(data)
         content = ""
     return content

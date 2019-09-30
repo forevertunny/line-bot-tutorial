@@ -298,6 +298,17 @@ def oil_price():
     content = '{}\n{}{}'.format(title, gas_price, cpc)
     return content
 
+def test():
+    target_url='https://ptt-beauty-images.herokuapp.com/'
+    rs = requests.session()
+    res = rs.get(target_url, verify=False)
+    res.encoding = 'utf-8'
+    soup = BeautifulSoup(res.text, 'html.parser')
+    content =''
+    for data in soup.select('div.container div.col-lg-3 col-md-4 col-xs-6 thumb div.images')
+        print(data)
+    return content
+
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
@@ -334,14 +345,15 @@ def handle_message(event):
             event.reply_token, image_message)
         return 0
     if event.message.text == "隨便來張正妹圖片":
-        image = requests.get(API_Get_Image)
-        url = image.json().get('Url')
-        image_message = ImageSendMessage(
-            original_content_url=url,
-            preview_image_url=url
-        )
-        line_bot_api.reply_message(
-            event.reply_token, image_message)
+        content=test()
+        # image = requests.get(API_Get_Image)
+        # url = image.json().get('Url')
+        # image_message = ImageSendMessage(
+        #     original_content_url=url,
+        #     preview_image_url=url
+        # )
+        # line_bot_api.reply_message(
+        #     event.reply_token, image_message)
         return 0
     if event.message.text == "近期熱門廢文":
         content = ptt_hot()

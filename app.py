@@ -305,6 +305,7 @@ def test1():
     res = rs.get(target_url, verify=False)
     soup = BeautifulSoup(res.text, 'html.parser')
     temp=[]
+    content=""
     for data in soup.select('div.row div.images a.img-thumbnail'):
         # title = data.text
         link = data['href']

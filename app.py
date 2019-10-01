@@ -371,7 +371,8 @@ def handle_message(event):
         GSpreadSheet = 'RedInfo'
         while True:
             try:
-                scope = ['https://spreadsheets.google.com/feeds']
+                # scope = ['https://spreadsheets.google.com/feeds']
+                scope = ['https://drive.google.com/open?id=1vo-hc3bW30ORxx5yXa6fqiK0f3y9-3Rs']
                 key = SAC.from_json_keyfile_name(GDriveJSON, scope)
                 gc = gspread.authorize(key)
                 worksheet = gc.open(GSpreadSheet).sheet1

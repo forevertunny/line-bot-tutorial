@@ -311,7 +311,7 @@ def test1():
         temp.append(linebot)
         #content += '{}\n{}\n\n'.format(title, link)
     
-    print(random.randint(0,len(temp)))
+    # print(random.randint(0,len(temp)))
     return content
 
 

@@ -329,15 +329,15 @@ def test2():
     GSpreadSheet = 'RedInfo'
     while True:
         try:
-            scope = ['https://docs.google.com/spreadsheets/d/1xfSrgXcU9RJu_MKXxbO-O0WxfzAe02NyZ5ANfvxU968/edit?usp=sharing']
+            scope = ['https://drive.google.com/open?id=1xfSrgXcU9RJu_MKXxbO-O0WxfzAe02NyZ5ANfvxU968']
             key = SAC.from_json_keyfile_name(GDriveJSON, scope)
             gc = gspread.authorize(key)
             worksheet = gc.open(GSpreadSheet).sheet1
         except Exception as ex:
             print('無法連線Google試算表', ex)
             sys.exit(1)
-        textt=""
-        textt+=event.message.text
+        textt="465789"
+        #textt+=event.message.text
         if textt!="":
             worksheet.append_row((datetime.datetime.now(), textt))
             print('新增一列資料到試算表' ,GSpreadSheet)

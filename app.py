@@ -374,8 +374,9 @@ def handle_message(event):
     if event.message.text.lower() == "test3":
         # print('time ' +str(datetime.datetime.now))
         #r = requests.get('https://api.github.com/user', auth=('user', 'pass'))
-        
-        aa = request.get(API_Get_UserInfo+event.source.user_id, auth = (line_bot_api))
+        my_headers = {'Bearer ': line_bot_api}
+        print(API_Get_UserInfo+event.source.user_id)
+        aa = request.get(API_Get_UserInfo+event.source.user_id, headers = my_headers)
         print("aa  ",aa)
         return 0
     # if event.message.text.lower() == "test3":

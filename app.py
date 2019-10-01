@@ -325,18 +325,23 @@ def test1():
 
 
 def test2():
-    target_url = 'https://panx.asia/'
-    print('Start parsing ptt hot....')
-    rs = requests.session()
-    res = rs.get(target_url, verify=False)
-    soup = BeautifulSoup(res.text, 'html.parser')
-    content = ""
-    for data in soup.select('div.container div.row div.desc_wrap h2 a'):
-        title = data.text
-        link = data['href']
-        print(data['href'])
-        content += '{}\n{}\n\n'.format(title, link)
-    return content
+    GDriveJSON = 'RedInfoBot-8fd436687e99.json'
+    GSpreadSheet = 'RedInfo'
+    #    while True:
+        try:
+            scope = ['https://docs.google.com/spreadsheets/d/1xfSrgXcU9RJu_MKXxbO-O0WxfzAe02NyZ5ANfvxU968/edit?usp=sharing']
+            key = SAC.from_json_keyfile_name(GDriveJSON, scope)
+            gc = gspread.authorize(key)
+            worksheet = gc.open(GSpreadSheet).sheet1
+        except Exception as ex:
+            print('無法連線Google試算表', ex)
+            sys.exit(1)
+        textt=""
+        textt+=event.message.text
+        if textt!="":
+            worksheet.append_row((datetime.datetime.now(), textt))
+            print('新增一列資料到試算表' ,GSpreadSheet)
+            return textt     
 
 
 @handler.add(MessageEvent, message=TextMessage)

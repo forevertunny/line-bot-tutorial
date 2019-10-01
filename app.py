@@ -313,6 +313,8 @@ def test1():
         #content += '{}\n{}\n\n'.format(title, link)
     
     print(random.randint(0,len(temp)))
+    print(temp[random.randint(0,len(temp))])
+    content=temp[random.randint(0,len(temp))]
     return content
 
 
@@ -337,7 +339,16 @@ def handle_message(event):
     print("event.message.text:", event.message.text)
 
     if event.message.text.lower() == "test1":
-        content = test1()
+        content=test1()
+        # image = requests.get(API_Get_Image)
+        # url = image.json().get('Url')
+        url=content
+        image_message = ImageSendMessage(
+            original_content_url=url,
+            preview_image_url=url
+        )
+        line_bot_api.reply_message(
+            event.reply_token, image_message)
         return 0
     if event.message.text.lower() == "test2":
         content = test2()
@@ -373,15 +384,16 @@ def handle_message(event):
             event.reply_token, image_message)
         return 0
     if event.message.text == "隨便來張正妹圖片":
-        content=test()
+        content=test1()
         # image = requests.get(API_Get_Image)
         # url = image.json().get('Url')
-        # image_message = ImageSendMessage(
-        #     original_content_url=url,
-        #     preview_image_url=url
-        # )
-        # line_bot_api.reply_message(
-        #     event.reply_token, image_message)
+        url=content
+        image_message = ImageSendMessage(
+            original_content_url=url,
+            preview_image_url=url
+        )
+        line_bot_api.reply_message(
+            event.reply_token, image_message)
         return 0
     if event.message.text == "近期熱門廢文":
         content = ptt_hot()

@@ -340,8 +340,9 @@ def test2():
         #textt+=event.message.text
         if textt!="":
             # worksheet.append_row((datetime.datetime.now(), textt))
-            worksheet.append_row('asdasdasdad', textt)
-            print('新增一列資料到試算表' ,GSpreadSheet)
+            #worksheet.append_row('asdasdasdad', textt)
+            #print('新增一列資料到試算表' ,GSpreadSheet)
+            #worksheet.get_all_values()
             return textt     
 
 
@@ -383,8 +384,8 @@ def handle_message(event):
             textt="132465"
             # textt+=event.message.text
             if textt!="":
-                now = datetime.datetime.now()
-                print(now)
+                #now = datetime.datetime.now()
+                #print(now)
                 #worksheet.append_row((datetime.datetime.now(), textt))
                 worksheet.append_row('asdasdasdad', textt)
                 print('新增一列資料到試算表' ,GSpreadSheet)

@@ -384,9 +384,9 @@ def handle_message(event):
         print('info ',aa)
         print('displayName ',aa.displayName)
         content='Hi '+aa.displayName
-        line_bot_api.reply_message(
-            event.reply_token,
-            TextSendMessage(text=content))
+        # line_bot_api.reply_message(
+        #     event.reply_token,
+        #     TextSendMessage(text=content))
         return 0
     # if event.message.text.lower() == "test3":
     #     line_bot_api.reply_message(event.reply_token,TextSendMessage(text="紀錄成功"))

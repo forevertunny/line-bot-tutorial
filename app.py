@@ -28,7 +28,6 @@ client_id = config['imgur_api']['Client_ID']
 client_secret = config['imgur_api']['Client_Secret']
 album_id = config['imgur_api']['Album_ID']
 # API_Get_Image = config['other_api']['API_Get_Image']
-API_Get_UserInfo =config['other_api']['API_Get_UserInfo']
 
 
 
@@ -382,7 +381,8 @@ def handle_message(event):
         # print("aa  ",aa)
 
         aa = line_bot_api.get_profile('U3c494c35c89b87a15ebbf1849427f440')
-        print('id ',aa)
+        print('info ',aa)
+        print('displayName ',aa.displayName)
         return 0
     # if event.message.text.lower() == "test3":
     #     line_bot_api.reply_message(event.reply_token,TextSendMessage(text="紀錄成功"))

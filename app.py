@@ -342,7 +342,8 @@ def test2():
             # worksheet.append_row((datetime.datetime.now(), textt))
             #worksheet.append_row('asdasdasdad', textt)
             #print('新增一列資料到試算表' ,GSpreadSheet)
-            #worksheet.get_all_values()
+            for data in worksheet.get_all_values():
+                print(data)
             return textt     
 
 

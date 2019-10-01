@@ -298,18 +298,18 @@ def oil_price():
     content = '{}\n{}{}'.format(title, gas_price, cpc)
     return content
 
-def test():
+def test1():
     target_url='https://ptt-beauty-images.herokuapp.com/'
+    print('Start test1')
     rs = requests.session()
     res = rs.get(target_url, verify=False)
-    res.encoding = 'utf-8'
     soup = BeautifulSoup(res.text, 'html.parser')
     content = ""
-    for data in soup.select('div.images a.img-thumbnail'):
+    for data in soup.select('div.row div.images a.img-thumbnail'):
         # title = data.text
         link = data['href']
-        print(title +'  '+ link)
-        content = ""
+        print(link)
+        #content += '{}\n{}\n\n'.format(title, link)
     return content
 
 
@@ -333,7 +333,10 @@ def handle_message(event):
     print("event.reply_token:", event.reply_token)
     print("event.message.text:", event.message.text)
 
-    if event.message.text.lower() == "test":
+    if event.message.text.lower() == "test1":
+        content = test1()
+        return 0
+    if event.message.text.lower() == "test2":
         content = test2()
         return 0
     if event.message.text.lower() == "eyny":

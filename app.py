@@ -339,8 +339,7 @@ def test2():
         textt="465789"
         #textt+=event.message.text
         if textt!="":
-            # worksheet.append_row((datetime.datetime.now(), textt))
-            
+            # worksheet.append_row((datetime.datetime.now(), textt))            
             #print('新增一列資料到試算表' ,GSpreadSheet)
             for data in worksheet.get_all_values():
                 print(data)
@@ -368,6 +367,9 @@ def handle_message(event):
         return 0
     if event.message.text.lower() == "test2":
         content = test2()
+        return 0
+    if event.message.text.lower() == "test3":
+        print('time ' +datetime.datetime.now)
         return 0
     # if event.message.text.lower() == "test3":
     #     line_bot_api.reply_message(event.reply_token,TextSendMessage(text="紀錄成功"))

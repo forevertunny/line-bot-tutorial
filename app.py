@@ -329,7 +329,7 @@ def test2():
     GSpreadSheet = 'RedInfo'
     while True:
         try:
-            scope = ['https://spreadsheets.google.com']
+            scope = ['https://spreadsheets.google.com/feeds']
             key = SAC.from_json_keyfile_name(GDriveJSON, scope)
             gc = gspread.authorize(key)
             worksheet = gc.open(GSpreadSheet).sheet1

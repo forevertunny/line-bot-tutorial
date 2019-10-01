@@ -340,10 +340,12 @@ def test2():
         #textt+=event.message.text
         if textt!="":
             # worksheet.append_row((datetime.datetime.now(), textt))
-            #worksheet.append_row('asdasdasdad', textt)
+            
             #print('新增一列資料到試算表' ,GSpreadSheet)
             for data in worksheet.get_all_values():
                 print(data)
+
+            worksheet.append_row(('asdasdasdad', textt))
             return textt     
 
 
@@ -367,31 +369,31 @@ def handle_message(event):
     if event.message.text.lower() == "test2":
         content = test2()
         return 0
-    if event.message.text.lower() == "test3":
-        line_bot_api.reply_message(event.reply_token,TextSendMessage(text="紀錄成功"))
-        pass
-        GDriveJSON = 'RedInfoBot.json'
-        GSpreadSheet = 'RedInfo'
-        while True:
-            try:
-                #scope = ['https://spreadsheets.google.com/feeds']
-                scope = ["https://spreadsheets.google.com/feeds",'https://www.googleapis.com/auth/drive']
-                key = SAC.from_json_keyfile_name(GDriveJSON, scope)
-                gc = gspread.authorize(key)
-                worksheet = gc.open(GSpreadSheet).sheet1
-            except Exception as ex:
-                print('無法連線Google試算表', ex)
-                sys.exit(1)
-            textt="132465"
-            # textt+=event.message.text
-            if textt!="":
-                #now = datetime.datetime.now()
-                #print(now)
-                #worksheet.append_row((datetime.datetime.now(), textt))
-                worksheet.append_row('asdasdasdad', textt)
-                print('新增一列資料到試算表' ,GSpreadSheet)
-                return textt     
-        return 0
+    # if event.message.text.lower() == "test3":
+    #     line_bot_api.reply_message(event.reply_token,TextSendMessage(text="紀錄成功"))
+    #     pass
+    #     GDriveJSON = 'RedInfoBot.json'
+    #     GSpreadSheet = 'RedInfo'
+    #     while True:
+    #         try:
+    #             #scope = ['https://spreadsheets.google.com/feeds']
+    #             scope = ["https://spreadsheets.google.com/feeds",'https://www.googleapis.com/auth/drive']
+    #             key = SAC.from_json_keyfile_name(GDriveJSON, scope)
+    #             gc = gspread.authorize(key)
+    #             worksheet = gc.open(GSpreadSheet).sheet1
+    #         except Exception as ex:
+    #             print('無法連線Google試算表', ex)
+    #             sys.exit(1)
+    #         textt="132465"
+    #         # textt+=event.message.text
+    #         if textt!="":
+    #             #now = datetime.datetime.now()
+    #             #print(now)
+    #             #worksheet.append_row((datetime.datetime.now(), textt))
+    #             worksheet.append_row('asdasdasdad', textt)
+    #             print('新增一列資料到試算表' ,GSpreadSheet)
+    #             return textt     
+    #     return 0
 
     if event.message.text.lower() == "eyny":
         content = eyny_movie()

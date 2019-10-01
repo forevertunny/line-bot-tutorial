@@ -374,14 +374,15 @@ def handle_message(event):
     if event.message.text.lower() == "test3":
         # print('time ' +str(datetime.datetime.now))
         #r = requests.get('https://api.github.com/user', auth=('user', 'pass'))
-        my_headers = {"Authorization: Bearer py5p8fXWo94jEsOusGnbR+QnvhfvQB1JtLoEJpqEO4kJi1fItORYKiiOBpLJuSqS7txHjsLQ8erYPUYo4j7OSzH66o5WFkHsYJpwSpvohcBa5Vp2rt4cZVskM9spTIxLAsaDuTWsC/97CCCvaW6fuwdB04t89/1O/w1cDnyilFU=" }
-        print(API_Get_UserInfo+event.source.user_id)
-        # aa = request.get(API_Get_UserInfo+event.source.user_id, headers = my_headers)
-        rs = requests.session()
-        aa = rs.get('https://api.line.me/v2/bot/profile/U3c494c35c89b87a15ebbf1849427f440', headers = my_headers)
+        # my_headers = {"Authorization: Bearer py5p8fXWo94jEsOusGnbR+QnvhfvQB1JtLoEJpqEO4kJi1fItORYKiiOBpLJuSqS7txHjsLQ8erYPUYo4j7OSzH66o5WFkHsYJpwSpvohcBa5Vp2rt4cZVskM9spTIxLAsaDuTWsC/97CCCvaW6fuwdB04t89/1O/w1cDnyilFU=" }
+        # print(API_Get_UserInfo+event.source.user_id)
+        # # aa = request.get(API_Get_UserInfo+event.source.user_id, headers = my_headers)
+        # rs = requests.session()
+        # aa = rs.get('https://api.line.me/v2/bot/profile/U3c494c35c89b87a15ebbf1849427f440', headers = my_headers)        
+        # print("aa  ",aa)
 
-        
-        print("aa  ",aa)
+        aa = line_bot_api.get_profile('U3c494c35c89b87a15ebbf1849427f440')
+        print('id ',aa)
         return 0
     # if event.message.text.lower() == "test3":
     #     line_bot_api.reply_message(event.reply_token,TextSendMessage(text="紀錄成功"))

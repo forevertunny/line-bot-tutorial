@@ -383,6 +383,10 @@ def handle_message(event):
         aa = line_bot_api.get_profile('U3c494c35c89b87a15ebbf1849427f440')
         print('info ',aa)
         print('displayName ',aa.displayName)
+        content='Hi '+aa.displayName
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text=content))
         return 0
     # if event.message.text.lower() == "test3":
     #     line_bot_api.reply_message(event.reply_token,TextSendMessage(text="紀錄成功"))

@@ -327,7 +327,7 @@ def test1():
 def test2():
     GDriveJSON = 'RedInfoBot-8fd436687e99.json'
     GSpreadSheet = 'RedInfo'
-    #    while True:
+    while True:
         try:
             scope = ['https://docs.google.com/spreadsheets/d/1xfSrgXcU9RJu_MKXxbO-O0WxfzAe02NyZ5ANfvxU968/edit?usp=sharing']
             key = SAC.from_json_keyfile_name(GDriveJSON, scope)

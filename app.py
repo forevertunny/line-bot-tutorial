@@ -362,7 +362,8 @@ def handle_message(event):
         line_bot_api.reply_message(
             event.reply_token, image_message)
         return 0
-    if "eat" in event.message.text.lower() | "drink" in event.message.text.lower():
+    if "eat" in event.message.text.lower() or "drink" in event.message.text.lower() or
+        "吃" in event.message.text.lower() or "喝" in event.message.text.lower():
             #eat drink  吃 喝
         content = test2(event.message.text)
         return 0

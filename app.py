@@ -305,8 +305,8 @@ def test():
     res.encoding = 'utf-8'
     soup = BeautifulSoup(res.text, 'html.parser')
     content = ""
-    for data in soup.select('div.images a'):
-        title = data.text
+    for data in soup.select('div.images a.img-thumbnail'):
+        # title = data.text
         link = data['href']
         print(title +'  '+ link)
         content = ""

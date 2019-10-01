@@ -2,6 +2,10 @@ import requests
 import re
 import random
 import configparser
+import sys
+import datetime
+import gspread
+from oauth2client.service_account import ServiceAccountCredentials as SAC
 from bs4 import BeautifulSoup
 from flask import Flask, request, abort
 from imgurpython import ImgurClient
@@ -23,7 +27,9 @@ handler = WebhookHandler(config['line_bot']['Channel_Secret'])
 client_id = config['imgur_api']['Client_ID']
 client_secret = config['imgur_api']['Client_Secret']
 album_id = config['imgur_api']['Album_ID']
-API_Get_Image = config['other_api']['API_Get_Image']
+# API_Get_Image = config['other_api']['API_Get_Image']
+
+
 
 
 @app.route("/callback", methods=['POST'])
@@ -385,8 +391,6 @@ def handle_message(event):
         return 0
     if event.message.text == "隨便來張正妹圖片":
         content=test1()
-        # image = requests.get(API_Get_Image)
-        # url = image.json().get('Url')
         url=content
         image_message = ImageSendMessage(
             original_content_url=url,

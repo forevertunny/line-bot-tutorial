@@ -313,18 +313,15 @@ def test1():
     temp=[]
     content=""
     for data in soup.select('div.row div.images a.img-thumbnail'):
-        # title = data.text
         link = data['href']
-        temp.append(link)
-        #content += '{}\n{}\n\n'.format(title, link)
-    
-    print(random.randint(0,len(temp)))
-    print(temp[random.randint(0,len(temp))])
+        temp.append(link)    
     content=temp[random.randint(0,len(temp))]
     return content
 
 
-def test2():
+def test2(message):
+    print(message)
+    content=''
     GDriveJSON = 'RedInfoBot.json'
     GSpreadSheet = 'RedInfo'
     while True:
@@ -365,8 +362,9 @@ def handle_message(event):
         line_bot_api.reply_message(
             event.reply_token, image_message)
         return 0
-    if event.message.text.lower() == "test2":
-        content = test2()
+    if "eat" in event.message.text.lower() | "drink" in event.message.text.lower():
+            #eat drink  吃 喝
+        content = test2(event.message.text)
         return 0
     if event.message.text.lower() == "test3":
         print('time ' +str(datetime.datetime.now))

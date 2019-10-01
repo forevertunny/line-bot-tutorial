@@ -367,7 +367,7 @@ def handle_message(event):
     if event.message.text.lower() == "test3":
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text="紀錄成功"))
         pass
-        GDriveJSON = 'RedInfoBot'
+        GDriveJSON = 'RedInfoBot.json'
         GSpreadSheet = 'RedInfo'
         while True:
             try:

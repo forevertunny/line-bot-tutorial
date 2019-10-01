@@ -304,12 +304,14 @@ def test1():
     rs = requests.session()
     res = rs.get(target_url, verify=False)
     soup = BeautifulSoup(res.text, 'html.parser')
-    content = ""
+    temp=[]
     for data in soup.select('div.row div.images a.img-thumbnail'):
         # title = data.text
         link = data['href']
-        print(link)
+        temp.append(linebot)
         #content += '{}\n{}\n\n'.format(title, link)
+    
+    print(random.randint(0,len(temp)))
     return content
 
 

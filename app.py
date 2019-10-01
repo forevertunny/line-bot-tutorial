@@ -313,10 +313,28 @@ def test():
     return content
 
 
+def test2():
+    target_url = 'https://panx.asia/'
+    print('Start parsing ptt hot....')
+    rs = requests.session()
+    res = rs.get(target_url, verify=False)
+    soup = BeautifulSoup(res.text, 'html.parser')
+    content = ""
+    for data in soup.select('div.container div.row div.desc_wrap h2 a'):
+        title = data.text
+        link = data['href']
+        content += '{}\n{}\n\n'.format(title, link)
+    return content
+
+
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     print("event.reply_token:", event.reply_token)
     print("event.message.text:", event.message.text)
+
+    if event.message.text.lower() == "test":
+        content = test2()
+        return 0
     if event.message.text.lower() == "eyny":
         content = eyny_movie()
         line_bot_api.reply_message(

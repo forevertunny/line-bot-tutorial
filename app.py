@@ -375,7 +375,7 @@ def handle_message(event):
         # print('time ' +str(datetime.datetime.now))
         #r = requests.get('https://api.github.com/user', auth=('user', 'pass'))
         
-        aa = request.get(API_Get_UserInfo+event.source.user_id,Bearer ={line_bot_api})
+        aa = request.get(API_Get_UserInfo+event.source.user_id, auth = (line_bot_api))
         print("aa  ",aa)
         return 0
     # if event.message.text.lower() == "test3":

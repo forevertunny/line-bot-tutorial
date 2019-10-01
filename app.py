@@ -308,10 +308,10 @@ def test1():
     for data in soup.select('div.row div.images a.img-thumbnail'):
         # title = data.text
         link = data['href']
-        temp.append(linebot)
+        temp.append(link)
         #content += '{}\n{}\n\n'.format(title, link)
     
-    # print(random.randint(0,len(temp)))
+    print(random.randint(0,len(temp)))
     return content
 
 

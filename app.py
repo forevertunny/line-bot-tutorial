@@ -323,6 +323,7 @@ def test2():
     for data in soup.select('div.container div.row div.desc_wrap h2 a'):
         title = data.text
         link = data['href']
+        print(data['href'])
         content += '{}\n{}\n\n'.format(title, link)
     return content
 

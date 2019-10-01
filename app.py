@@ -329,7 +329,7 @@ def test2():
     GSpreadSheet = 'RedInfo'
     while True:
         try:
-            scope = ['https://spreadsheets.google.com/feeds']
+            scope = ["https://spreadsheets.google.com/feeds",'https://www.googleapis.com/auth/drive']
             key = SAC.from_json_keyfile_name(GDriveJSON, scope)
             gc = gspread.authorize(key)
             worksheet = gc.open(GSpreadSheet).sheet1
@@ -339,7 +339,7 @@ def test2():
         textt="465789"
         #textt+=event.message.text
         if textt!="":
-            worksheet.append_row((datetime.datetime.now(), textt))
+            #worksheet.append_row((datetime.datetime.now(), textt))
             print('新增一列資料到試算表' ,GSpreadSheet)
             return textt     
 
@@ -382,7 +382,7 @@ def handle_message(event):
             textt="132465"
             # textt+=event.message.text
             if textt!="":
-                worksheet.append_row((datetime.datetime.now(), textt))
+                #worksheet.append_row((datetime.datetime.now(), textt))
                 print('新增一列資料到試算表' ,GSpreadSheet)
                 return textt     
         return 0

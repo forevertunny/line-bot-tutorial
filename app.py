@@ -325,7 +325,7 @@ def test1():
 
 
 def test2():
-    GDriveJSON = 'RedInfoBot-8fd436687e99.json'
+    GDriveJSON = 'RedInfoBot'
     GSpreadSheet = 'RedInfo'
     while True:
         try:
@@ -367,11 +367,11 @@ def handle_message(event):
     if event.message.text.lower() == "test3":
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text="紀錄成功"))
         pass
-        GDriveJSON = 'RedInfoBot-8fd436687e99.json'
+        GDriveJSON = 'RedInfoBot'
         GSpreadSheet = 'RedInfo'
         while True:
             try:
-                scope = ['https://spreadsheets.google.com/']
+                scope = ['https://spreadsheets.google.com/feeds']
                 key = SAC.from_json_keyfile_name(GDriveJSON, scope)
                 gc = gspread.authorize(key)
                 worksheet = gc.open(GSpreadSheet).sheet1

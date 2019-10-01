@@ -28,7 +28,7 @@ client_id = config['imgur_api']['Client_ID']
 client_secret = config['imgur_api']['Client_Secret']
 album_id = config['imgur_api']['Album_ID']
 # API_Get_Image = config['other_api']['API_Get_Image']
-
+API_Get_UserInfo =config['other_api']['API_Get_UserInfo']
 
 
 
@@ -342,7 +342,10 @@ def test2(message):
                 print(data)
 
             worksheet.append_row(('asdasdasdad', textt))
-            return textt     
+            return textt
+
+def getUserInfo(userid):
+    pass
 
 
 @handler.add(MessageEvent, message=TextMessage)
@@ -369,7 +372,11 @@ def handle_message(event):
         content = test2(event.message.text)
         return 0
     if event.message.text.lower() == "test3":
-        print('time ' +str(datetime.datetime.now))
+        # print('time ' +str(datetime.datetime.now))
+        #r = requests.get('https://api.github.com/user', auth=('user', 'pass'))
+        
+        aa = request.get(API_Get_UserInfo+event.source.user_id,Bearer ={line_bot_api})
+        print("aa  ",aa)
         return 0
     # if event.message.text.lower() == "test3":
     #     line_bot_api.reply_message(event.reply_token,TextSendMessage(text="紀錄成功"))

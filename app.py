@@ -364,8 +364,8 @@ def order(userName,text):
                     print(cell.value)
                     if(cell.value == ''):
                         print('Add Eat Value')
-                        for index,value in data:
-                            print('index %s %s',str(index),value)
+                        for i in range(len(data)):
+                            print('index %s %s %s',data[i],value)
                         break
             elif 'drink' in text or '喝' in text:
                 for i in range(3,100):   

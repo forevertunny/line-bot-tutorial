@@ -30,7 +30,7 @@ client_secret = config['imgur_api']['Client_Secret']
 album_id = config['imgur_api']['Album_ID']
 # API_Get_Image = config['other_api']['API_Get_Image']
 testArry=[]
-testDict={}
+userDict={}
 
 
 @app.route("/callback", methods=['POST'])
@@ -320,8 +320,8 @@ def test1():
     return content
 
 
-def test2(message):
-    print(message)
+def test2(userName,message):
+    print('ABCDEF  ',userName, message)
     content=''
     GDriveJSON = 'RedInfoBot.json'
     GSpreadSheet = 'RedInfo'
@@ -342,7 +342,7 @@ def test2(message):
             for data in worksheet.get_all_values():
                 print(data)
 
-            worksheet.append_row(('asdasdasdad', textt))
+            worksheet.append_row((userName,datetime.datetime.now(), textt))
             return textt
 
 def getUserInfo(userid):
@@ -356,11 +356,10 @@ def handle_message(event):
     print("event.reply_token:", event.reply_token)
     print("event.message.text:", event.message.text)
 
-    if(not event.source.user_id in testDict):
+    if(not event.source.user_id in userDict):
         profile = line_bot_api.get_profile( event.source.user_id)
         info = json.loads(str(profile))
-        testDict[event.source.user_id]=info['displayName']
-        print('Add UserId Sucess')
+        userDict[event.source.user_id]=info['displayName']        
 
     if event.message.text.lower() == "test1":
         content=test1()
@@ -376,23 +375,9 @@ def handle_message(event):
         return 0
     if "eat" in event.message.text.lower() or "drink" in event.message.text.lower() or "吃" in event.message.text.lower() or "喝" in event.message.text.lower():
             #eat drink  吃 喝
-        content = test2(event.message.text)
+        content = test2(userDict[event.source.user_id],event.message.text)
         return 0
-    if event.message.text.lower() == "test3":
-        # print(len(testArry))
-        # print(testDict)
-        # print("AAAA ",(event.source.user_id in testDict))
-        # info = line_bot_api.get_profile( event.source.user_id)
-        # print('info ',info)
-        # try:            
-        #     #print('displayName ',aa['displayName'])
-        #     abc= json.loads(str(info))
-        #     print(abc['displayName'])
-        # except Exception as ex:
-        #     print("Err ", ex)
-        # line_bot_api.reply_message(
-        #     event.reply_token,
-        #     TextSendMessage(text=content))
+    if event.message.text.lower() == "test3":      
         return 0
     # if event.message.text.lower() == "test3":
     #     line_bot_api.reply_message(event.reply_token,TextSendMessage(text="紀錄成功"))

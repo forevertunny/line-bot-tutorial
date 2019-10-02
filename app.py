@@ -29,7 +29,7 @@ client_id = config['imgur_api']['Client_ID']
 client_secret = config['imgur_api']['Client_Secret']
 album_id = config['imgur_api']['Album_ID']
 # API_Get_Image = config['other_api']['API_Get_Image']
-
+self.testArry=[]
 
 
 @app.route("/callback", methods=['POST'])
@@ -372,6 +372,7 @@ def handle_message(event):
         content = test2(event.message.text)
         return 0
     if event.message.text.lower() == "test3":
+        print(len(self.testArry))
         # print('time ' +str(datetime.datetime.now))
         #r = requests.get('https://api.github.com/user', auth=('user', 'pass'))
         # my_headers = {"Authorization: Bearer py5p8fXWo94jEsOusGnbR+QnvhfvQB1JtLoEJpqEO4kJi1fItORYKiiOBpLJuSqS7txHjsLQ8erYPUYo4j7OSzH66o5WFkHsYJpwSpvohcBa5Vp2rt4cZVskM9spTIxLAsaDuTWsC/97CCCvaW6fuwdB04t89/1O/w1cDnyilFU=" }

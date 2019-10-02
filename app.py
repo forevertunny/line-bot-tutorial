@@ -381,12 +381,14 @@ def handle_message(event):
         # aa = rs.get('https://api.line.me/v2/bot/profile/U3c494c35c89b87a15ebbf1849427f440', headers = my_headers)        
         # print("aa  ",aa)
 
-        aa = line_bot_api.get_profile('U3c494c35c89b87a15ebbf1849427f440')
-        print('info ',aa)
+        info = line_bot_api.get_profile('U3c494c35c89b87a15ebbf1849427f440')
+        print('info ',info)
         try:            
-            print('displayName ',aa['displayName'])
+            #print('displayName ',aa['displayName'])
+            abc= json.loads(info)
+            print(abc)
         except Exception as ex:
-            pass      
+            print("Err " ex)
         # line_bot_api.reply_message(
         #     event.reply_token,
         #     TextSendMessage(text=content))

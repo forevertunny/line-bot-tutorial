@@ -4,7 +4,7 @@ import random
 import configparser
 import sys
 import datetime
-# import pytz
+import pytz
 import gspread
 import json
 from oauth2client.service_account import ServiceAccountCredentials as SAC
@@ -324,6 +324,7 @@ def test1():
 def order(userName,message):
     print('ABCDEF  ',userName, message)
     content=''
+    tmepStr=''        
     GDriveJSON = 'RedInfoBot.json'
     GSpreadSheet = 'RedInfo'
     while True:
@@ -334,16 +335,15 @@ def order(userName,message):
             worksheet = gc.open(GSpreadSheet).sheet1
         except Exception as ex:
             print('無法連線Google試算表', ex)
-            sys.exit(1)
-        text=''        
-        text+=message.text
-        if text!="":       
+            sys.exit(1)        
+        tmepStr+=message.text
+        if tmepStr!="":       
             #print('新增一列資料到試算表' ,GSpreadSheet)
             # for data in worksheet.get_all_values():
             #     print(data)
-            splitText = text.split(' ')
+            splitText = tmepStr.split(' ')
             print(splitText)
-            worksheet.append_row((userName,str(datetime.datetime.now()), text))
+            worksheet.append_row((userName,str(datetime.datetime.now()), tmepStr))
             return 0
 
 def getUserInfo(userid):
@@ -379,9 +379,9 @@ def handle_message(event):
         content = order(userDict[event.source.user_id],event.message.text)
         return 0
     if event.message.text.lower() == "test3":
-        print('time ' +str(datetime.datetime(1970,1,1,tzinfo=datetime.timezone.utc).now()))      
-        # utc_tz = pytz.timezone('UTC')
-        # print('time '+str(datetime.datetime.now(tz=utc_tz)))
+        # print('time ' +str(datetime.datetime(1970,1,1,tzinfo=datetime.timezone.utc).now()))      
+        utc_tz = pytz.timezone('UTC')
+        print('time '+str(datetime.datetime.now(tz=utc_tz)))
         return 0
     # if event.message.text.lower() == "test3":
     #     line_bot_api.reply_message(event.reply_token,TextSendMessage(text="紀錄成功"))

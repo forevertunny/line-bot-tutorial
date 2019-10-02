@@ -382,7 +382,10 @@ def handle_message(event):
 
         aa = line_bot_api.get_profile('U3c494c35c89b87a15ebbf1849427f440')
         print('info ',aa)
-        print('displayName ',aa.displayName)
+        try:            
+            print('displayName ',aa['displayName'])
+        except Exception as ex:
+            pass
         content='Hi '+aa.displayName
         # line_bot_api.reply_message(
         #     event.reply_token,

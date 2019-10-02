@@ -358,7 +358,7 @@ def order(userName,text):
             # A3 H3
             print('abcd ',len(worksheet.get_all_values()))
             for i in range(10):
-                print(worksheet.cell(str('A'+i))))
+                print(worksheet.cell(str('A'+i)))
             for i in range(10):
                 print(worksheet.cell(str('H'+i)))
             #worksheet.append_row((userName,GetTime(), item,gold,remarks))

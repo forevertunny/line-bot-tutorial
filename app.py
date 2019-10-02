@@ -342,7 +342,7 @@ def test2(userName,message):
             for data in worksheet.get_all_values():
                 print(data)
 
-            worksheet.append_row((userName,str(datetime.datetime.now), textt))
+            worksheet.append_row((userName,str(datetime.datetime.now()), textt))
             return textt
 
 def getUserInfo(userid):
@@ -378,7 +378,7 @@ def handle_message(event):
         content = test2(userDict[event.source.user_id],event.message.text)
         return 0
     if event.message.text.lower() == "test3":
-        print('time ' +str(datetime.datetime.now))      
+        print('time ' +str(datetime.datetime.now()))      
         return 0
     # if event.message.text.lower() == "test3":
     #     line_bot_api.reply_message(event.reply_token,TextSendMessage(text="紀錄成功"))

@@ -328,7 +328,7 @@ def order(userName,text):
     print('Order ',userName, text)
     content= userName + ' Order Failure'
     GDriveJSON = 'RedInfoBot.json'
-    GSpreadSheet = 'RedInfo'
+    GSpreadSheet = 'RedInfoOrder'
     while True:
         try:
             scope = ["https://spreadsheets.google.com/feeds",'https://www.googleapis.com/auth/drive']
@@ -353,7 +353,7 @@ def order(userName,text):
                 data[4]=splitText[3]
             
             # A3=(1,1) H3=(1,8)
-            print('abcd ',len(worksheet.get_all_values()))
+            # print('abcd ',len(worksheet.get_all_values()))
 
             if(data[2] == ''):
                 content = 'Ex: 吃 鮑魚湯麵 1000 不要辣 ; 喝 金薄珍珠奶茶 800 微糖少冰'
@@ -386,10 +386,6 @@ def order(userName,text):
 
             return content
 
-def getUserInfo(userid):
-    pass
-
-
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     print("event ",event)
@@ -421,6 +417,11 @@ def handle_message(event):
             TextSendMessage(text=content))
         return 0
     if event.message.text.lower() == "test3":
+        return 0
+    if event.message.text.lower() == "bc說故事":
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text='BC來說故事'))
         return 0
     if event.message.text.lower() == "now":
         content=GetTime()

@@ -324,8 +324,8 @@ def test1():
     return content
 
 
-def order(userName,message):
-    print('Order ',userName, message)
+def order(userName,text):
+    print('Order ',userName, text)
     content=''
     tmepStr=''        
     GDriveJSON = 'RedInfoBot.json'
@@ -339,12 +339,11 @@ def order(userName,message):
         except Exception as ex:
             print('無法連線Google試算表', ex)
             sys.exit(1)        
-        tmepStr+=message.text
-        if tmepStr!="":       
+        if text!="":       
             #print('新增一列資料到試算表' ,GSpreadSheet)
             # for data in worksheet.get_all_values():
             #     print(data)
-            splitText = tmepStr.split(' ')
+            splitText = text.split(' ')
             print(splitText)
             item=''
             gold=''
@@ -388,15 +387,15 @@ def handle_message(event):
             event.reply_token, image_message)
         return 0
     if "eat" in event.message.text.lower() or "drink" in event.message.text.lower() or "吃" in event.message.text.lower() or "喝" in event.message.text.lower():
-            #eat drink  吃 喝
-        content = order(userDict[event.source.user_id],event.message)
+        content = order(userDict[event.source.user_id],event.message.text)
         return 0
     if event.message.text.lower() == "test3":
         return 0
     if event.message.text.lower() == "now":
-        print(GetTime())
+        content=GetTime()
         line_bot_api.reply_message(
-            event.reply_token, GetTime())
+            event.reply_token,
+            TextSendMessage(text=content))
         return 0
     # if event.message.text.lower() == "test3":
     #     line_bot_api.reply_message(event.reply_token,TextSendMessage(text="紀錄成功"))
@@ -726,13 +725,11 @@ def handle_message(event):
 
 
 def GetTime():
-    print(datetime.datetime.utcnow())
+    # print(datetime.datetime.utcnow())
     utc_dt = utc.localize(datetime.datetime.utcnow())
-    print(utc_dt)
+    # print(utc_dt)
     my_tz = timezone("Asia/Taipei")
-    converted = utc_dt.astimezone(my_tz).strftime('%Y-%m-%d %H:%M:%S')
-    return converted
-
+    return utc_dt.astimezone(my_tz).strftime('%Y-%m-%d %H:%M:%S')
 
 @handler.add(MessageEvent, message=StickerMessage)
 def handle_sticker_message(event):

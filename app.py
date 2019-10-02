@@ -354,7 +354,7 @@ def order(userName,text):
                 gold=splitText[2]
             if len(splitText) >=4:
                 remarks=splitText[3]
-            
+            data=[userName,GetTime(),item,gold,remarks]
             # A3=(1,1) H3=(1,8)
             print('abcd ',len(worksheet.get_all_values()))
 
@@ -363,13 +363,17 @@ def order(userName,text):
                     cell =worksheet.cell(i,1)
                     print(cell.value)
                     if(cell.value == ''):
-                        print('Add Eat Value ')
+                        print('Add Eat Value')
+                        for index,value in data:
+                            print('index %s %s',str(index),value)
+                        break
             elif 'drink' in text or '喝' in text:
                 for i in range(3,100):   
                     cell =worksheet.cell(i,8)
                     print(cell.value)
                     if(cell.value == ''):
                         print('Add Drink Value ')
+                        break
             #worksheet.append_row((userName,GetTime(), item,gold,remarks))
 
             return 0

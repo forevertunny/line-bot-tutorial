@@ -345,7 +345,7 @@ def order(userName,text):
             #     print(data)
             splitText = text.split(' ')
             print(splitText)
-            data=[userName,GetTime(),item,gold,remarks]
+            data=[]
             data[0]=userName
             data[1]=''
             data[2]=''

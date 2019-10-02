@@ -375,7 +375,7 @@ def handle_message(event):
     if event.message.text.lower() == "test3":
         print(len(testArry))
         print(testDict)
-        print("AAAA ",(testDict.has_key(event.source.user_id)))
+        print("AAAA ",(testDict..__contains__(event.source.user_id)))
         info = line_bot_api.get_profile( event.source.user_id)
         print('info ',info)
         try:            

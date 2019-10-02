@@ -4,7 +4,7 @@ import random
 import configparser
 import sys
 import datetime
-import pytz
+from pytz import timezone, utc
 import gspread
 import json
 from oauth2client.service_account import ServiceAccountCredentials as SAC
@@ -32,6 +32,9 @@ album_id = config['imgur_api']['Album_ID']
 # API_Get_Image = config['other_api']['API_Get_Image']
 testArry=[]
 userDict={}
+
+def main():
+    pass
 
 
 @app.route("/callback", methods=['POST'])
@@ -380,8 +383,12 @@ def handle_message(event):
         return 0
     if event.message.text.lower() == "test3":
         # print('time ' +str(datetime.datetime(1970,1,1,tzinfo=datetime.timezone.utc).now()))      
-        utc_tz = pytz.timezone('UTC')
-        print('time '+str(datetime.datetime.now(tz=utc_tz)))
+        print(datetime.datetime.utcnow())
+        utc_dt = utc.localize(datetime.datetime.utcnow())
+        print(utc_dt)
+        my_tz = timezone("Asia/Taipei")
+        converted = utc_dt.astimezone(my_tz).strftime('%Y-%m-%d %H:%M:%S')
+        print(converted)
         return 0
     # if event.message.text.lower() == "test3":
     #     line_bot_api.reply_message(event.reply_token,TextSendMessage(text="紀錄成功"))
@@ -734,3 +741,4 @@ def handle_sticker_message(event):
 
 if __name__ == '__main__':
     app.run()
+    main()

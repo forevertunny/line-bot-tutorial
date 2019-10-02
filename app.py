@@ -326,8 +326,7 @@ def test1():
 
 def order(userName,text):
     print('Order ',userName, text)
-    content=''
-    tmepStr=''        
+    content='Order Failure'
     GDriveJSON = 'RedInfoBot.json'
     GSpreadSheet = 'RedInfo'
     while True:
@@ -346,9 +345,6 @@ def order(userName,text):
             splitText = text.split(' ')
             print(splitText)
             data=[userName,GetTime(),'','','','']
-            # item=''
-            # gold=''
-            # remarks=''
             if len(splitText) >=2:
                 data[2]=splitText[1]
             if len(splitText) >=3:
@@ -361,30 +357,32 @@ def order(userName,text):
 
             if 'eat' in text or '吃' in text:                
                 for i in range(3,100):
-                    print(worksheet.cell(i,1).value)
+                    # print(worksheet.cell(i,1).value)
                     if(worksheet.cell(i,1).value == ''):
-                        print('Add Eat Value ',i)
+                        # print('Add Eat Value ',i)
                         row_format = f'A{i}:E{i}'
                         row = worksheet.range(row_format)
                         for x,cell in enumerate(row):
                             cell.value = data[x]
                         worksheet.update_cells(row)
+                        content='Order Sucess'
                         break
             elif 'drink' in text or '喝' in text:
                 for i in range(3,100):   
                     cell =worksheet.cell(i,8)
-                    print(cell.value)
+                    # print(cell.value)
                     if(cell.value == ''):
-                        print('Add Drink Value ',i)
+                        # print('Add Drink Value ',i)
                         row_format = f'H{i}:L{i}'
                         row = worksheet.range(row_format)
                         for x,cell in enumerate(row):
                             cell.value = data[x]
                         worksheet.update_cells(row)
+                        content='Order Sucess'
                         break
             #worksheet.append_row((userName,GetTime(), item,gold,remarks))
 
-            return 0
+            return content
 
 def getUserInfo(userid):
     pass
@@ -416,6 +414,9 @@ def handle_message(event):
         return 0
     if "eat" in event.message.text.lower() or "drink" in event.message.text.lower() or "吃" in event.message.text.lower() or "喝" in event.message.text.lower():
         content = order(userDict[event.source.user_id],event.message.text)
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text=content))
         return 0
     if event.message.text.lower() == "test3":
         return 0

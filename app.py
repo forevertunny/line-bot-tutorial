@@ -411,7 +411,7 @@ def handle_message(event):
             event.reply_token, image_message)
         return 0
 
-    if event.message.text.lower() =='redinfo' or event.message.text.lower() =='紅信'
+    if event.message.text.lower() =='redinfo' or event.message.text.lower() =='紅信':
         return 0
     if "eat" in event.message.text.lower() or "drink" in event.message.text.lower() or "吃" in event.message.text.lower() or "喝" in event.message.text.lower():
         content = order(userDict[event.source.user_id],event.message.text)
@@ -424,7 +424,7 @@ def handle_message(event):
     if event.message.text.lower() == "order" or event.message.text.lower() == "訂單":
         image_message = ImageSendMessage(
             original_content_url='https://docs.google.com/spreadsheets/d/1ena2k6yZFsrqWJ_vkAPHhNb5T7qWwALei6c-9RFa6Og/edit#gid=0',
-            preview_image_url='https://docs.google.com/spreadsheets/d/1ena2k6yZFsrqWJ_vkAPHhNb5T7qWwALei6c-9RFa6Og/edit#gid=0'
+            # preview_image_url='https://docs.google.com/spreadsheets/d/1ena2k6yZFsrqWJ_vkAPHhNb5T7qWwALei6c-9RFa6Og/edit#gid=0'
         )
         line_bot_api.reply_message(
             event.reply_token, image_message)

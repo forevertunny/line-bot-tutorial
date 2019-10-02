@@ -345,16 +345,21 @@ def order(userName,text):
             #     print(data)
             splitText = text.split(' ')
             print(splitText)
-            item=''
-            gold=''
-            remarks=''
-            if len(splitText) >=2:
-                item=splitText[1]
-            if len(splitText) >=3:
-                gold=splitText[2]
-            if len(splitText) >=4:
-                remarks=splitText[3]
             data=[userName,GetTime(),item,gold,remarks]
+            data[0]=userName
+            data[1]=''
+            data[2]=''
+            data[3]=''
+            # item=''
+            # gold=''
+            # remarks=''
+            if len(splitText) >=2:
+                data[1]=splitText[1]
+            if len(splitText) >=3:
+                data[2]=splitText[2]
+            if len(splitText) >=4:
+                data[3]=splitText[3]
+            
             # A3=(1,1) H3=(1,8)
             print('abcd ',len(worksheet.get_all_values()))
 

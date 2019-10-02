@@ -357,9 +357,7 @@ def order(userName,text):
 
             if(data[2] == ''):
                 content = 'Ex: 吃 鮑魚湯麵 1000 不要辣 ; 喝 金薄珍珠奶茶 800 微糖少冰'
-                break
-
-            if 'eat' in text or '吃' in text:                
+            elif 'eat' in text or '吃' in text:                
                 for i in range(3,100):
                     # print(worksheet.cell(i,1).value)
                     if(worksheet.cell(i,1).value == ''):

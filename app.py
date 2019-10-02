@@ -354,8 +354,10 @@ def order(userName,text):
                 gold=splitText[2]
             if len(splitText) >=4:
                 remarks=splitText[3]
+            
+            print('abcd ',len(worksheet.get_all_values()))
+            #worksheet.append_row((userName,GetTime(), item,gold,remarks))
 
-            worksheet.append_row((userName,GetTime(), item,gold,remarks))
             return 0
 
 def getUserInfo(userid):
@@ -397,32 +399,6 @@ def handle_message(event):
             event.reply_token,
             TextSendMessage(text=content))
         return 0
-    # if event.message.text.lower() == "test3":
-    #     line_bot_api.reply_message(event.reply_token,TextSendMessage(text="紀錄成功"))
-    #     pass
-    #     GDriveJSON = 'RedInfoBot.json'
-    #     GSpreadSheet = 'RedInfo'
-    #     while True:
-    #         try:
-    #             #scope = ['https://spreadsheets.google.com/feeds']
-    #             scope = ["https://spreadsheets.google.com/feeds",'https://www.googleapis.com/auth/drive']
-    #             key = SAC.from_json_keyfile_name(GDriveJSON, scope)
-    #             gc = gspread.authorize(key)
-    #             worksheet = gc.open(GSpreadSheet).sheet1
-    #         except Exception as ex:
-    #             print('無法連線Google試算表', ex)
-    #             sys.exit(1)
-    #         textt="132465"
-    #         # textt+=event.message.text
-    #         if textt!="":
-    #             #now = datetime.datetime.now()
-    #             #print(now)
-    #             #worksheet.append_row((datetime.datetime.now(), textt))
-    #             worksheet.append_row('asdasdasdad', textt)
-    #             print('新增一列資料到試算表' ,GSpreadSheet)
-    #             return textt     
-    #     return 0
-
     if event.message.text.lower() == "eyny":
         content = eyny_movie()
         line_bot_api.reply_message(

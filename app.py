@@ -405,8 +405,8 @@ def GetBcStory():
         for data in values:
             print(data)
 
-        index= random.randint(0,len(values))
-        print(values[index])
+        index= random.randint(0,len(values)-1)        
+        print(values[index][0])
         return values[index][0]
 
 @handler.add(MessageEvent, message=TextMessage)

@@ -379,7 +379,7 @@ def handle_message(event):
         content = order(userDict[event.source.user_id],event.message.text)
         return 0
     if event.message.text.lower() == "test3":
-        print('time ' +str(datetime.datetime(1970,1,1,tzinfo=timezone.utc).now()))      
+        print('time ' +str(datetime.datetime(1970,1,1,tzinfo=datetime.timezone.utc).now()))      
         # utc_tz = pytz.timezone('UTC')
         # print('time '+str(datetime.datetime.now(tz=utc_tz)))
         return 0

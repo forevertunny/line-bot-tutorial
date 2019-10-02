@@ -346,7 +346,7 @@ def order(userName,message):
             #     print(data)
             splitText = tmepStr.split(' ')
             print(splitText)
-            worksheet.append_row((userName,str(datetime.datetime.now()), tmepStr))
+            worksheet.append_row((userName,GetTime(), tmepStr))
             return 0
 
 def getUserInfo(userid):
@@ -379,16 +379,10 @@ def handle_message(event):
         return 0
     if "eat" in event.message.text.lower() or "drink" in event.message.text.lower() or "吃" in event.message.text.lower() or "喝" in event.message.text.lower():
             #eat drink  吃 喝
-        content = order(userDict[event.source.user_id],event.message.text)
+        content = order(userDict[event.source.user_id],event.message)
         return 0
     if event.message.text.lower() == "test3":
-        # print('time ' +str(datetime.datetime(1970,1,1,tzinfo=datetime.timezone.utc).now()))      
-        print(datetime.datetime.utcnow())
-        utc_dt = utc.localize(datetime.datetime.utcnow())
-        print(utc_dt)
-        my_tz = timezone("Asia/Taipei")
-        converted = utc_dt.astimezone(my_tz).strftime('%Y-%m-%d %H:%M:%S')
-        print(converted)
+        print(GetTime())
         return 0
     # if event.message.text.lower() == "test3":
     #     line_bot_api.reply_message(event.reply_token,TextSendMessage(text="紀錄成功"))
@@ -717,6 +711,13 @@ def handle_message(event):
     line_bot_api.reply_message(event.reply_token, carousel_template_message)
 
 
+def GetTime():
+    print(datetime.datetime.utcnow())
+    utc_dt = utc.localize(datetime.datetime.utcnow())
+    print(utc_dt)
+    my_tz = timezone("Asia/Taipei")
+    converted = utc_dt.astimezone(my_tz).strftime('%Y-%m-%d %H:%M:%S')
+    return converted
 
 
 @handler.add(MessageEvent, message=StickerMessage)

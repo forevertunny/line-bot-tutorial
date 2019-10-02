@@ -372,7 +372,7 @@ def handle_message(event):
         content = test2(event.message.text)
         return 0
     if event.message.text.lower() == "test3":
-        print(len(self.testArry))
+        print(len(testArry))
         # print('time ' +str(datetime.datetime.now))
         #r = requests.get('https://api.github.com/user', auth=('user', 'pass'))
         # my_headers = {"Authorization: Bearer py5p8fXWo94jEsOusGnbR+QnvhfvQB1JtLoEJpqEO4kJi1fItORYKiiOBpLJuSqS7txHjsLQ8erYPUYo4j7OSzH66o5WFkHsYJpwSpvohcBa5Vp2rt4cZVskM9spTIxLAsaDuTWsC/97CCCvaW6fuwdB04t89/1O/w1cDnyilFU=" }

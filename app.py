@@ -438,12 +438,12 @@ def handle_message(event):
             event.reply_token,
             TextSendMessage(text=content))
         return 0
-    if event.message.text == "PTT 表特版 近期大於 10 推的文章":
-        content = ptt_beauty()
-        line_bot_api.reply_message(
-            event.reply_token,
-            TextSendMessage(text=content))
-        return 0
+    # if event.message.text == "PTT 表特版 近期大於 10 推的文章":
+    #     content = ptt_beauty()
+    #     line_bot_api.reply_message(
+    #         event.reply_token,
+    #         TextSendMessage(text=content))
+    #     return 0
     if event.message.text == "來張 imgur 正妹圖片":
         client = ImgurClient(client_id, client_secret)
         images = client.get_album_images(album_id)
@@ -478,12 +478,12 @@ def handle_message(event):
             event.reply_token,
             TextSendMessage(text=content))
         return 0
-    if event.message.text == "近期上映電影":
-        content = movie()
-        line_bot_api.reply_message(
-            event.reply_token,
-            TextSendMessage(text=content))
-        return 0
+    # if event.message.text == "近期上映電影":
+    #     content = movie()
+    #     line_bot_api.reply_message(
+    #         event.reply_token,
+    #         TextSendMessage(text=content))
+    #     return 0
     if event.message.text == "觸電網-youtube":
         target_url = 'https://www.youtube.com/user/truemovie1/videos'
         rs = requests.session()

@@ -388,7 +388,7 @@ def handle_message(event):
             abc= json.loads(info)
             print(abc)
         except Exception as ex:
-            print("Err " ex)
+            print("Err ", ex)
         # line_bot_api.reply_message(
         #     event.reply_token,
         #     TextSendMessage(text=content))

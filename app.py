@@ -366,6 +366,10 @@ def order(userName,text):
                         row_format = f'A{i}:E{i}'
                         row = worksheet.range(row_format)
                         print(row)
+                        for x,cell in enumerate(row):
+                            cell.value = data[x]
+                        worksheet.update_cells(row)
+
                         # abc = worksheet.range('A')
                         # for x in range(len(data)):
                         #     print('index',data[x])

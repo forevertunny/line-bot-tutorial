@@ -326,7 +326,7 @@ def test1():
 
 def order(userName,text):
     print('Order ',userName, text)
-    content= '@'+userName + ' Order Failure'
+    content= userName + ' Order Failure'
     GDriveJSON = 'RedInfoBot.json'
     GSpreadSheet = 'RedInfo'
     while True:
@@ -365,7 +365,7 @@ def order(userName,text):
                         for x,cell in enumerate(row):
                             cell.value = data[x]
                         worksheet.update_cells(row)
-                        content= '@'+userName + 'Order Sucess'
+                        content= userName + 'Order Sucess'
                         break
             elif 'drink' in text or '喝' in text:
                 for i in range(3,100):   
@@ -378,7 +378,7 @@ def order(userName,text):
                         for x,cell in enumerate(row):
                             cell.value = data[x]
                         worksheet.update_cells(row)
-                        content= '@'+userName + ' Order Sucess'
+                        content= userName + ' Order Sucess'
                         break
             #worksheet.append_row((userName,GetTime(), item,gold,remarks))
 
@@ -659,70 +659,70 @@ def handle_message(event):
             TextSendMessage(text=content))
         return 0
 
-    carousel_template_message = TemplateSendMessage(
-        alt_text='目錄 template',
-        template=CarouselTemplate(
-            columns=[
-                CarouselColumn(
-                    thumbnail_image_url='https://i.imgur.com/kzi5kKy.jpg',
-                    title='選擇服務',
-                    text='請選擇',
-                    actions=[
-                        MessageAction(
-                            label='開始玩',
-                            text='開始玩'
-                        ),
-                        URIAction(
-                            label='影片介紹 阿肥bot',
-                            uri='https://youtu.be/1IxtWgWxtlE'
-                        ),
-                        URIAction(
-                            label='如何建立自己的 Line Bot',
-                            uri='https://github.com/twtrubiks/line-bot-tutorial'
-                        )
-                    ]
-                ),
-                CarouselColumn(
-                    thumbnail_image_url='https://i.imgur.com/DrsmtKS.jpg',
-                    title='選擇服務',
-                    text='請選擇',
-                    actions=[
-                        MessageAction(
-                            label='other bot',
-                            text='imgur bot'
-                        ),
-                        MessageAction(
-                            label='油價查詢',
-                            text='油價查詢'
-                        ),
-                        URIAction(
-                            label='聯絡作者',
-                            uri='https://www.facebook.com/TWTRubiks?ref=bookmarks'
-                        )
-                    ]
-                ),
-                CarouselColumn(
-                    thumbnail_image_url='https://i.imgur.com/h4UzRit.jpg',
-                    title='選擇服務',
-                    text='請選擇',
-                    actions=[
-                        URIAction(
-                            label='分享 bot',
-                            uri='https://line.me/R/nv/recommendOA/@vbi2716y'
-                        ),
-                        URIAction(
-                            label='PTT正妹網',
-                            uri='https://ptt-beauty-infinite-scroll.herokuapp.com/'
-                        ),
-                        URIAction(
-                            label='youtube 程式教學分享頻道',
-                            uri='https://www.youtube.com/channel/UCPhn2rCqhu0HdktsFjixahA'
-                        )
-                    ]
-                )
-            ]
-        )
-    )
+    # carousel_template_message = TemplateSendMessage(
+    #     alt_text='目錄 template',
+    #     template=CarouselTemplate(
+    #         columns=[
+    #             CarouselColumn(
+    #                 thumbnail_image_url='https://i.imgur.com/kzi5kKy.jpg',
+    #                 title='選擇服務',
+    #                 text='請選擇',
+    #                 actions=[
+    #                     MessageAction(
+    #                         label='開始玩',
+    #                         text='開始玩'
+    #                     ),
+    #                     URIAction(
+    #                         label='影片介紹 阿肥bot',
+    #                         uri='https://youtu.be/1IxtWgWxtlE'
+    #                     ),
+    #                     URIAction(
+    #                         label='如何建立自己的 Line Bot',
+    #                         uri='https://github.com/twtrubiks/line-bot-tutorial'
+    #                     )
+    #                 ]
+    #             ),
+    #             CarouselColumn(
+    #                 thumbnail_image_url='https://i.imgur.com/DrsmtKS.jpg',
+    #                 title='選擇服務',
+    #                 text='請選擇',
+    #                 actions=[
+    #                     MessageAction(
+    #                         label='other bot',
+    #                         text='imgur bot'
+    #                     ),
+    #                     MessageAction(
+    #                         label='油價查詢',
+    #                         text='油價查詢'
+    #                     ),
+    #                     URIAction(
+    #                         label='聯絡作者',
+    #                         uri='https://www.facebook.com/TWTRubiks?ref=bookmarks'
+    #                     )
+    #                 ]
+    #             ),
+    #             CarouselColumn(
+    #                 thumbnail_image_url='https://i.imgur.com/h4UzRit.jpg',
+    #                 title='選擇服務',
+    #                 text='請選擇',
+    #                 actions=[
+    #                     URIAction(
+    #                         label='分享 bot',
+    #                         uri='https://line.me/R/nv/recommendOA/@vbi2716y'
+    #                     ),
+    #                     URIAction(
+    #                         label='PTT正妹網',
+    #                         uri='https://ptt-beauty-infinite-scroll.herokuapp.com/'
+    #                     ),
+    #                     URIAction(
+    #                         label='youtube 程式教學分享頻道',
+    #                         uri='https://www.youtube.com/channel/UCPhn2rCqhu0HdktsFjixahA'
+    #                     )
+    #                 ]
+    #             )
+    #         ]
+    #     )
+    # )
 
     line_bot_api.reply_message(event.reply_token, carousel_template_message)
 

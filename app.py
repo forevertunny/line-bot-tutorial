@@ -4,6 +4,7 @@ import random
 import configparser
 import sys
 import datetime
+import pytz
 import gspread
 import json
 from oauth2client.service_account import ServiceAccountCredentials as SAC
@@ -333,7 +334,8 @@ def order(userName,message):
             worksheet = gc.open(GSpreadSheet).sheet1
         except Exception as ex:
             print('無法連線Google試算表', ex)
-            sys.exit(1)        
+            sys.exit(1)
+        text=''        
         text+=message.text
         if text!="":       
             #print('新增一列資料到試算表' ,GSpreadSheet)
@@ -378,6 +380,8 @@ def handle_message(event):
         return 0
     if event.message.text.lower() == "test3":
         print('time ' +str(datetime.datetime.now()))      
+        utc_tz = pytz.timezone('UTC')
+        print('time '+str(datetime.datetime.now(tz=utc_tz))))
         return 0
     # if event.message.text.lower() == "test3":
     #     line_bot_api.reply_message(event.reply_token,TextSendMessage(text="紀錄成功"))

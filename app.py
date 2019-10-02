@@ -345,11 +345,7 @@ def order(userName,text):
             #     print(data)
             splitText = text.split(' ')
             print(splitText)
-            data=[]
-            data[0]=userName
-            data[1]=''
-            data[2]=''
-            data[3]=''
+            data=[userName,'','','','']
             # item=''
             # gold=''
             # remarks=''

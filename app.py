@@ -367,7 +367,7 @@ def order(userName,text):
                         for x,cell in enumerate(row):
                             cell.value = data[x]
                         worksheet.update_cells(row)
-                        content= userName + 'Order Sucess'
+                        content= userName + ' Order Sucess'
                         break
             elif 'drink' in text or '喝' in text:
                 for i in range(3,100):   
@@ -418,10 +418,17 @@ def handle_message(event):
         return 0
     if event.message.text.lower() == "test3":
         return 0
+    if event.message.text.lower() == "order" or event.message.text.lower() == "訂單":
+        image_message = ImageSendMessage(
+            original_content_url='https://docs.google.com/spreadsheets/d/1ena2k6yZFsrqWJ_vkAPHhNb5T7qWwALei6c-9RFa6Og/edit#gid=0'
+        )
+        line_bot_api.reply_message(
+            event.reply_token, image_message)
+        return 0
     if event.message.text.lower() == "bc說故事":
         line_bot_api.reply_message(
             event.reply_token,
-            TextSendMessage(text='BC來說故事'))
+            TextSendMessage(text='BC來說故事囉'))
         return 0
     if event.message.text.lower() == "now":
         content=GetTime()

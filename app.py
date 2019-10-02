@@ -400,10 +400,10 @@ def GetBcStory():
         except Exception as ex:
             print('無法連線Google試算表', ex)
             sys.exit(1)        
-        if text!="":       
-            #print('新增一列資料到試算表' ,GSpreadSheet)
-            for data in worksheet.get_all_values():
-                print(data)
+        
+        #print('新增一列資料到試算表' ,GSpreadSheet)
+        for data in worksheet.get_all_values():
+            print(data)
             return content
 
 @handler.add(MessageEvent, message=TextMessage)

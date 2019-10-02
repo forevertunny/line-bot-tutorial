@@ -385,7 +385,7 @@ def handle_message(event):
         print('info ',info)
         try:            
             #print('displayName ',aa['displayName'])
-            abc= json.loads(info)
+            abc= json.loads(str(info))
             print(abc)
         except Exception as ex:
             print("Err ", ex)

@@ -365,23 +365,21 @@ def order(userName,text):
                         print('Add Eat Value ',i)
                         row_format = f'A{i}:E{i}'
                         row = worksheet.range(row_format)
-                        print(row)
                         for x,cell in enumerate(row):
                             cell.value = data[x]
                         worksheet.update_cells(row)
-
-                        # abc = worksheet.range('A')
-                        # for x in range(len(data)):
-                        #     print('index',data[x])
-                        #     worksheet.cell(i,1+x).value=data[x]
-                        #     # worksheet.cell(i,1+x)
                         break
             elif 'drink' in text or '喝' in text:
                 for i in range(3,100):   
                     cell =worksheet.cell(i,8)
                     print(cell.value)
                     if(cell.value == ''):
-                        print('Add Drink Value ')
+                        print('Add Drink Value ',i)
+                        row_format = f'H{i}:L{i}'
+                        row = worksheet.range(row_format)
+                        for x,cell in enumerate(row):
+                            cell.value = data[x]
+                        worksheet.update_cells(row)
                         break
             #worksheet.append_row((userName,GetTime(), item,gold,remarks))
 

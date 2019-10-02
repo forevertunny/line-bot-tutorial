@@ -387,8 +387,24 @@ def order(userName,text):
             return content
 
 def GetBcStory():
-    
-    return 0
+    print('GetBcStory')
+    content=''
+    GDriveJSON = 'RedInfoBot.json'
+    GSpreadSheet = 'BCStory'
+    while True:
+        try:
+            scope = ["https://spreadsheets.google.com/feeds",'https://www.googleapis.com/auth/drive']
+            key = SAC.from_json_keyfile_name(GDriveJSON, scope)
+            gc = gspread.authorize(key)
+            worksheet = gc.open(GSpreadSheet).sheet1
+        except Exception as ex:
+            print('無法連線Google試算表', ex)
+            sys.exit(1)        
+        if text!="":       
+            #print('新增一列資料到試算表' ,GSpreadSheet)
+            for data in worksheet.get_all_values():
+                print(data)
+            return content
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
@@ -430,7 +446,8 @@ def handle_message(event):
             event.reply_token,
             TextSendMessage(text='https://reurl.cc/pDWQD4'))
         return 0
-    if event.message.text.lower() == "bc說故事":
+    if event.message.text.lower() == "bc故事" or event.message.text.lower() == "bcstory":
+        content=GetBcStory()
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text='BC來說故事囉'))

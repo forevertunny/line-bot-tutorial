@@ -381,7 +381,7 @@ def handle_message(event):
     if event.message.text.lower() == "test3":
         print('time ' +str(datetime.datetime.now()))      
         utc_tz = pytz.timezone('UTC')
-        print('time '+str(datetime.datetime.now(tz=utc_tz))))
+        print('time '+str(datetime.datetime.now(tz=utc_tz)))
         return 0
     # if event.message.text.lower() == "test3":
     #     line_bot_api.reply_message(event.reply_token,TextSendMessage(text="紀錄成功"))

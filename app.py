@@ -355,7 +355,12 @@ def order(userName,text):
             if len(splitText) >=4:
                 remarks=splitText[3]
             
+            # A3 H3
             print('abcd ',len(worksheet.get_all_values()))
+            for i in range(10):
+                print(worksheet.cell('A'+i))
+            for i in range(10):
+                print(worksheet.cell('H'+i))
             #worksheet.append_row((userName,GetTime(), item,gold,remarks))
 
             return 0

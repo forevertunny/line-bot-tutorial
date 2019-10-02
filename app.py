@@ -5,6 +5,7 @@ import configparser
 import sys
 import datetime
 import gspread
+import json
 from oauth2client.service_account import ServiceAccountCredentials as SAC
 from bs4 import BeautifulSoup
 from flask import Flask, request, abort
@@ -385,8 +386,7 @@ def handle_message(event):
         try:            
             print('displayName ',aa['displayName'])
         except Exception as ex:
-            pass
-        content='Hi '+aa.displayName
+            pass      
         # line_bot_api.reply_message(
         #     event.reply_token,
         #     TextSendMessage(text=content))

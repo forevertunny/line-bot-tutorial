@@ -402,9 +402,13 @@ def GetBcStory():
             sys.exit(1)        
         
         #print('新增一列資料到試算表' ,GSpreadSheet)
-        for data in worksheet.get_all_values():
+        values =worksheet.get_all_values()
+        for data in values:
             print(data)
-            return content
+
+        index= random.randint(0,len(values))
+        print(values[index])
+        return content
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):

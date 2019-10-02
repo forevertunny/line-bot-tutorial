@@ -326,7 +326,7 @@ def test1():
 
 def order(userName,text):
     print('Order ',userName, text)
-    content= userName + ' Order Failure'
+    content= '@'+userName + ' Order Failure'
     GDriveJSON = 'RedInfoBot.json'
     GSpreadSheet = 'RedInfo'
     while True:
@@ -365,7 +365,7 @@ def order(userName,text):
                         for x,cell in enumerate(row):
                             cell.value = data[x]
                         worksheet.update_cells(row)
-                        content= userName + 'Order Sucess'
+                        content= '@'+userName + 'Order Sucess'
                         break
             elif 'drink' in text or '喝' in text:
                 for i in range(3,100):   
@@ -378,7 +378,7 @@ def order(userName,text):
                         for x,cell in enumerate(row):
                             cell.value = data[x]
                         worksheet.update_cells(row)
-                        content= userName + ' Order Sucess'
+                        content= '@'+userName + ' Order Sucess'
                         break
             #worksheet.append_row((userName,GetTime(), item,gold,remarks))
 

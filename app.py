@@ -341,8 +341,8 @@ def order(userName,text):
             sys.exit(1)        
         if text!="":       
             #print('新增一列資料到試算表' ,GSpreadSheet)
-            for data in worksheet.get_all_values():
-                print(data)
+            # for data in worksheet.get_all_values():
+            #     print(data)
             splitText = text.split(' ')
             print(splitText)
             item=''
@@ -358,9 +358,9 @@ def order(userName,text):
             # A3 H3
             print('abcd ',len(worksheet.get_all_values()))
             for i in range(10):
-                print(worksheet.cell('A'+i))
+                print(worksheet.cell(str('A'+i))))
             for i in range(10):
-                print(worksheet.cell('H'+i))
+                print(worksheet.cell(str('H'+i)))
             #worksheet.append_row((userName,GetTime(), item,gold,remarks))
 
             return 0

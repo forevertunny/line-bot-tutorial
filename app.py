@@ -362,13 +362,13 @@ def order(userName,text):
                 for i in range(3,100):
                     cell =worksheet.cell(i,1)
                     print(cell.value)
-                    if(cell.value =='')
+                    if(cell.value == ''):
                         print('Add Eat Value ')
             elif 'drink' in text or '喝' in text:
                 for i in range(3,100):   
                     cell =worksheet.cell(i,8)
                     print(cell.value)
-                    if(cell.value =='')
+                    if(cell.value == ''):
                         print('Add Drink Value ')
             #worksheet.append_row((userName,GetTime(), item,gold,remarks))
 

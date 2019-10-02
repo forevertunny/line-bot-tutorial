@@ -358,7 +358,7 @@ def handle_message(event):
 
     if(not event.source.user_id in testDict):
         profile = line_bot_api.get_profile( event.source.user_id)
-        info = json.loads(str(info))
+        info = json.loads(str(profile))
         testDict[event.source.user_id]=info['displayName']
         print('Add UserId Sucess')
 

@@ -386,7 +386,7 @@ def handle_message(event):
         try:            
             #print('displayName ',aa['displayName'])
             abc= json.loads(str(info))
-            print(abc)
+            print(abc['displayName'])
         except Exception as ex:
             print("Err ", ex)
         # line_bot_api.reply_message(

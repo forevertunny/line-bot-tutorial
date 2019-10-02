@@ -325,7 +325,7 @@ def test1():
 
 
 def order(userName,message):
-    print('ABCDEF  ',userName, message)
+    print('Order ',userName, message)
     content=''
     tmepStr=''        
     GDriveJSON = 'RedInfoBot.json'
@@ -346,7 +346,17 @@ def order(userName,message):
             #     print(data)
             splitText = tmepStr.split(' ')
             print(splitText)
-            worksheet.append_row((userName,GetTime(), tmepStr))
+            item=''
+            gold=''
+            remarks=''
+            if len(splitText) >=2:
+                item=splitText[1]
+            if len(splitText) >=3:
+                gold=splitText[2]
+            if len(splitText) >=4:
+                remarks=splitText[3]
+
+            worksheet.append_row((userName,GetTime(), item,gold,remarks))
             return 0
 
 def getUserInfo(userid):
@@ -382,7 +392,11 @@ def handle_message(event):
         content = order(userDict[event.source.user_id],event.message)
         return 0
     if event.message.text.lower() == "test3":
+        return 0
+    if event.message.text.lower() == "now":
         print(GetTime())
+        line_bot_api.reply_message(
+            event.reply_token, GetTime())
         return 0
     # if event.message.text.lower() == "test3":
     #     line_bot_api.reply_message(event.reply_token,TextSendMessage(text="紀錄成功"))

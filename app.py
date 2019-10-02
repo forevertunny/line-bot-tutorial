@@ -358,7 +358,7 @@ def order(userName,text):
             # A3 H3
             print('abcd ',len(worksheet.get_all_values()))
             for i in range(3,5):
-                cell =worksheet.cell('A'+str(i))
+                cell =worksheet.cell(i,1)
                 print(cell.values)
             # for i in range(3,10):
             #     print(worksheet.cell('H'+str(i)))

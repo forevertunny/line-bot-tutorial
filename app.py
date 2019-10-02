@@ -386,6 +386,10 @@ def order(userName,text):
 
             return content
 
+def GetBcStory():
+    
+    return 0
+
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     print("event ",event)
@@ -422,15 +426,9 @@ def handle_message(event):
     if event.message.text.lower() == "test3":
         return 0
     if event.message.text.lower() == "order" or event.message.text.lower() == "訂單":
-        # image_message = ImageSendMessage(
-        #     original_content_url='https://docs.google.com/spreadsheets/d/1ena2k6yZFsrqWJ_vkAPHhNb5T7qWwALei6c-9RFa6Og/edit#gid=0',
-        #     preview_image_url='https://docs.google.com/spreadsheets/d/1ena2k6yZFsrqWJ_vkAPHhNb5T7qWwALei6c-9RFa6Og/edit#gid=0'
-        # )
-        # line_bot_api.reply_message(
-        #     event.reply_token, image_message)
         line_bot_api.reply_message(
             event.reply_token,
-            TextSendMessage(text='https://docs.google.com/spreadsheets/d/1ena2k6yZFsrqWJ_vkAPHhNb5T7qWwALei6c-9RFa6Og/edit#gid=0'))
+            TextSendMessage(text='https://reurl.cc/pDWQD4'))
         return 0
     if event.message.text.lower() == "bc說故事":
         line_bot_api.reply_message(

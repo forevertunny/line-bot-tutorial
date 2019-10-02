@@ -341,8 +341,8 @@ def order(userName,text):
             sys.exit(1)        
         if text!="":       
             #print('新增一列資料到試算表' ,GSpreadSheet)
-            # for data in worksheet.get_all_values():
-            #     print(data)
+            for data in worksheet.get_all_values():
+                print(data)
             splitText = text.split(' ')
             print(splitText)
             item=''

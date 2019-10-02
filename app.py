@@ -360,12 +360,13 @@ def order(userName,text):
 
             if 'eat' in text or '吃' in text:                
                 for i in range(3,100):
-                    cell =worksheet.cell(i,1)
-                    print(cell.value)
-                    if(cell.value == ''):
+                    print(worksheet.cell(i,1).value)
+                    if(worksheet.cell(i,1).value == ''):
                         print('Add Eat Value')
-                        for i in range(len(data)):
-                            print('index %s',data[i])
+                        for x in range(len(data)):
+                            print('index',data[x])
+                            worksheet.cell(i,1+x).value=data[x]
+                            # worksheet.cell(i,1+x)
                         break
             elif 'drink' in text or '喝' in text:
                 for i in range(3,100):   

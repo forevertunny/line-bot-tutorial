@@ -356,6 +356,12 @@ def handle_message(event):
     print("event.reply_token:", event.reply_token)
     print("event.message.text:", event.message.text)
 
+    if(not event.source.user_id in testDict):
+        profile = line_bot_api.get_profile( event.source.user_id)
+        info = json.loads(str(info))
+        testDict[event.source.user_id]=info['displayName']
+        print('Add UserId Sucess')
+
     if event.message.text.lower() == "test1":
         content=test1()
         # image = requests.get(API_Get_Image)
@@ -373,17 +379,17 @@ def handle_message(event):
         content = test2(event.message.text)
         return 0
     if event.message.text.lower() == "test3":
-        print(len(testArry))
-        print(testDict)
-        print("AAAA ",(event.source.user_id in testDict))
-        info = line_bot_api.get_profile( event.source.user_id)
-        print('info ',info)
-        try:            
-            #print('displayName ',aa['displayName'])
-            abc= json.loads(str(info))
-            print(abc['displayName'])
-        except Exception as ex:
-            print("Err ", ex)
+        # print(len(testArry))
+        # print(testDict)
+        # print("AAAA ",(event.source.user_id in testDict))
+        # info = line_bot_api.get_profile( event.source.user_id)
+        # print('info ',info)
+        # try:            
+        #     #print('displayName ',aa['displayName'])
+        #     abc= json.loads(str(info))
+        #     print(abc['displayName'])
+        # except Exception as ex:
+        #     print("Err ", ex)
         # line_bot_api.reply_message(
         #     event.reply_token,
         #     TextSendMessage(text=content))

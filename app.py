@@ -407,7 +407,7 @@ def GetBcStory():
 
         index= random.randint(0,len(values))
         print(values[index])
-        return values[index]
+        return values[index][0]
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):

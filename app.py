@@ -320,7 +320,7 @@ def test1():
     return content
 
 
-def test2(userName,message):
+def order(userName,message):
     print('ABCDEF  ',userName, message)
     content=''
     GDriveJSON = 'RedInfoBot.json'
@@ -333,15 +333,14 @@ def test2(userName,message):
             worksheet = gc.open(GSpreadSheet).sheet1
         except Exception as ex:
             print('無法連線Google試算表', ex)
-            sys.exit(1)
-        textt="465789"
-        #textt+=event.message.text
-        if textt!="":
-            # worksheet.append_row((datetime.datetime.now(), textt))            
+            sys.exit(1)        
+        textt+=event.message.text
+        if textt!="":       
             #print('新增一列資料到試算表' ,GSpreadSheet)
-            for data in worksheet.get_all_values():
-                print(data)
-
+            # for data in worksheet.get_all_values():
+            #     print(data)
+            splitText = textt.split(' ')
+            print(splitText)
             worksheet.append_row((userName,str(datetime.datetime.now()), textt))
             return textt
 
@@ -375,7 +374,7 @@ def handle_message(event):
         return 0
     if "eat" in event.message.text.lower() or "drink" in event.message.text.lower() or "吃" in event.message.text.lower() or "喝" in event.message.text.lower():
             #eat drink  吃 喝
-        content = test2(userDict[event.source.user_id],event.message.text)
+        content = order(userDict[event.source.user_id],event.message.text)
         return 0
     if event.message.text.lower() == "test3":
         print('time ' +str(datetime.datetime.now()))      

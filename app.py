@@ -362,11 +362,15 @@ def order(userName,text):
                 for i in range(3,100):
                     print(worksheet.cell(i,1).value)
                     if(worksheet.cell(i,1).value == ''):
-                        print('Add Eat Value')
-                        for x in range(len(data)):
-                            print('index',data[x])
-                            worksheet.cell(i,1+x).value=data[x]
-                            # worksheet.cell(i,1+x)
+                        print('Add Eat Value ',i)
+                        row_format = f'A{i}:E{i}'
+                        row = worksheet.range(row_format)
+                        print(row)
+                        # abc = worksheet.range('A')
+                        # for x in range(len(data)):
+                        #     print('index',data[x])
+                        #     worksheet.cell(i,1+x).value=data[x]
+                        #     # worksheet.cell(i,1+x)
                         break
             elif 'drink' in text or '喝' in text:
                 for i in range(3,100):   

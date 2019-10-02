@@ -402,10 +402,11 @@ def GetBcStory():
         
         #print('新增一列資料到試算表' ,GSpreadSheet)
         values =worksheet.get_all_values()
-        for data in values:
-            print(data)
+        # for data in values:
+        #     print(data)
 
-        index= random.randint(0,len(values)-1)        
+        index= random.randint(0,len(values)-1)
+        print(index)     
         print(values[index][0])
         return values[index][0]
 

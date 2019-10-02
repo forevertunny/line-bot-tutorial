@@ -29,7 +29,7 @@ client_id = config['imgur_api']['Client_ID']
 client_secret = config['imgur_api']['Client_Secret']
 album_id = config['imgur_api']['Album_ID']
 # API_Get_Image = config['other_api']['API_Get_Image']
-self.testArry=[]
+testArry=[]
 
 
 @app.route("/callback", methods=['POST'])

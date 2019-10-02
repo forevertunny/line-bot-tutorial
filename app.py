@@ -334,15 +334,15 @@ def order(userName,message):
         except Exception as ex:
             print('無法連線Google試算表', ex)
             sys.exit(1)        
-        textt+=event.message.text
+        test+=message.text
         if textt!="":       
             #print('新增一列資料到試算表' ,GSpreadSheet)
             # for data in worksheet.get_all_values():
             #     print(data)
-            splitText = textt.split(' ')
+            splitText = test.split(' ')
             print(splitText)
-            worksheet.append_row((userName,str(datetime.datetime.now()), textt))
-            return textt
+            worksheet.append_row((userName,str(datetime.datetime.now()), test))
+            return 0
 
 def getUserInfo(userid):
     pass

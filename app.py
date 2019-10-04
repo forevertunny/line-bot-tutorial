@@ -434,7 +434,8 @@ def handle_message(event):
         line_bot_api.reply_message(
             event.reply_token, image_message)
         return 0
-
+    if event.message.text.lower() == "test3":
+        return 0
     if event.message.text.lower() =='redinfo' or event.message.text.lower() =='紅信':
         return 0
     if "eat" in event.message.text.lower() or "drink" in event.message.text.lower() or "吃" in event.message.text.lower() or "喝" in event.message.text.lower():
@@ -442,8 +443,6 @@ def handle_message(event):
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text=content))
-        return 0
-    if event.message.text.lower() == "test3":
         return 0
     if event.message.text.lower() == "order" or event.message.text.lower() == "訂單":
         line_bot_api.reply_message(
@@ -777,16 +776,16 @@ def handle_sticker_message(event):
     sticker_ids = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 21, 100, 101, 102, 103, 104, 105, 106,
                    107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125,
                    126, 127, 128, 129, 130, 131, 132, 133, 134, 135, 136, 137, 138, 139, 401, 402]
-    index_id = random.randint(0, len(sticker_ids) - 1)
-    sticker_id = str(sticker_ids[index_id])
-    print(index_id)
-    sticker_message = StickerSendMessage(
-        package_id='1',
-        sticker_id=sticker_id
-    )
-    line_bot_api.reply_message(
-        event.reply_token,
-        sticker_message)
+    # index_id = random.randint(0, len(sticker_ids) - 1)
+    # sticker_id = str(sticker_ids[index_id])
+    # print(index_id)
+    # sticker_message = StickerSendMessage(
+    #     package_id='1',
+    #     sticker_id=sticker_id
+    # )
+    # line_bot_api.reply_message(
+    #     event.reply_token,
+    #     sticker_message)
 
 
 if __name__ == '__main__':

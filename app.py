@@ -418,9 +418,12 @@ def handle_message(event):
     print("event.message.text:", event.message.text)
 
     if(not event.source.user_id in userDict):
-        profile = line_bot_api.get_profile( event.source.user_id)
-        info = json.loads(str(profile))
-        userDict[event.source.user_id]=info['displayName']        
+        try:
+            profile = line_bot_api.get_profile( event.source.user_id)
+            info = json.loads(str(profile))
+            userDict[event.source.user_id]=info['displayName']        
+           except Exception as ex:
+               print("Get UserId Err ",ex)
 
     if event.message.text.lower() == "test1":
         content=test1()

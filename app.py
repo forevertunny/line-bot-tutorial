@@ -415,28 +415,29 @@ def GetBcStory():
 def handle_message(event):
     print("event ",event)
     print("user_id: ", event.source.user_id)
+    print("group_id: ", event.source.groupId)
     print("event.reply_token:", event.reply_token)
     print("event.message.text:", event.message.text)
     
 
-    if(not event.source.user_id in userDict):
-        try:
-            profile = line_bot_api.get_profile( event.source.user_id)
-            info = json.loads(str(profile))
-            userDict[event.source.user_id]=info['displayName']        
-        except Exception as ex:
-            print("Get UserId Err ", ex)
-            sys.exit(1)
+    # if(not event.source.user_id in userDict):
+    #     try:
+    #         profile = line_bot_api.get_profile( event.source.user_id)
+    #         info = json.loads(str(profile))
+    #         userDict[event.source.user_id]=info['displayName']        
+    #     except Exception as ex:
+    #         print("Get UserId Err ", ex)
+    #         sys.exit(1)
 
 
-    try:
-        profile = line_bot_api.get_group_member_profile(event.source.groupId ,event.source.user_id)
-        info = json.loads(str(profile))
-        print('UserInfo ',info)
-        # userDict[event.source.user_id]=info['displayName']        
-    except Exception as ex:
-        print("Get UserId Err ", ex)
-        sys.exit(1)
+    # try:
+    #     profile = line_bot_api.get_group_member_profile(event.source.groupId ,event.source.user_id)
+    #     info = json.loads(str(profile))
+    #     print('UserInfo ',info)
+    #     # userDict[event.source.user_id]=info['displayName']        
+    # except Exception as ex:
+    #     print("Get UserId Err ", ex)
+    #     sys.exit(1)
             
 
 # profile = line_bot_api.get_group_member_profile(<group_id>, <user_id>)
@@ -454,15 +455,32 @@ def handle_message(event):
             event.reply_token, image_message)
         return 0
     if event.message.text.lower() == "test3":
+        try:
+            profile = line_bot_api.get_profile( event.source.user_id)
+            info = json.loads(str(profile))
+            userDict[event.source.user_id]=info['displayName']        
+        except Exception as ex:
+            print("Get UserId Err ", ex)
+            sys.exit(1)
+
+        try:
+            profile = line_bot_api.get_group_member_profile(event.source.group_Id ,event.source.user_id)
+            info = json.loads(str(profile))
+            print('UserInfo ',info)
+            # userDict[event.source.user_id]=info['displayName']        
+        except Exception as ex:
+            print("Get UserId Err ", ex)
+            sys.exit(1)
+
         return 0
     if event.message.text.lower() =='redinfo' or event.message.text.lower() =='紅信':
         return 0
-    if "eat" in event.message.text.lower() or "drink" in event.message.text.lower() or "吃" in event.message.text.lower() or "喝" in event.message.text.lower():
-        content = order(userDict[event.source.user_id],event.message.text)
-        line_bot_api.reply_message(
-            event.reply_token,
-            TextSendMessage(text=content))
-        return 0
+    # if "eat" in event.message.text.lower() or "drink" in event.message.text.lower() or "吃" in event.message.text.lower() or "喝" in event.message.text.lower():
+    #     content = order(userDict[event.source.user_id],event.message.text)
+    #     line_bot_api.reply_message(
+    #         event.reply_token,
+    #         TextSendMessage(text=content))
+    #     return 0
     if event.message.text.lower() == "order" or event.message.text.lower() == "訂單":
         line_bot_api.reply_message(
             event.reply_token,

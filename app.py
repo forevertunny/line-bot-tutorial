@@ -499,6 +499,7 @@ def handle_message(event):
         return 0
     if event.message.text.lower() == "random" or event.message.text.lower() == "骰子":
         content = random.randint(0,int(event.message.text))
+        print('random ',content)
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text=content))

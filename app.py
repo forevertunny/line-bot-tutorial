@@ -438,6 +438,15 @@ def handle_message(event):
     # except Exception as ex:
     #     print("Get UserId Err ", ex)
     #     sys.exit(1)
+
+    try:
+        profile = line_bot_api.get_group_member_profile(event.source.group_id ,event.source.user_id)
+        info = json.loads(str(profile))
+        print('UserInfo ',info)
+        # userDict[event.source.user_id]=info['displayName']        
+    except Exception as ex:
+        print("Get UserId Err ", ex)
+        sys.exit(1)
             
 
 # profile = line_bot_api.get_group_member_profile(<group_id>, <user_id>)
@@ -463,14 +472,7 @@ def handle_message(event):
             print("Get UserId Err ", ex)
             sys.exit(1)
 
-        try:
-            profile = line_bot_api.get_group_member_profile(event.source.group_id ,event.source.user_id)
-            info = json.loads(str(profile))
-            print('UserInfo ',info)
-            # userDict[event.source.user_id]=info['displayName']        
-        except Exception as ex:
-            print("Get UserId Err ", ex)
-            sys.exit(1)
+
 
         return 0
     if event.message.text.lower() =='redinfo' or event.message.text.lower() =='紅信':

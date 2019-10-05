@@ -411,6 +411,12 @@ def GetBcStory():
         print(values[index][0])
         return values[index][0]
 
+
+# 建立賭局(開局當莊家)：開局 {主題} {選項A,B,C} 
+# 下注：賭 {主題} {選項}
+# 莊家喊離手：封盤 {主題} 
+# 莊家發布結果: 賭中{主題} {選項}
+
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     print("event ",event)
@@ -420,36 +426,26 @@ def handle_message(event):
     print("event.message.text:", event.message.text)
     
 
-    # if(not event.source.user_id in userDict):
-    #     try:
-    #         profile = line_bot_api.get_profile( event.source.user_id)
-    #         info = json.loads(str(profile))
-    #         userDict[event.source.user_id]=info['displayName']        
-    #     except Exception as ex:
-    #         print("Get UserId Err ", ex)
-    #         sys.exit(1)
+    if(not event.source.user_id in userDict):
+        if(event.source.type == 'group' ):
+            try:
+                profile = line_bot_api.get_group_member_profile(event.source.group_id ,event.source.user_id)
+                info = json.loads(str(profile))
+                print('UserInfo ',info)
+                userDict[event.source.user_id]=info['displayName']        
+            except Exception as ex:
+                print("Get UserId Err ", ex)
+                sys.exit(1)
+        else:    
+            try:
+                profile = line_bot_api.get_profile( event.source.user_id)
+                info = json.loads(str(profile))
+                userDict[event.source.user_id]=info['displayName']        
+            except Exception as ex:
+                print("Get UserId Err ", ex)
+                sys.exit(1)            
 
-
-    # try:
-    #     profile = line_bot_api.get_group_member_profile(event.source.groupId ,event.source.user_id)
-    #     info = json.loads(str(profile))
-    #     print('UserInfo ',info)
-    #     # userDict[event.source.user_id]=info['displayName']        
-    # except Exception as ex:
-    #     print("Get UserId Err ", ex)
-    #     sys.exit(1)
-
-    try:
-        profile = line_bot_api.get_group_member_profile(event.source.group_id ,event.source.user_id)
-        info = json.loads(str(profile))
-        print('UserInfo ',info)
-        # userDict[event.source.user_id]=info['displayName']        
-    except Exception as ex:
-        print("Get UserId Err ", ex)
-        sys.exit(1)
-            
-
-# profile = line_bot_api.get_group_member_profile(<group_id>, <user_id>)
+    # profile = line_bot_api.get_group_member_profile(<group_id>, <user_id>)
 
     if event.message.text.lower() == "test1":
         content=test1()

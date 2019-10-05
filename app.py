@@ -390,6 +390,7 @@ def GetBcStory():
     print('GetBcStory')
     GDriveJSON = 'RedInfoBot.json'
     GSpreadSheet = 'BCStory'
+
     while True:
         try:
             scope = ["https://spreadsheets.google.com/feeds",'https://www.googleapis.com/auth/drive']
@@ -416,6 +417,7 @@ def handle_message(event):
     print("user_id: ", event.source.user_id)
     print("event.reply_token:", event.reply_token)
     print("event.message.text:", event.message.text)
+    
 
     if(not event.source.user_id in userDict):
         try:
@@ -425,6 +427,19 @@ def handle_message(event):
         except Exception as ex:
             print("Get UserId Err ", ex)
             sys.exit(1)
+
+
+    try:
+        profile = line_bot_api.get_group_member_profile(event.source.groupId ,event.source.user_id)
+        info = json.loads(str(profile))
+        print('UserInfo ',info)
+        # userDict[event.source.user_id]=info['displayName']        
+    except Exception as ex:
+        print("Get UserId Err ", ex)
+        sys.exit(1)
+            
+
+# profile = line_bot_api.get_group_member_profile(<group_id>, <user_id>)
 
     if event.message.text.lower() == "test1":
         content=test1()

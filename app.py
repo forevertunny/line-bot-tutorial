@@ -498,11 +498,17 @@ def handle_message(event):
             TextSendMessage(text=content))
         return 0
     if event.message.text.lower() == "random" or event.message.text.lower() == "骰子":        
-        print('random ',content)
-        # content = random.randint(0,int(event.message.text))
+        content =''
+        splitText = event.message.text.split(' ')        
+        print('random ', splitText)
+        if len(splitText) > 1:
+            try:
+                content = random.randint(0,int(splitText[1]))
+            except Exception as ex:
+                content = 'Ex: Random 0~2147483647' 
         line_bot_api.reply_message(
             event.reply_token,
-            TextSendMessage(text='content'))
+            TextSendMessage(text=content))
         return 0
     if event.message.text.lower() == "eyny":
         content = eyny_movie()

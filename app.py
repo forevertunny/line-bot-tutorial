@@ -415,7 +415,7 @@ def GetBcStory():
 def handle_message(event):
     print("event ",event)
     print("user_id: ", event.source.user_id)
-    print("group_id: ", event.source.groupId)
+    print("group_id: ", event.source.group_id)
     print("event.reply_token:", event.reply_token)
     print("event.message.text:", event.message.text)
     
@@ -464,7 +464,7 @@ def handle_message(event):
             sys.exit(1)
 
         try:
-            profile = line_bot_api.get_group_member_profile(event.source.group_Id ,event.source.user_id)
+            profile = line_bot_api.get_group_member_profile(event.source.group_id ,event.source.user_id)
             info = json.loads(str(profile))
             print('UserInfo ',info)
             # userDict[event.source.user_id]=info['displayName']        

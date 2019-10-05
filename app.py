@@ -497,6 +497,12 @@ def handle_message(event):
             event.reply_token,
             TextSendMessage(text=content))
         return 0
+    if event.message.text.lower() == "random" or event.message.text.lower() == "骰子":
+        content = random.randint(0,int(event.message.text))
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text=content))
+        return 0
     if event.message.text.lower() == "eyny":
         content = eyny_movie()
         line_bot_api.reply_message(

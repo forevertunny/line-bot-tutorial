@@ -497,7 +497,7 @@ def handle_message(event):
             event.reply_token,
             TextSendMessage(text=content))
         return 0
-    if event.message.text.lower() == "random" or event.message.text.lower() == "骰子":        
+    if "random" in event.message.text.lower() or "骰子" in event.message.text.lower():        
         content =''
         splitText = event.message.text.split(' ')        
         print('random ', splitText)

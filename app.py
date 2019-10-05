@@ -427,11 +427,12 @@ def handle_message(event):
     
 
     if(not event.source.user_id in userDict):
+        print('UserId not in dict')
         if(event.source.type == 'group' ):
             try:
                 profile = line_bot_api.get_group_member_profile(event.source.group_id ,event.source.user_id)
                 info = json.loads(str(profile))
-                print('UserInfo ',info)
+                # print('UserInfo ',info)
                 userDict[event.source.user_id]=info['displayName']        
             except Exception as ex:
                 print("Get UserId Err ", ex)

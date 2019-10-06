@@ -420,9 +420,8 @@ def test3():
     temp=[]
     content=""
     girls =soup.select('article div.girl-list div.girl-item')
-    abc =  girls.select('style.background-image')
-    # for data in soup.select('article div.girl-list div.girl-item style.background-image'):
-    #     print(data.select)
+     for data in soup.select('article div.girl-list div.girl-item'):
+         print(data.select)
         # link = data['href']
         # temp.append(link)    
     # content=temp[random.randint(0,len(temp))]

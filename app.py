@@ -309,21 +309,6 @@ def oil_price():
     content = '{}\n{}{}'.format(title, gas_price, cpc)
     return content
 
-def test1():
-    target_url='https://ptt-beauty-images.herokuapp.com/'
-    print('Start test1')
-    rs = requests.session()
-    res = rs.get(target_url, verify=False)
-    soup = BeautifulSoup(res.text, 'html.parser')
-    temp=[]
-    content=""
-    for data in soup.select('div.row div.images a.img-thumbnail'):
-        link = data['href']
-        temp.append(link)    
-    content=temp[random.randint(0,len(temp))]
-    return content
-
-
 def order(userName,text):
     print('Order ',userName, text)
     content= userName + ' Order Failure'
@@ -411,6 +396,36 @@ def GetBcStory():
         print(values[index][0])
         return values[index][0]
 
+def test1():
+    target_url='https://ptt-beauty-images.herokuapp.com/'
+    print('Start test1')
+    rs = requests.session()
+    res = rs.get(target_url, verify=False)
+    soup = BeautifulSoup(res.text, 'html.parser')
+    temp=[]
+    content=""
+    for data in soup.select('div.row div.images a.img-thumbnail'):
+        link = data['href']
+        temp.append(link)    
+    content=temp[random.randint(0,len(temp))]
+    return content
+
+def test3():
+    target_url='https://argo-play.net/'
+    aa ='https://argo-play.net/album/2/6'
+    print('Start test3')
+    rs = requests.session()
+    res = rs.get(target_url, verify=False)
+    soup = BeautifulSoup(res.text, 'html.parser')
+    temp=[]
+    content=""
+    for data in soup.select('article div.girl-list div.girl-item'):
+        print(data)
+        # link = data['href']
+        # temp.append(link)    
+    # content=temp[random.randint(0,len(temp))]
+    return 0
+
 
 # 建立賭局(開局當莊家)：開局 {主題} {選項A,B,C} 
 # 下注：賭 {主題} {選項}
@@ -461,16 +476,7 @@ def handle_message(event):
             event.reply_token, image_message)
         return 0
     if event.message.text.lower() == "test3":
-        try:
-            profile = line_bot_api.get_profile( event.source.user_id)
-            info = json.loads(str(profile))
-            userDict[event.source.user_id]=info['displayName']        
-        except Exception as ex:
-            print("Get UserId Err ", ex)
-            sys.exit(1)
-
-
-
+        test3()
         return 0
     if event.message.text.lower() =='redinfo' or event.message.text.lower() =='紅信':
         return 0

@@ -419,13 +419,15 @@ def test3():
     soup = BeautifulSoup(res.text, 'html.parser')
     temp=[]
     content=""
-    for data in soup.select('article div.girl-list div.girl-item'):
-        print(data)
+    girls =soup.select('article div.girl-list div.girl-item')
+    abc =  girls.select('style.background-image')
+    # for data in soup.select('article div.girl-list div.girl-item style.background-image'):
+    #     print(data.select)
         # link = data['href']
         # temp.append(link)    
     # content=temp[random.randint(0,len(temp))]
     return 0
-
+# <div class="bg-cover" style="background-image: url(/storage/upload/album/image/2019-09-06/kLuVLmvji7BS2ulobsQWUdava1D2UkAtiCdQpQWZ.jpeg)">
 
 # 建立賭局(開局當莊家)：開局 {主題} {選項A,B,C} 
 # 下注：賭 {主題} {選項}

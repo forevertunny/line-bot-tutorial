@@ -356,7 +356,7 @@ def order(userName,text):
             # print('abcd ',len(worksheet.get_all_values()))
 
             if(data[2] == ''):
-                content = 'Ex: #吃 鮑魚湯麵 1000 不要辣 ; #喝 金薄珍珠奶茶 800 微糖少冰'
+                content = 'Ex:\n#吃 鮑魚湯麵 1000 不要辣 \n #喝 金薄珍珠奶茶 800 微糖少冰'
             elif 'eat' in text or '吃' in text:                
                 for i in range(3,100):
                     # print(worksheet.cell(i,1).value)

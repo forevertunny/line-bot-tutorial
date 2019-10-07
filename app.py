@@ -419,10 +419,9 @@ def test3():
     res = rs.get(target_url, verify=False)
     soup = BeautifulSoup(res.text, 'html.parser')
     temp=[]
-    content=""
-    girls =soup.select('article div.girl-list div.girl-item')
-     for data in soup.select('article div.girl-list div.girl-item'):
-         print(data.select)
+    content=""    
+    for data in soup.select('article div.girl-list div.girl-item'):
+        print(data.get('style'))
         # link = data['href']
         # temp.append(link)    
     # content=temp[random.randint(0,len(temp))]

@@ -421,7 +421,7 @@ def test3():
     messages=[]
     content=""
     girlitems = soup.find('article').find('div','girl-list').find_all('div','girl-item')    
-    for i in range(5):
+    for i in range(2):
         element = girlitems[i]
         # print("0",element)
         picUrl = element.find('div','bg-cover').get('style').replace('background-image: url(', target_url).replace(')','')

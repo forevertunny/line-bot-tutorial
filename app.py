@@ -418,7 +418,7 @@ def test3():
     rs = requests.session()
     res = rs.get(target_url, verify=False)
     soup = BeautifulSoup(res.text, 'html.parser')
-    temp=[]
+    messages=[]
     content=""
     girlitems = soup.find('article').find('div','girl-list').find_all('div','girl-item')    
     for i in range(5):
@@ -433,13 +433,27 @@ def test3():
         # for detail in details:
         #     print(detail.text)
         title = element.find('div','girl-name').text+ ' ' + element.find('div','price').text
-        content += '{}\n{}\n\n'.format(title, picUrl)        
-        temp.append(ImageSendMessage(
+        # content += '{}\n{}\n\n'.format(title, picUrl)
+        messages.append(title)        
+        messages.append(ImageSendMessage(
             original_content_url=picUrl,
             preview_image_url=picUrl
         ))
     # content=temp[random.randint(0,len(temp))]
-    return temp
+    return messages
+
+     #messages = [{
+    #  type: 'text',
+    #  text: reply_text1
+    #},{
+    #  type: 'text',
+    #  text: reply_text2
+    #},{
+    #  type: 'text',
+    #  text: reply_text3
+    #}]
+    # 最後直接line.reply_message(reply_token, messages)
+
     # background-image: url(/storage/upload/album/image/2019-08-14/dHXIfuCIpSpCn5GUlxSXLLF2nSBHZgPzy7XgPubk.jpeg)
 # <div class="bg-cover" style="background-image: url(/storage/upload/album/image/2019-09-06/kLuVLmvji7BS2ulobsQWUdava1D2UkAtiCdQpQWZ.jpeg)">
 #  <div class="bg-cover" style="background-image: url(/storage/upload/album/image/2019-10-04/HsAIhRiWbHuLhvQQ4ugiqoPHoEZ9xnpYn0mulZcu.jpeg)">

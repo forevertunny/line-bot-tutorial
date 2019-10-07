@@ -421,7 +421,7 @@ def test3():
     temp=[]
     content=""
     girlitems = soup.find('article').find('div','girl-list').find_all('div','girl-item')    
-    for i in range(10):
+    for i in range(5):
         element = girlitems[i]
         # print("0",element)
         picUrl = element.find('div','bg-cover').get('style').replace('background-image: url(', target_url).replace(')','')
@@ -433,10 +433,13 @@ def test3():
         # for detail in details:
         #     print(detail.text)
         title = element.find('div','girl-name').text+ ' ' + element.find('div','price').text
-        content += '{}\n{}\n\n'.format(title, picUrl)
-        
+        content += '{}\n{}\n\n'.format(title, picUrl)        
+        temp.append(ImageSendMessage(
+            original_content_url=picUrl,
+            preview_image_url=picUrl
+        ))
     # content=temp[random.randint(0,len(temp))]
-    return content
+    return temp
     # background-image: url(/storage/upload/album/image/2019-08-14/dHXIfuCIpSpCn5GUlxSXLLF2nSBHZgPzy7XgPubk.jpeg)
 # <div class="bg-cover" style="background-image: url(/storage/upload/album/image/2019-09-06/kLuVLmvji7BS2ulobsQWUdava1D2UkAtiCdQpQWZ.jpeg)">
 #  <div class="bg-cover" style="background-image: url(/storage/upload/album/image/2019-10-04/HsAIhRiWbHuLhvQQ4ugiqoPHoEZ9xnpYn0mulZcu.jpeg)">
@@ -505,8 +508,7 @@ def handle_message(event):
     if event.message.text.lower() == "test3":
         content =  test3()
         line_bot_api.reply_message(
-            event.reply_token, 
-            TextSendMessage(text=content))
+            event.reply_token,content)
         return 0
     if event.message.text.lower() =='redinfo' or event.message.text.lower() =='紅信':
         return 0

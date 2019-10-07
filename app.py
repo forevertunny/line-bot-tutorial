@@ -495,19 +495,13 @@ def handle_message(event):
             TextSendMessage(text=content))
         return 0
     if "random" in event.message.text.lower() or "骰子" in event.message.text.lower():        
-        content =''
+        content = 'Ex:\nRandom 0(Offset) To 2147483647\nRandom 要 不要' 
         splitText = event.message.text.split(' ')
         print(splitText)
-        try:
-            pass
-        except Exception as ex:
-            content
-
         try:
             if len(splitText) == 2:                
                 content = random.randint(0,int(splitText[1]))
             elif len(splitText) == 3:
-                print('random 3')
                 num1=int(splitText[1])
                 num2=int(splitText[2])
                 content = random.randint(num1,num2)
@@ -515,8 +509,6 @@ def handle_message(event):
             if len(splitText) >= 2:
                 index = random.randint(0,len(splitText)-2)+1
                 content = splitText[index]
-            else:
-                content = 'Ex:\nRandom 0(Offset) To 2147483647\n Random 要 不要' 
 
         line_bot_api.reply_message(
             event.reply_token,

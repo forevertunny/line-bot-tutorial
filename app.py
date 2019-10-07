@@ -356,7 +356,7 @@ def order(userName,text):
             # print('abcd ',len(worksheet.get_all_values()))
 
             if(data[2] == ''):
-                content = 'Ex: 吃 鮑魚湯麵 1000 不要辣 ; 喝 金薄珍珠奶茶 800 微糖少冰'
+                content = 'Ex: #吃 鮑魚湯麵 1000 不要辣 ; #喝 金薄珍珠奶茶 800 微糖少冰'
             elif 'eat' in text or '吃' in text:                
                 for i in range(3,100):
                     # print(worksheet.cell(i,1).value)
@@ -468,13 +468,10 @@ def handle_message(event):
         except Exception as ex:
             print("Get UserId Err ", ex)
             sys.exit(1)
-
-
-
         return 0
     if event.message.text.lower() =='redinfo' or event.message.text.lower() =='紅信':
         return 0
-    if "eat" in event.message.text.lower() or "drink" in event.message.text.lower() or "吃" in event.message.text.lower() or "喝" in event.message.text.lower():
+    if "#eat" in event.message.text.lower() or "#drink" in event.message.text.lower() or "#吃" in event.message.text.lower() or "#喝" in event.message.text.lower():
         content = order(userDict[event.source.user_id],event.message.text)
         line_bot_api.reply_message(
             event.reply_token,
@@ -499,8 +496,7 @@ def handle_message(event):
         return 0
     if "random" in event.message.text.lower() or "骰子" in event.message.text.lower():        
         content =''
-        splitText = event.message.text.split(' ')        
-        print('random ', splitText)
+        splitText = event.message.text.split(' ')
         if len(splitText) > 1:
             try:
                 content = random.randint(0,int(splitText[1]))

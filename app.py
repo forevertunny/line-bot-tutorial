@@ -508,9 +508,9 @@ def handle_message(event):
                 content = random.randint(int(splitText[1],int(splitText[2]))
             except Exception as ex:
                 content = 'Ex: Random Number To 2147483647'
-        elif len(splitText) >= 2:
-            index = random.randint(0,len(splitText)-1)+1
-            content = splitText[index]
+        # elif len(splitText) >= 2:
+        #     index = random.randint(0,len(splitText)-1)+1
+        #     content = splitText[index]
 
         line_bot_api.reply_message(
             event.reply_token,

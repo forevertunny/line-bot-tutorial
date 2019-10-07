@@ -356,7 +356,7 @@ def order(userName,text):
             # print('abcd ',len(worksheet.get_all_values()))
 
             if(data[2] == ''):
-                content = 'Ex:\n#吃 鮑魚湯麵 1000 不要辣 \n #喝 金薄珍珠奶茶 800 微糖少冰'
+                content = 'Ex:\n#吃 燕窩魚翅 9999 不要辣 \n#喝 金薄珍珠奶茶 800 微糖少冰'
             elif 'eat' in text or '吃' in text:                
                 for i in range(3,100):
                     # print(worksheet.cell(i,1).value)
@@ -497,11 +497,21 @@ def handle_message(event):
     if "random" in event.message.text.lower() or "骰子" in event.message.text.lower():        
         content =''
         splitText = event.message.text.split(' ')
-        if len(splitText) > 1:
+
+        if len(splitText) == 2:
             try:
                 content = random.randint(0,int(splitText[1]))
             except Exception as ex:
-                content = 'Ex: Random 0~2147483647' 
+                content = 'Ex: Random 0 To 2147483647' 
+        elif len(splitText) == 3:
+            try:
+                content = random.randint(int(splitText[1],int(splitText[2]))
+            except Exception as ex:
+                content = 'Ex: Random Number To 2147483647'
+        elif len(splitText) >= 2:
+            index = random.randint(0,len(splitText)-1)+1
+            content = splitText[index]
+
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text=content))

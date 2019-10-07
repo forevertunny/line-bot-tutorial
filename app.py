@@ -422,8 +422,8 @@ def test3():
     content=""    
     for element in soup.find('article').find('div','girl-list').find_all('div','girl-item'):
         # print("0",element)
-        print(element.find('style'))
-        print(element.find('div','girl-name'))
+        print(element.find('div','bg-cover').get('style'))
+        print(element.find('div','girl-name').text)
         # print(element.find('style'))
         # print(element.find('style'))
         # print("1",data.get('style'))

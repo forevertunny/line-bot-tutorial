@@ -423,20 +423,18 @@ def test3():
     girlitems = soup.find('article').find('div','girl-list').find_all('div','girl-item')    
     for element in girlitems:
         # print("0",element)
-        print(element.find('div','bg-cover').get('style'))
+        picUrl = element.find('div','bg-cover').get('style').replace('background-image: url(', target_url).remove(')')
+        # print(element.find('div','bg-cover').get('style'))
+        print(picUrl)
         print(element.find('div','girl-name').text)
         print(element.find('div','price').text)
         details = element .find_all('div','detail-item')
         for detail in details:
-            print(detail)
-        # print(element.find('style'))
-        # print(element.find('style'))
-        # print("1",data.get('style'))
-        # print("2",data.get('herf'))
-        # link = data['href']
-        # temp.append(link)    
+            print(detail.text)
+        
     # content=temp[random.randint(0,len(temp))]
     return 0
+    # background-image: url(/storage/upload/album/image/2019-08-14/dHXIfuCIpSpCn5GUlxSXLLF2nSBHZgPzy7XgPubk.jpeg)
 # <div class="bg-cover" style="background-image: url(/storage/upload/album/image/2019-09-06/kLuVLmvji7BS2ulobsQWUdava1D2UkAtiCdQpQWZ.jpeg)">
 #  <div class="bg-cover" style="background-image: url(/storage/upload/album/image/2019-10-04/HsAIhRiWbHuLhvQQ4ugiqoPHoEZ9xnpYn0mulZcu.jpeg)">
 # 2019-10-07T12:43:20.552041+00:00 app[web.1]: <div class="item-content">

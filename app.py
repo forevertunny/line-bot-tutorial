@@ -507,6 +507,7 @@ def handle_message(event):
             if len(splitText) == 2:                
                 content = random.randint(0,int(splitText[1]))
             elif len(splitText) == 3:
+                print('random 3')
                 content = random.randint(int(splitText[1],int(splitText[2])))
         except Exception as ex:
             if len(splitText) >= 2:

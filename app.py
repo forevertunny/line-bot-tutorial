@@ -430,7 +430,8 @@ def test3():
         print(element.find('div','price').text)
         # details = element .find_all('div','detail-item')
         # for detail in details:
-        #     print(detail.text)     
+        #     print(detail.text)
+        title = element.find('div','girl-name').text+ ' ' + element.find('div','price').text
         content += '{}\n{}\n\n'.format(title, picUrl)
         
     # content=temp[random.randint(0,len(temp))]

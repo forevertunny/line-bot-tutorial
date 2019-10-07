@@ -543,7 +543,7 @@ def handle_message(event):
     if event.message.text.lower() == "test3":
         content =  test3()
         line_bot_api.reply_message(
-                event.reply_token,content)
+            event.reply_token, content)
         return 0
     if event.message.text.lower() == "test4":
         line_bot_api.reply_message(

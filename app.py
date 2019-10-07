@@ -419,11 +419,16 @@ def test3():
     res = rs.get(target_url, verify=False)
     soup = BeautifulSoup(res.text, 'html.parser')
     temp=[]
-    content=""    
-    for element in soup.find('article').find('div','girl-list').find_all('div','girl-item'):
+    content=""
+    girlitems = soup.find('article').find('div','girl-list').find_all('div','girl-item')    
+    for element in girlitems:
         # print("0",element)
         print(element.find('div','bg-cover').get('style'))
         print(element.find('div','girl-name').text)
+        print(element.find('div','price').text)
+        details = element .find_all('div','detail-item')
+        for detail in details:
+            print(detail)
         # print(element.find('style'))
         # print(element.find('style'))
         # print("1",data.get('style'))

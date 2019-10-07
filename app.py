@@ -548,10 +548,14 @@ def handle_message(event):
         else:
             tempid = event.source.user_id
         for content in contents:
-            line_bot_api.push_message(
-                tempid,content)
             # line_bot_api.push_message(
-            #     event.reply_token,content)
+            #     tempid,content)
+            line_bot_api.reply_message(
+                event.reply_token,content)
+        return 0
+    if event.message.text.lower() == "test4":
+        line_bot_api.reply_message(
+                event.reply_token,[TextSendMessage(text= 'ABC'), TextSendMessage(text= 'GGININ')])        
         return 0
     if event.message.text.lower() =='redinfo' or event.message.text.lower() =='紅信':
         return 0

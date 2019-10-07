@@ -510,7 +510,7 @@ def handle_message(event):
                 print('random 3')
                 num1=int(splitText[1])
                 num2=int(splitText[2])
-                content = random.randint(num1,num2))
+                content = random.randint(num1,num2)
         except Exception as ex:
             if len(splitText) >= 2:
                 index = random.randint(0,len(splitText)-2)+1

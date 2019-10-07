@@ -420,17 +420,29 @@ def test3():
     soup = BeautifulSoup(res.text, 'html.parser')
     temp=[]
     content=""    
-    for data in soup.select('article div.girl-list div.girl-item'):
+    for data in soup.find('article').find('div','girl-list').find_all('div','girl-item'):
         print("0",data)
-        print("1",data.get('style'))
-        print("2",data.get('herf'))
-        print("3",data['herf'])
+        # print("1",data.get('style'))
+        # print("2",data.get('herf'))
         # link = data['href']
         # temp.append(link)    
     # content=temp[random.randint(0,len(temp))]
     return 0
 # <div class="bg-cover" style="background-image: url(/storage/upload/album/image/2019-09-06/kLuVLmvji7BS2ulobsQWUdava1D2UkAtiCdQpQWZ.jpeg)">
-
+#  <div class="bg-cover" style="background-image: url(/storage/upload/album/image/2019-10-04/HsAIhRiWbHuLhvQQ4ugiqoPHoEZ9xnpYn0mulZcu.jpeg)">
+# 2019-10-07T12:43:20.552041+00:00 app[web.1]: <div class="item-content">
+# 2019-10-07T12:43:20.552043+00:00 app[web.1]: <div class="center">
+# 2019-10-07T12:43:20.552045+00:00 app[web.1]: <div class="girl-name">平沢すず(平澤鈴)</div>
+# 2019-10-07T12:43:20.552048+00:00 app[web.1]: <div class="detail">
+# 2019-10-07T12:43:20.552050+00:00 app[web.1]: <div class="price">$33000</div>
+# 2019-10-07T12:43:20.552052+00:00 app[web.1]: <div class="detail-list">
+# 2019-10-07T12:43:20.552054+00:00 app[web.1]: <div class="detail-item">服務縣市：台中</div>
+# 2019-10-07T12:43:20.552056+00:00 app[web.1]: <div class="detail-item">服務區域：定點西屯區</div>
+# 2019-10-07T12:43:20.552058+00:00 app[web.1]: <div class="detail-item"></div>
+# 2019-10-07T12:43:20.552061+00:00 app[web.1]: <div class="detail-item">身高：159</div>
+# 2019-10-07T12:43:20.552062+00:00 app[web.1]: <div class="detail-item">體重：0</div>
+# 2019-10-07T12:43:20.552065+00:00 app[web.1]: <div class="detail-item">國籍：日本</div>
+# 2019-10-07T12:43:20.552067+00:00 app[web.1]: <div class="detail-item">罩杯：D</div>
 
 # 建立賭局(開局當莊家)：開局 {主題} {選項A,B,C} 
 # 下注：賭 {主題} {選項}

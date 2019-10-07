@@ -420,8 +420,12 @@ def test3():
     soup = BeautifulSoup(res.text, 'html.parser')
     temp=[]
     content=""    
-    for data in soup.find('article').find('div','girl-list').find_all('div','girl-item'):
-        print("0",data)
+    for element in soup.find('article').find('div','girl-list').find_all('div','girl-item'):
+        # print("0",element)
+        print(element.find('style'))
+        print(element.find('div','girl-name'))
+        # print(element.find('style'))
+        # print(element.find('style'))
         # print("1",data.get('style'))
         # print("2",data.get('herf'))
         # link = data['href']

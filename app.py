@@ -423,17 +423,18 @@ def test3():
     girlitems = soup.find('article').find('div','girl-list').find_all('div','girl-item')    
     for element in girlitems:
         # print("0",element)
-        picUrl = element.find('div','bg-cover').get('style').replace('background-image: url(', target_url).remove(')')
+        picUrl = element.find('div','bg-cover').get('style').replace('background-image: url(', target_url).replace(')','')
         # print(element.find('div','bg-cover').get('style'))
         print(picUrl)
         print(element.find('div','girl-name').text)
         print(element.find('div','price').text)
-        details = element .find_all('div','detail-item')
-        for detail in details:
-            print(detail.text)
+        # details = element .find_all('div','detail-item')
+        # for detail in details:
+        #     print(detail.text)     
+        content += '{}\n{}\n\n'.format(title, picUrl)
         
     # content=temp[random.randint(0,len(temp))]
-    return 0
+    return content
     # background-image: url(/storage/upload/album/image/2019-08-14/dHXIfuCIpSpCn5GUlxSXLLF2nSBHZgPzy7XgPubk.jpeg)
 # <div class="bg-cover" style="background-image: url(/storage/upload/album/image/2019-09-06/kLuVLmvji7BS2ulobsQWUdava1D2UkAtiCdQpQWZ.jpeg)">
 #  <div class="bg-cover" style="background-image: url(/storage/upload/album/image/2019-10-04/HsAIhRiWbHuLhvQQ4ugiqoPHoEZ9xnpYn0mulZcu.jpeg)">

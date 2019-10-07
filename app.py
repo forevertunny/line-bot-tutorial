@@ -505,7 +505,7 @@ def handle_message(event):
         content =  test3()
         line_bot_api.reply_message(
             event.reply_token, 
-            TextSendMessage(text=content)))
+            TextSendMessage(text=content))
         return 0
     if event.message.text.lower() =='redinfo' or event.message.text.lower() =='紅信':
         return 0

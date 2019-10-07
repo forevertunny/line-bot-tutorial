@@ -436,7 +436,11 @@ def test3():
         # content += '{}\n{}\n\n'.format(title, picUrl)
         
         messages.append(TextSendMessage(text=title))
-        messages.append(ImageSendMessage(original_content_url=picUrl,preview_image_url=picUrl)
+        messages.append(
+            ImageSendMessage(
+            original_content_url=picUrl,
+            preview_image_url=picUrl)
+            )
 
     return messages
     

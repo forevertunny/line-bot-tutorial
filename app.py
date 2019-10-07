@@ -508,10 +508,12 @@ def handle_message(event):
                 content = random.randint(0,int(splitText[1]))
             elif len(splitText) == 3:
                 print('random 3')
-                content = random.randint(int(splitText[1],int(splitText[2])))
+                num1=int(splitText[1])
+                num2=int(splitText[2])
+                content = random.randint(num1,num2))
         except Exception as ex:
             if len(splitText) >= 2:
-                index = random.randint(0,len(splitText)-1)
+                index = random.randint(0,len(splitText)-2)+1
                 content = splitText[index]
             else:
                 content = 'Ex:\nRandom 0(Offset) To 2147483647\n Random 要 不要' 

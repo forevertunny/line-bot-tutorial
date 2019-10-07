@@ -498,19 +498,16 @@ def handle_message(event):
         content =''
         splitText = event.message.text.split(' ')
 
-        if len(splitText) == 2:
-            try:
+        try:
+            if len(splitText) == 2:                
                 content = random.randint(0,int(splitText[1]))
-            except Exception as ex:
-                content = 'Ex: Random 0 To 2147483647' 
-        elif len(splitText) == 3:
-            try:
-                content = random.randint(int(splitText[1],int(splitText[2]))
-            except Exception as ex:
-                content = 'Ex: Random Number To 2147483647'
-        # elif len(splitText) >= 2:
-        #     index = random.randint(0,len(splitText)-1)+1
-        #     content = splitText[index]
+            elif len(splitText) == 3:        
+                    content = random.randint(int(splitText[1],int(splitText[2]))
+        except Exception as ex:
+            if len(splitText) >= 2:
+                index = random.randint(0,len(splitText)-1)+1
+                content = splitText[index]
+                # content = 'Ex: Random 0 To 2147483647' 
 
         line_bot_api.reply_message(
             event.reply_token,

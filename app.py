@@ -421,7 +421,7 @@ def test3():
     messages=[]
     content=""
     girlitems = soup.find('article').find('div','girl-list').find_all('div','girl-item')    
-    for i in range(2):
+    for i in range(1):
         element = girlitems[i]
         # print("0",element)
         picUrl = element.find('div','bg-cover').get('style').replace('background-image: url(', target_url).replace(')','')
@@ -555,7 +555,10 @@ def handle_message(event):
         return 0
     if event.message.text.lower() == "test4":
         line_bot_api.reply_message(
-                event.reply_token,[TextSendMessage(text= 'ABC'), TextSendMessage(text= 'GGININ')])        
+                event.reply_token,[TextSendMessage(text= 'ABC'),ImageSendMessage(
+            original_content_url='https://argo-play.net//storage/upload/album/image/2019-10-04/gS13ixBTRpUrpf53X6m6C2AnSF8C7jjsFit2XbVV.jpeg',
+            preview_image_url='https://argo-play.net//storage/upload/album/image/2019-10-04/gS13ixBTRpUrpf53X6m6C2AnSF8C7jjsFit2XbVV.jpeg'
+        )])        
         return 0
     if event.message.text.lower() =='redinfo' or event.message.text.lower() =='紅信':
         return 0

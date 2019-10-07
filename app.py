@@ -435,23 +435,14 @@ def test3():
         title = element.find('div','girl-name').text+ ' ' + element.find('div','price').text
         # content += '{}\n{}\n\n'.format(title, picUrl)
         
-        messages.append(
-            {
-                "type": "text",
-                "text": title
-            })        
-        messages.append(
-            {
-                "type": "image",
-                "originalContentUrl": picUrl,
-                "previewImageUrl": picUrl
-        #         ImageSendMessage(
-        #     original_content_url=picUrl,
-        #     preview_image_url=picUrl
-        # )
+        messages.append(TextSendMessage(text=title))
+        messages.append(ImageSendMessage(
+            original_content_url=picUrl,
+            preview_image_url=picUrl
             })
     # content=temp[random.randint(0,len(temp))]
     return messages
+    # line_bot_api.reply_message(event.reply_token, [TextSendMessage(text= reply_text), TextSendMessage(text= reply_text1)])
 # message = {
 #   "type": "text",
 #   "text": "這裡是要回應的文字"

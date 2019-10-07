@@ -541,15 +541,7 @@ def handle_message(event):
             event.reply_token, image_message)
         return 0
     if event.message.text.lower() == "test3":
-        contents =  test3()
-        tempid = ''
-        if(event.source.type == 'group' ):
-            tempid = event.source.group_id
-        else:
-            tempid = event.source.user_id
-        for content in contents:
-            # line_bot_api.push_message(
-            #     tempid,content)
+        content =  test3()
             line_bot_api.reply_message(
                 event.reply_token,content)
         return 0

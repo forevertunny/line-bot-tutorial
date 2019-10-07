@@ -497,7 +497,7 @@ def handle_message(event):
     if "random" in event.message.text.lower() or "骰子" in event.message.text.lower():        
         content =''
         splitText = event.message.text.split(' ')
-
+        print(splitText)
         try:
             pass
         except Exception as ex:
@@ -510,7 +510,7 @@ def handle_message(event):
                 content = random.randint(int(splitText[1],int(splitText[2])))
         except Exception as ex:
             if len(splitText) >= 2:
-                index = random.randint(0,len(splitText)-1)+1
+                index = random.randint(0,len(splitText)-1)
                 content = splitText[index]
             else:
                 content = 'Ex:\nRandom 0(Offset) To 2147483647\n Random 要 不要' 

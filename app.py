@@ -511,7 +511,7 @@ def handle_message(event):
         except Exception:
             isSucess = False
 
-        if (len(splitText) >= 2 and boo == False) or len(splitText) > 2:
+        if (len(splitText) >= 2 and isSucess == False) or len(splitText) > 2:
                 index = random.randint(0,len(splitText)-2)+1
                 content = splitText[index]
 

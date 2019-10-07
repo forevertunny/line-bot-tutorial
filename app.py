@@ -434,14 +434,41 @@ def test3():
         #     print(detail.text)
         title = element.find('div','girl-name').text+ ' ' + element.find('div','price').text
         # content += '{}\n{}\n\n'.format(title, picUrl)
-        messages.append(title)        
-        messages.append(ImageSendMessage(
-            original_content_url=picUrl,
-            preview_image_url=picUrl
-        ))
+        
+        messages.append(
+            {
+                "type": "text",
+                "text": title
+            })        
+        messages.append(
+            {
+                "type": "image",
+                "originalContentUrl": picUrl,
+                "previewImageUrl": picUrl
+        #         ImageSendMessage(
+        #     original_content_url=picUrl,
+        #     preview_image_url=picUrl
+        # )
+            })
     # content=temp[random.randint(0,len(temp))]
     return messages
-
+# message = {
+#   "type": "text",
+#   "text": "這裡是要回應的文字"
+# }
+# {
+#   "type": "image",
+#   "originalContentUrl": "圖片網址",
+#   "previewImageUrl": "縮圖網址"
+# }
+# {
+#   "type": "imagemap",
+#   "baseUrl": "https://example.com/bot/images/rm001",
+#   "altText": "This is an imagemap",
+#   "baseSize": {
+#       "width": 1040,
+#       "height": 1040
+#   },
      #messages = [{
     #  type: 'text',
     #  text: reply_text1

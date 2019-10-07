@@ -421,7 +421,10 @@ def test3():
     temp=[]
     content=""    
     for data in soup.select('article div.girl-list div.girl-item'):
-        print(data.get('style'))
+        print("0",data)
+        print("1",data.get('style'))
+        print("2",data.get('herf'))
+        print("3",data['herf'])
         # link = data['href']
         # temp.append(link)    
     # content=temp[random.randint(0,len(temp))]

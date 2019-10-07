@@ -541,9 +541,11 @@ def handle_message(event):
             event.reply_token, image_message)
         return 0
     if event.message.text.lower() == "test3":
-        content =  test3()
-        line_bot_api.reply_message(
-            event.reply_token,content)
+        contents =  test3()
+
+        for content in contents:
+            line_bot_api.reply_message(
+                event.reply_token,content)
         return 0
     if event.message.text.lower() =='redinfo' or event.message.text.lower() =='紅信':
         return 0

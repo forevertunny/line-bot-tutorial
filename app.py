@@ -420,23 +420,24 @@ def test3():
     soup = BeautifulSoup(res.text, 'html.parser')
     messages=[]
     content=""
-    girlitems = soup.find('article').find('div','girl-list').find_all('div','girl-item')    
-    for i in range(3):
-        element = girlitems[i]
-        # print("0",element)
-        picUrl = element.find('div','bg-cover').get('style').replace('background-image: url(', target_url).replace(')','')
-        # print(element.find('div','bg-cover').get('style'))
-        print(picUrl)
-        print(element.find('div','girl-name').text)
-        print(element.find('div','price').text)
-        # details = element .find_all('div','detail-item')
-        # for detail in details:
-        #     print(detail.text)
-        title = element.find('div','girl-name').text+ ' ' + element.find('div','price').text
-        # content += '{}\n{}\n\n'.format(title, picUrl)
+    girlitems = soup.find('article').find('div','girl-list').find_all('div','girl-item')  
+    index = random.randint(0,len(girlitems)-1)  
+    #for i in range(3):
+    element = girlitems[index]
+    # print("0",element)
+    picUrl = element.find('div','bg-cover').get('style').replace('background-image: url(', target_url).replace(')','')
+    # print(element.find('div','bg-cover').get('style'))
+    print(picUrl)
+    print(element.find('div','girl-name').text)
+    print(element.find('div','price').text)
+    # details = element .find_all('div','detail-item')
+    # for detail in details:
+    #     print(detail.text)
+    title = element.find('div','girl-name').text+ ' ' + element.find('div','price').text
+    # content += '{}\n{}\n\n'.format(title, picUrl)
         
-        messages.append(TextSendMessage(text=title))
-        messages.append(
+    messages.append(TextSendMessage(text=title))
+    messages.append(
             ImageSendMessage(
             original_content_url=picUrl,
             preview_image_url=picUrl)
@@ -463,19 +464,9 @@ def test3():
 #       "width": 1040,
 #       "height": 1040
 #   },
-     #messages = [{
-    #  type: 'text',
-    #  text: reply_text1
-    #},{
-    #  type: 'text',
-    #  text: reply_text2
-    #},{
-    #  type: 'text',
-    #  text: reply_text3
-    #}]
-    # 最後直接line.reply_message(reply_token, messages)
+# 最後直接line.reply_message(reply_token, messages)
 
-    # background-image: url(/storage/upload/album/image/2019-08-14/dHXIfuCIpSpCn5GUlxSXLLF2nSBHZgPzy7XgPubk.jpeg)
+# background-image: url(/storage/upload/album/image/2019-08-14/dHXIfuCIpSpCn5GUlxSXLLF2nSBHZgPzy7XgPubk.jpeg)
 # <div class="bg-cover" style="background-image: url(/storage/upload/album/image/2019-09-06/kLuVLmvji7BS2ulobsQWUdava1D2UkAtiCdQpQWZ.jpeg)">
 #  <div class="bg-cover" style="background-image: url(/storage/upload/album/image/2019-10-04/HsAIhRiWbHuLhvQQ4ugiqoPHoEZ9xnpYn0mulZcu.jpeg)">
 # 2019-10-07T12:43:20.552041+00:00 app[web.1]: <div class="item-content">
@@ -540,7 +531,7 @@ def handle_message(event):
         line_bot_api.reply_message(
             event.reply_token, image_message)
         return 0
-    if event.message.text.lower() == "test3":
+    if event.message.text.lower() == "lotteryargo":
         content =  test3()
         line_bot_api.reply_message(
             event.reply_token, content)

@@ -460,12 +460,12 @@ def bcstamp():
             print('無法連線Google試算表', ex)
             sys.exit(1)
         #GetTime()    
-    for i in range(1,31):
-        # print(worksheet.cell(i,1).value)
-        if(worksheet.cell(i,1).value == ''):
-            worksheet.update_acell(f'A{i}',timenow)
-            break
-    return content
+        for i in range(1,31):
+            # print(worksheet.cell(i,1).value)
+            if(worksheet.cell(i,1).value == ''):
+                worksheet.update_acell(f'A{i}',timenow)
+                break
+        return content
     
 
 @handler.add(MessageEvent, message=TextMessage)

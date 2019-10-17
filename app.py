@@ -461,7 +461,7 @@ def bcstamp():
         for i in range(1,100):
             # print(worksheet.cell(i,1).value)
             if(worksheet.cell(i,1).value == ''):
-                worksheet.update_acell('A{i}',GetTime())
+                worksheet.update_acell(f'A{i}',GetTime())
                 # print('Add Eat Value ',i)
                 # row_format = f'A{i}'
                 # row = worksheet.range(row_format)

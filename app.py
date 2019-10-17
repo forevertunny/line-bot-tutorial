@@ -446,8 +446,6 @@ def test3():
     return messages
     
 def bcstamp():
-    print('Order ',userName, text)
-    content= userName + ' Order Failure'
     GDriveJSON = 'RedInfoBot.json'
     GSpreadSheet = 'BCTag'
     while True:

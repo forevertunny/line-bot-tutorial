@@ -462,7 +462,7 @@ def bcstamp():
             # print(worksheet.cell(i,1).value)
             if(worksheet.cell(i,1).value == ''):
                 worksheet.cell(i,1).value = GetTime()
-                worksheet.update_cells(worksheet.cell(i,1))
+                # worksheet.update_cells(worksheet.cell(i,1))
                 break
             #    for x,cell in enumerate(row):
             #        cell.value = data[x]

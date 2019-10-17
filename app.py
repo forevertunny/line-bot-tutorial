@@ -445,48 +445,8 @@ def test3():
 
     return messages
     
-# content=temp[random.randint(0,len(temp))]
-# line_bot_api.reply_message(event.reply_token, [TextSendMessage(text= reply_text), TextSendMessage(text= reply_text1)])
-# message = {
-#   "type": "text",
-#   "text": "這裡是要回應的文字"
-# }
-# {
-#   "type": "image",
-#   "originalContentUrl": "圖片網址",
-#   "previewImageUrl": "縮圖網址"
-# }
-# {
-#   "type": "imagemap",
-#   "baseUrl": "https://example.com/bot/images/rm001",
-#   "altText": "This is an imagemap",
-#   "baseSize": {
-#       "width": 1040,
-#       "height": 1040
-#   },
-# 最後直接line.reply_message(reply_token, messages)
-
-# background-image: url(/storage/upload/album/image/2019-08-14/dHXIfuCIpSpCn5GUlxSXLLF2nSBHZgPzy7XgPubk.jpeg)
-# <div class="bg-cover" style="background-image: url(/storage/upload/album/image/2019-09-06/kLuVLmvji7BS2ulobsQWUdava1D2UkAtiCdQpQWZ.jpeg)">
-#  <div class="bg-cover" style="background-image: url(/storage/upload/album/image/2019-10-04/HsAIhRiWbHuLhvQQ4ugiqoPHoEZ9xnpYn0mulZcu.jpeg)">
-# 2019-10-07T12:43:20.552041+00:00 app[web.1]: <div class="item-content">
-# 2019-10-07T12:43:20.552043+00:00 app[web.1]: <div class="center">
-# 2019-10-07T12:43:20.552045+00:00 app[web.1]: <div class="girl-name">平沢すず(平澤鈴)</div>
-# 2019-10-07T12:43:20.552048+00:00 app[web.1]: <div class="detail">
-# 2019-10-07T12:43:20.552050+00:00 app[web.1]: <div class="price">$33000</div>
-# 2019-10-07T12:43:20.552052+00:00 app[web.1]: <div class="detail-list">
-# 2019-10-07T12:43:20.552054+00:00 app[web.1]: <div class="detail-item">服務縣市：台中</div>
-# 2019-10-07T12:43:20.552056+00:00 app[web.1]: <div class="detail-item">服務區域：定點西屯區</div>
-# 2019-10-07T12:43:20.552058+00:00 app[web.1]: <div class="detail-item"></div>
-# 2019-10-07T12:43:20.552061+00:00 app[web.1]: <div class="detail-item">身高：159</div>
-# 2019-10-07T12:43:20.552062+00:00 app[web.1]: <div class="detail-item">體重：0</div>
-# 2019-10-07T12:43:20.552065+00:00 app[web.1]: <div class="detail-item">國籍：日本</div>
-# 2019-10-07T12:43:20.552067+00:00 app[web.1]: <div class="detail-item">罩杯：D</div>
-
-# 建立賭局(開局當莊家)：開局 {主題} {選項A,B,C} 
-# 下注：賭 {主題} {選項}
-# 莊家喊離手：封盤 {主題} 
-# 莊家發布結果: 賭中{主題} {選項}
+def bcstamp():
+    pass
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
@@ -530,6 +490,8 @@ def handle_message(event):
         )
         line_bot_api.reply_message(
             event.reply_token, image_message)
+        return 0
+    if event.message.text.lower() == "bcstamp":
         return 0
     if event.message.text.lower() == "lotteryargo":
         content =  test3()

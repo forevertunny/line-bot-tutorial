@@ -446,7 +446,35 @@ def test3():
     return messages
     
 def bcstamp():
-    pass
+    print('Order ',userName, text)
+    content= userName + ' Order Failure'
+    GDriveJSON = 'RedInfoBot.json'
+    GSpreadSheet = 'BCTag'
+    while True:
+        try:
+            scope = ["https://spreadsheets.google.com/feeds",'https://www.googleapis.com/auth/drive']
+            key = SAC.from_json_keyfile_name(GDriveJSON, scope)
+            gc = gspread.authorize(key)
+            worksheet = gc.open(GSpreadSheet).sheet1
+        except Exception as ex:
+            print('無法連線Google試算表', ex)
+            sys.exit(1)
+        #GetTime()    
+        for i in range(1,100):
+            # print(worksheet.cell(i,1).value)
+            if(worksheet.cell(i,1).value == ''):
+            # print('Add Eat Value ',i)
+                row_format = f'A{i}:E{i}'
+                row = worksheet.range(row_format)
+                print(row)
+            #    for x,cell in enumerate(row):
+            #        cell.value = data[x]
+            #        worksheet.update_cells(row)
+            #        content= userName + ' Order Sucess'
+                break
+            #worksheet.append_row((userName,GetTime(), item,gold,remarks))
+    return
+    
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
@@ -492,6 +520,7 @@ def handle_message(event):
             event.reply_token, image_message)
         return 0
     if event.message.text.lower() == "bcstamp":
+        content = bcstamp()
         return 0
     if event.message.text.lower() == "lotteryargo":
         content =  test3()

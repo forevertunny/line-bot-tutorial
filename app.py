@@ -460,11 +460,11 @@ def bcstamp():
             print('無法連線Google試算表', ex)
             sys.exit(1)
         #GetTime()    
-        for i in range(1,31):
-            # print(worksheet.cell(i,1).value)
-            if(worksheet.cell(i,1).value == ''):
-                worksheet.update_acell(f'A{i}',timenow)
-                break
+    for i in range(1,31):
+        # print(worksheet.cell(i,1).value)
+        if(worksheet.cell(i,1).value == ''):
+            worksheet.update_acell(f'A{i}',timenow)
+            break
     return content
     
 
@@ -512,7 +512,10 @@ def handle_message(event):
             event.reply_token, image_message)
         return 0
     if event.message.text.lower() == "bcstamp":
-        content = bcstamp()
+        content = bcstamp()               
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text=content))
         return 0
     if event.message.text.lower() == "lotteryargo":
         content =  test3()

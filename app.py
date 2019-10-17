@@ -457,18 +457,20 @@ def bcstamp():
         except Exception as ex:
             print('無法連線Google試算表', ex)
             sys.exit(1)
-        
+        #GetTime()    
         for i in range(1,100):
             # print(worksheet.cell(i,1).value)
             if(worksheet.cell(i,1).value == ''):
-                worksheet.cell(i,1).value = GetTime()
-                # worksheet.update_cells(worksheet.cell(i,1))
+                worksheet.update_acells('A{i}',GetTime())
+                # print('Add Eat Value ',i)
+                # row_format = f'A{i}'
+                # row = worksheet.range(row_format)
+                # print(row)
+                #    for x,cell in enumerate(row):
+                #        cell.value = data[x]
+                #        worksheet.update_cells(row)
+                #        content= userName + ' Order Sucess'
                 break
-            #    for x,cell in enumerate(row):
-            #        cell.value = data[x]
-            #        worksheet.update_cells(row)
-            #        content= userName + ' Order Sucess'
-                
             #worksheet.append_row((userName,GetTime(), item,gold,remarks))
     return
     

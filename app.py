@@ -345,8 +345,8 @@ def order(userName,text):
                 content = 'Ex:\n#吃 燕窩魚翅 9999 不要辣 \n#喝 金薄珍珠奶茶 800 微糖少冰'
             elif 'eat' in text or '吃' in text:                
                 for i in range(3,100):
-                    # print(worksheet.cell(i,1).value)
-                    if(worksheet.cell(i,1).value == ''):
+                    cell =worksheet.cell(i,8)
+                    if(cell.value == ''):
                         # print('Add Eat Value ',i)
                         row_format = f'A{i}:E{i}'
                         row = worksheet.range(row_format)
@@ -369,6 +369,64 @@ def order(userName,text):
                         content= userName + ' Order Sucess'
                         break
             #worksheet.append_row((userName,GetTime(), item,gold,remarks))
+
+            return content
+
+def delorder(userName,text):
+    pass
+
+def uporder(userName,text):
+    content= userName + ' Up Order Failure'
+    GDriveJSON = 'RedInfoBot.json'
+    GSpreadSheet = 'RedInfoOrder'
+    while True:
+        try:
+            scope = ["https://spreadsheets.google.com/feeds",'https://www.googleapis.com/auth/drive']
+            key = SAC.from_json_keyfile_name(GDriveJSON, scope)
+            gc = gspread.authorize(key)
+            worksheet = gc.open(GSpreadSheet).sheet1
+        except Exception as ex:
+            print('無法連線Google試算表', ex)
+            sys.exit(1)        
+        if text!="":       
+
+            splitText = text.split(' ')
+            print(splitText)
+            data=[userName,GetTime(),'','','','']
+            if len(splitText) >=3:
+                data[2]=splitText[2]
+            if len(splitText) >=4:
+                data[3]=splitText[3]
+            if len(splitText) >=5:
+                data[4]=splitText[4]
+
+            if(data[2] == '' or data[3] == ''):
+                content = 'Ex:\n#更吃 1(index) 燕窩魚翅 9999 不要辣 \n#更喝 5(index) 金薄珍珠奶茶 800 微糖少冰'
+            else:
+                try:
+                    index = int(data[1])
+                    if 'eat' in text or '吃' in text:
+                        cell = worksheet.cell(index,1)
+                        if cell.value == userName
+                            row_format = f'A{index}:E{index}'
+                            row = worksheet.range(row_format)
+                            for x,cell in enumerate(row):
+                                cell.value = data[x]
+                                worksheet.update_cells(row)
+                                content= userName + 'Update Order Sucess'
+                                break
+                    elif 'drink' in text or '喝' in text:
+                        cell = worksheet.cell(index,8)
+                        if cell.value == userName
+                            row_format = f'H{i}:L{i}'
+                            row = worksheet.range(row_format)
+                            for x,cell in enumerate(row):
+                                cell.value = data[x]
+                                worksheet.update_cells(row)
+                                content= userName + 'Update Order Sucess'
+                                break                        
+                except Exception:
+                    content = 'Ex:\n#更吃 1(index) 燕窩魚翅 9999 不要辣 \n#更喝 5(index) 金薄珍珠奶茶 800 微糖少冰'
 
             return content
 
@@ -444,7 +502,10 @@ def test3():
             )
 
     return messages
-    
+
+def test2():
+    return 0
+
 def bcstamp():
     timenow= GetTime()
     content = "Bc Tag " + timenow
@@ -529,6 +590,7 @@ def handle_message(event):
             preview_image_url='https://argo-play.net//storage/upload/album/image/2019-10-04/gS13ixBTRpUrpf53X6m6C2AnSF8C7jjsFit2XbVV.jpeg'
         )])        
         return 0
+
     if event.message.text.lower() =='redinfo' or event.message.text.lower() =='紅信':
         return 0
     if "#eat" in event.message.text.lower() or "#drink" in event.message.text.lower() or "#吃" in event.message.text.lower() or "#喝" in event.message.text.lower():
@@ -536,6 +598,14 @@ def handle_message(event):
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text=content))
+        return 0
+    if "#upeat" in event.message.text.lower() or "#updrink" in event.message.text.lower() or "#修吃" in event.message.text.lower() or "#修喝" in event.message.text.lower():
+        content = uporder(userDict[event.source.user_id],event.message.text)
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text=content))
+        return 0
+    if "#deleat" in event.message.text.lower() or "#deldrink" in event.message.text.lower() or "#刪吃" in event.message.text.lower() or "#刪喝" in event.message.text.lower():
         return 0
     if event.message.text.lower() == "order" or event.message.text.lower() == "訂單":
         line_bot_api.reply_message(

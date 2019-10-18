@@ -345,7 +345,7 @@ def order(userName,text):
                 content = 'Ex:\n#吃 燕窩魚翅 9999 不要辣 \n#喝 金薄珍珠奶茶 800 微糖少冰'
             elif 'eat' in text or '吃' in text:                
                 for i in range(3,100):
-                    cell =worksheet.cell(i,8)
+                    cell =worksheet.cell(i,1)
                     if(cell.value == ''):
                         # print('Add Eat Value ',i)
                         row_format = f'A{i}:E{i}'

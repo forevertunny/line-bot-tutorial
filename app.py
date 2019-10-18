@@ -414,7 +414,7 @@ def uporder(userName,text):
                             for x,cell in enumerate(row):
                                 cell.value = data[x]
                             worksheet.update_cells(row)
-                            content= userName + 'Update Order Sucess'
+                            content= userName + ' Update Order Sucess'
                     elif 'drink' in text or '喝' in text:
                         cell = worksheet.cell(index,8)
                         if cell.value == userName:
@@ -423,11 +423,9 @@ def uporder(userName,text):
                             for x,cell in enumerate(row):
                                 cell.value = data[x]
                             worksheet.update_cells(row)
-                            content= userName + 'Update Order Sucess'                 
+                            content= userName + ' Update Order Sucess'                 
                 except Exception:
-                    print("EXXXX")
                     content = 'Ex:\n#更吃 1(index) 燕窩魚翅 9999 不要辣 \n#更喝 5(index) 金薄珍珠奶茶 800 微糖少冰'
-        print("return " , content)
         return content
 
 def GetBcStory():
@@ -601,10 +599,9 @@ def handle_message(event):
         return 0
     if "#upeat" in event.message.text.lower() or "#updrink" in event.message.text.lower() or "#修吃" in event.message.text.lower() or "#修喝" in event.message.text.lower():
         content = uporder(userDict[event.source.user_id],event.message.text)
-        print(content)
-        # line_bot_api.reply_message(
-        #     event.reply_token,
-        #     TextSendMessage(text=content))
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text=content))
         return 0
     if "#deleat" in event.message.text.lower() or "#deldrink" in event.message.text.lower() or "#刪吃" in event.message.text.lower() or "#刪喝" in event.message.text.lower():
         return 0

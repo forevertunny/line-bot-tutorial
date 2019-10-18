@@ -375,10 +375,46 @@ def order(userName,text):
         return content
 
 def delorder(userName,text):
-    pass
+    content= userName + ' Del Order Failure'
+    GDriveJSON = 'RedInfoBot.json'
+    GSpreadSheet = 'RedInfoOrder'
+    while True:
+        try:
+            scope = ["https://spreadsheets.google.com/feeds",'https://www.googleapis.com/auth/drive']
+            key = SAC.from_json_keyfile_name(GDriveJSON, scope)
+            gc = gspread.authorize(key)
+            worksheet = gc.open(GSpreadSheet).sheet1
+        except Exception as ex:
+            print('無法連線Google試算表', ex)
+            sys.exit(1)        
 
-def uporder(userName,text):
-    print("uporder")
+        data=['','','','','','']
+
+        if text!="":
+            splitText = text.split(' ')
+            print(splitText)
+
+            if(len(splitText) >=2):
+                tryGet = tryGetNum(splitText[1])
+                if(tryGet['sucess']):
+                    index = tryGet['num']
+                    row = None
+                    if 'eat' in text or '吃' in text:
+                        row_format = f'A{index}:E{index}'
+                        row = worksheet.range(row_format)
+                    elif 'drink' in text or '喝' in text:
+                        row_format = f'H{index}:L{index}'
+                        row = worksheet.range(row_format)
+
+                    for x,cell in enumerate(row):
+                        cell.value = data[x]
+                    worksheet.update_cells(row)
+                    content= userName + ' Del Order Sucess'
+                else:
+                    content = 'Ex:\n#刪吃 1(No)\n#刪喝 5(No)'
+        return content
+
+def uporder(userName,text):    
     content= userName + ' Up Order Failure'
     GDriveJSON = 'RedInfoBot.json'
     GSpreadSheet = 'RedInfoOrder'
@@ -621,6 +657,10 @@ def handle_message(event):
             TextSendMessage(text=content))
         return 0
     if "#deleat" in event.message.text.lower() or "#deldrink" in event.message.text.lower() or "#刪吃" in event.message.text.lower() or "#刪喝" in event.message.text.lower():
+        content = uporder(userDict[event.source.user_id],event.message.text)
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text=content))
         return 0
     if event.message.text.lower() == "order" or event.message.text.lower() == "訂單":
         line_bot_api.reply_message(

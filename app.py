@@ -376,6 +376,7 @@ def delorder(userName,text):
     pass
 
 def uporder(userName,text):
+    print("uporder")
     content= userName + ' Up Order Failure'
     GDriveJSON = 'RedInfoBot.json'
     GSpreadSheet = 'RedInfoOrder'
@@ -404,6 +405,7 @@ def uporder(userName,text):
                 content = 'Ex:\n#更吃 1(index) 燕窩魚翅 9999 不要辣 \n#更喝 5(index) 金薄珍珠奶茶 800 微糖少冰'
             else:
                 try:
+                    print("A")
                     index = int(data[1])
                     if 'eat' in text or '吃' in text:
                         cell = worksheet.cell(index,1)

@@ -413,9 +413,9 @@ def uporder(userName,text):
                             row = worksheet.range(row_format)
                             for x,cell in enumerate(row):
                                 cell.value = data[x]
-                                worksheet.update_cells(row)
-                                content= userName + 'Update Order Sucess'
-                                break
+                            worksheet.update_cells(row)
+                            content= userName + 'Update Order Sucess'
+                            break
                     elif 'drink' in text or '喝' in text:
                         cell = worksheet.cell(index,8)
                         if cell.value == userName:
@@ -423,9 +423,9 @@ def uporder(userName,text):
                             row = worksheet.range(row_format)
                             for x,cell in enumerate(row):
                                 cell.value = data[x]
-                                worksheet.update_cells(row)
-                                content= userName + 'Update Order Sucess'
-                                break                        
+                            worksheet.update_cells(row)
+                            content= userName + 'Update Order Sucess'
+                            break                        
                 except Exception:
                     content = 'Ex:\n#更吃 1(index) 燕窩魚翅 9999 不要辣 \n#更喝 5(index) 金薄珍珠奶茶 800 微糖少冰'
 

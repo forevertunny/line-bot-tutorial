@@ -353,7 +353,7 @@ def order(userName,text):
                         for x,cell in enumerate(row):
                             cell.value = data[x]
                         worksheet.update_cells(row)
-                        content= userName + ' Order Eat Sucess index ' + i
+                        content= userName + ' Order Eat Sucess index ' + str(i)
                         break
             elif 'drink' in text or '喝' in text:
                 for i in range(3,100):   
@@ -366,7 +366,7 @@ def order(userName,text):
                         for x,cell in enumerate(row):
                             cell.value = data[x]
                         worksheet.update_cells(row)
-                        content= userName + ' Order Drink Sucess index ' + i
+                        content= userName + ' Order Drink Sucess index ' + str(i)
                         break
             #worksheet.append_row((userName,GetTime(), item,gold,remarks))
 
@@ -395,10 +395,18 @@ def uporder(userName,text):
             data=[userName,GetTime(),'','','','']
             if len(splitText) >=3:
                 data[2]=splitText[2]
-            if len(splitText) >=4:
-                data[3]=splitText[3]
-            if len(splitText) >=5:
-                data[4]=splitText[4]
+                if len(splitText) >=4:
+                    tryGet = tryGetNum(splitText[3])
+                    if(tryGet['sucess']):
+                        data[4]=tryGet['num']
+                        if len(splitText) >=5:
+                            data[3]=splitText[4]
+                    else:                        
+                        data[3]=splitText[3]
+                        if len(splitText) >=5:
+                            tryGet = tryGetNum(splitText[4])
+                            if(tryGet['sucess']):
+                                data[4]=tryGet['num']
 
             if(data[2] == '' or data[3] == ''):
                 content = 'Ex:\n#更吃 1(index) 燕窩魚翅 PS 9999\n#更喝 5(index) 金薄珍珠奶茶 微糖少冰 800'

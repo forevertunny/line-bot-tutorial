@@ -604,9 +604,10 @@ def handle_message(event):
         return 0
     if "#upeat" in event.message.text.lower() or "#updrink" in event.message.text.lower() or "#修吃" in event.message.text.lower() or "#修喝" in event.message.text.lower():
         content = uporder(userDict[event.source.user_id],event.message.text)
-        line_bot_api.reply_message(
-            event.reply_token,
-            TextSendMessage(text=content))
+        print(content)
+        # line_bot_api.reply_message(
+        #     event.reply_token,
+        #     TextSendMessage(text=content))
         return 0
     if "#deleat" in event.message.text.lower() or "#deldrink" in event.message.text.lower() or "#刪吃" in event.message.text.lower() or "#刪喝" in event.message.text.lower():
         return 0

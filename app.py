@@ -324,24 +324,26 @@ def order(userName,text):
         except Exception as ex:
             print('無法連線Google試算表', ex)
             sys.exit(1)        
-        if text!="":       
-            #print('新增一列資料到試算表' ,GSpreadSheet)
-            # for data in worksheet.get_all_values():
-            #     print(data)
+        if text!="":
             splitText = text.split(' ')
             print(splitText)
             data=[userName,GetTime(),'','','','']
             if len(splitText) >=2:
                 data[2]=splitText[1]
-            if len(splitText) >=3:
-                data[3]=splitText[2]
-            if len(splitText) >=4:
-                data[4]=splitText[3]
+                if len(splitText) >=3:
+                    tryGet = tryGetNum(splitText[2])
+                    if(tryGet['sucess']):
+                        data[4]=tryGet['num']
+                        if len(splitText) >=4:
+                            data[3]=splitText[3]
+                    else:                        
+                        data[3]=splitText[2]
+                        if len(splitText) >=4:
+                            tryGet = tryGetNum(splitText[3])
+                            if(tryGet['sucess']):                                
+                                data[4]=tryGet['num']
             
-            # A3=(1,1) H3=(1,8)
-            # print('abcd ',len(worksheet.get_all_values()))
-
-            if(data[2] == ''):
+            if(splitText[1] == ''):
                 content = 'Ex:\n#吃 燕窩魚翅 Ps 9999 \n#喝 金薄珍珠奶茶 微糖少冰 800'
             elif 'eat' in text or '吃' in text:                
                 for i in range(3,100):
@@ -353,7 +355,7 @@ def order(userName,text):
                         for x,cell in enumerate(row):
                             cell.value = data[x]
                         worksheet.update_cells(row)
-                        content= userName + ' Order Eat Sucess index ' + str(i)
+                        content= userName + ' Order Eat Sucess, No ' + str(i)
                         break
             elif 'drink' in text or '喝' in text:
                 for i in range(3,100):   
@@ -366,7 +368,7 @@ def order(userName,text):
                         for x,cell in enumerate(row):
                             cell.value = data[x]
                         worksheet.update_cells(row)
-                        content= userName + ' Order Drink Sucess index ' + str(i)
+                        content= userName + ' Order Drink Sucess, No ' + str(i)
                         break
             #worksheet.append_row((userName,GetTime(), item,gold,remarks))
 
@@ -409,7 +411,7 @@ def uporder(userName,text):
                                 data[4]=tryGet['num']
 
             if(splitText[1] == '' or splitText[2] == ''):
-                content = 'Ex:\n#更吃 1(index) 燕窩魚翅 PS 9999\n#更喝 5(index) 金薄珍珠奶茶 微糖少冰 800'
+                content = 'Ex:\n#更吃 1(No) 燕窩魚翅 PS 9999\n#更喝 5(No) 金薄珍珠奶茶 微糖少冰 800'
             else:
                 tryGet = tryGetNum(splitText[1])
                 if(tryGet['sucess']):
@@ -434,7 +436,7 @@ def uporder(userName,text):
                             worksheet.update_cells(row)
                             content= userName + ' Update Order Sucess'                 
                 else:
-                    content = 'Ex:\n#更吃 1(index) 燕窩魚翅 PS 9999\n#更喝 5(index) 金薄珍珠奶茶 微糖少冰 800'
+                    content = 'Ex:\n#更吃 1(No) 燕窩魚翅 PS 9999\n#更喝 5(No) 金薄珍珠奶茶 微糖少冰 800'
         return content
 
 def GetBcStory():

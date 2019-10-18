@@ -400,16 +400,23 @@ def delorder(userName,text):
                     index = tryGet['num']
                     row = None
                     if 'eat' in text or '吃' in text:
-                        row_format = f'A{index}:E{index}'
-                        row = worksheet.range(row_format)
+                        cell = worksheet.cell(index,1)
+                        if cell.value == userName:
+                            row_format = f'A{index}:E{index}'
+                            row = worksheet.range(row_format)
+                            for x,cell in enumerate(row):
+                                cell.value = data[x]
+                            worksheet.update_cells(row)
+                            content= userName + ' Del Order Sucess'
                     elif 'drink' in text or '喝' in text:
-                        row_format = f'H{index}:L{index}'
-                        row = worksheet.range(row_format)
-
-                    for x,cell in enumerate(row):
-                        cell.value = data[x]
-                    worksheet.update_cells(row)
-                    content= userName + ' Del Order Sucess'
+                        cell = worksheet.cell(index,1)
+                        if cell.value == userName:
+                            row_format = f'H{index}:L{index}'
+                            row = worksheet.range(row_format)
+                            for x,cell in enumerate(row):
+                                cell.value = data[x]
+                            worksheet.update_cells(row)
+                            content= userName + ' Del Order Sucess'
                 else:
                     content = 'Ex:\n#刪吃 1(No)\n#刪喝 5(No)'
         return content
@@ -657,7 +664,7 @@ def handle_message(event):
             TextSendMessage(text=content))
         return 0
     if "#deleat" in event.message.text.lower() or "#deldrink" in event.message.text.lower() or "#刪吃" in event.message.text.lower() or "#刪喝" in event.message.text.lower():
-        content = uporder(userDict[event.source.user_id],event.message.text)
+        content = delorder(userDict[event.source.user_id],event.message.text)
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text=content))

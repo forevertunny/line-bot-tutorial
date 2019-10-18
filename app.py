@@ -408,7 +408,7 @@ def uporder(userName,text):
                             if(tryGet['sucess']):
                                 data[4]=tryGet['num']
 
-            if(data[2] == '' or data[3] == ''):
+            if(data[1] == '' or data[2] == ''):
                 content = 'Ex:\n#更吃 1(index) 燕窩魚翅 PS 9999\n#更喝 5(index) 金薄珍珠奶茶 微糖少冰 800'
             else:
                 tryGet = tryGetNum(splitText[1])

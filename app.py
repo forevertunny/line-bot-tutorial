@@ -429,7 +429,7 @@ def uporder(userName,text):
                             break                        
                 except Exception:
                     content = 'Ex:\n#更吃 1(index) 燕窩魚翅 9999 不要辣 \n#更喝 5(index) 金薄珍珠奶茶 800 微糖少冰'
-
+        print("return " + content)
         return content
 
 def GetBcStory():

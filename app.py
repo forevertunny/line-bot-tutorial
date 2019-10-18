@@ -454,7 +454,7 @@ def uporder(userName,text):
                                 data[4]=tryGet['num']
 
             if(splitText[1] == '' or splitText[2] == ''):
-                content = 'Ex:\n#更吃 1(No) 燕窩魚翅 PS 9999\n#更喝 5(No) 金薄珍珠奶茶 微糖少冰 800'
+                content = 'Ex:\n#修吃 1(No) 燕窩魚翅 PS 9999\n#修喝 5(No) 金薄珍珠奶茶 微糖少冰 800'
             else:
                 tryGet = tryGetNum(splitText[1])
                 if(tryGet['sucess']):
@@ -479,7 +479,7 @@ def uporder(userName,text):
                             worksheet.update_cells(row)
                             content= userName + ' Update Order Sucess'                 
                 else:
-                    content = 'Ex:\n#更吃 1(No) 燕窩魚翅 PS 9999\n#更喝 5(No) 金薄珍珠奶茶 微糖少冰 800'
+                    content = 'Ex:\n#修吃 1(No) 燕窩魚翅 PS 9999\n#修喝 5(No) 金薄珍珠奶茶 微糖少冰 800'
         return content
 
 def GetBcStory():
@@ -649,7 +649,11 @@ def handle_message(event):
         )])        
         return 0
 
-    if event.message.text.lower() =='redinfo' or event.message.text.lower() =='紅信':
+    if event.message.text.lower() =='redinfo' or event.message.text.lower() =='紅信' or event.message.text.lower() =='bot' or event.message.text.lower() =='機器人':
+        content = "目前功能有: 時間(now),\n點餐'{'#吃(#eat),#喝(#drink),#修吃(#upeat),#修喝(#updrink),#刪吃(#deleat),#刪喝(#deldrink)'}'\n"
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text=content))
         return 0
     if "#eat" in event.message.text.lower() or "#drink" in event.message.text.lower() or "#吃" in event.message.text.lower() or "#喝" in event.message.text.lower():
         content = order(userDict[event.source.user_id],event.message.text)

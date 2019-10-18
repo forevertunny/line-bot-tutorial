@@ -404,7 +404,7 @@ def uporder(userName,text):
                 content = 'Ex:\n#更吃 1(index) 燕窩魚翅 9999 不要辣 \n#更喝 5(index) 金薄珍珠奶茶 800 微糖少冰'
             else:
                 try:
-                    index = int(data[1])
+                    index = int(data[2])
                     if 'eat' in text or '吃' in text:
                         cell = worksheet.cell(index,1)
                         if cell.value == userName:
@@ -418,7 +418,7 @@ def uporder(userName,text):
                     elif 'drink' in text or '喝' in text:
                         cell = worksheet.cell(index,8)
                         if cell.value == userName:
-                            row_format = f'H{i}:L{i}'
+                            row_format = f'H{index}:L{index}'
                             row = worksheet.range(row_format)
                             for x,cell in enumerate(row):
                                 cell.value = data[x]

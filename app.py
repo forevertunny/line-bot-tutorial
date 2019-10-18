@@ -389,8 +389,7 @@ def uporder(userName,text):
         except Exception as ex:
             print('無法連線Google試算表', ex)
             sys.exit(1)        
-        if text!="":       
-
+        if text!="":
             splitText = text.split(' ')
             print(splitText)
             data=[userName,GetTime(),'','','','']
@@ -416,7 +415,6 @@ def uporder(userName,text):
                                 cell.value = data[x]
                             worksheet.update_cells(row)
                             content= userName + 'Update Order Sucess'
-                            break
                     elif 'drink' in text or '喝' in text:
                         cell = worksheet.cell(index,8)
                         if cell.value == userName:
@@ -425,8 +423,7 @@ def uporder(userName,text):
                             for x,cell in enumerate(row):
                                 cell.value = data[x]
                             worksheet.update_cells(row)
-                            content= userName + 'Update Order Sucess'
-                            break                        
+                            content= userName + 'Update Order Sucess'                 
                 except Exception:
                     print("EXXXX")
                     content = 'Ex:\n#更吃 1(index) 燕窩魚翅 9999 不要辣 \n#更喝 5(index) 金薄珍珠奶茶 800 微糖少冰'

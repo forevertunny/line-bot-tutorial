@@ -650,7 +650,7 @@ def handle_message(event):
         return 0
 
     if event.message.text.lower() =='redinfo' or event.message.text.lower() =='紅信' or event.message.text.lower() =='bot' or event.message.text.lower() =='機器人':
-        content = "目前功能有:\n時間(now),\n點餐:\n#吃(#eat),#喝(#drink),\n#修吃(#upeat),#修喝(#updrink),\n#刪吃(#deleat),#刪喝(#deldrink)\n"
+        content = "目前功能有:\n時間(now),\n點餐:\n#吃(#eat),#喝(#drink),\n#修吃(#upeat),#修喝(#updrink),\n#刪吃(#deleat),#刪喝(#deldrink)\n骰子(random)\n隨便來張正妹圖片\n蘋果即時新聞\n即時廢文"
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text=content))
@@ -684,7 +684,7 @@ def handle_message(event):
             event.reply_token,
             TextSendMessage(text=content))
         return 0
-    if event.message.text.lower() == "now":
+    if event.message.text.lower() == "now" or event.message.text.lower() == "時間":
         content=GetTime()
         line_bot_api.reply_message(
             event.reply_token,

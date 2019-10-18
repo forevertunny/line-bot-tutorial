@@ -407,6 +407,7 @@ def uporder(userName,text):
                     index = int(data[2])
                     if 'eat' in text or '吃' in text:
                         cell = worksheet.cell(index,1)
+                        print(cell.value)
                         if cell.value == userName:
                             row_format = f'A{index}:E{index}'
                             row = worksheet.range(row_format)

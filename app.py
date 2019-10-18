@@ -406,7 +406,7 @@ def uporder(userName,text):
             else:
                 try:
                     print("A")
-                    index = int(data[1])
+                    index = int(splitText[1])
                     if 'eat' in text or '吃' in text:
                         cell = worksheet.cell(index,1)
                         print(cell.value)

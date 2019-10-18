@@ -409,7 +409,7 @@ def delorder(userName,text):
                             worksheet.update_cells(row)
                             content= userName + ' Del Order Sucess'
                     elif 'drink' in text or '喝' in text:
-                        cell = worksheet.cell(index,1)
+                        cell = worksheet.cell(index,8)
                         if cell.value == userName:
                             row_format = f'H{index}:L{index}'
                             row = worksheet.range(row_format)

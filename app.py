@@ -342,7 +342,7 @@ def order(userName,text):
             # print('abcd ',len(worksheet.get_all_values()))
 
             if(data[2] == ''):
-                content = 'Ex:\n#吃 燕窩魚翅 9999 不要辣 \n#喝 金薄珍珠奶茶 800 微糖少冰'
+                content = 'Ex:\n#吃 燕窩魚翅 Ps 9999 \n#喝 金薄珍珠奶茶 微糖少冰 800'
             elif 'eat' in text or '吃' in text:                
                 for i in range(3,100):
                     cell =worksheet.cell(i,1)
@@ -353,7 +353,7 @@ def order(userName,text):
                         for x,cell in enumerate(row):
                             cell.value = data[x]
                         worksheet.update_cells(row)
-                        content= userName + ' Order Sucess'
+                        content= userName + ' Order Eat Sucess index ' + i
                         break
             elif 'drink' in text or '喝' in text:
                 for i in range(3,100):   
@@ -366,7 +366,7 @@ def order(userName,text):
                         for x,cell in enumerate(row):
                             cell.value = data[x]
                         worksheet.update_cells(row)
-                        content= userName + ' Order Sucess'
+                        content= userName + ' Order Drink Sucess index ' + i
                         break
             #worksheet.append_row((userName,GetTime(), item,gold,remarks))
 
@@ -401,10 +401,11 @@ def uporder(userName,text):
                 data[4]=splitText[4]
 
             if(data[2] == '' or data[3] == ''):
-                content = 'Ex:\n#更吃 1(index) 燕窩魚翅 9999 不要辣 \n#更喝 5(index) 金薄珍珠奶茶 800 微糖少冰'
+                content = 'Ex:\n#更吃 1(index) 燕窩魚翅 PS 9999\n#更喝 5(index) 金薄珍珠奶茶 微糖少冰 800'
             else:
-                try:
-                    index = int(splitText[1])
+                tryGet = tryGetNum(splitText[1])
+                if(tryGet['sucess']):
+                    index = tryGet['num']
                     if 'eat' in text or '吃' in text:
                         cell = worksheet.cell(index,1)
                         print(cell.value)
@@ -424,8 +425,8 @@ def uporder(userName,text):
                                 cell.value = data[x]
                             worksheet.update_cells(row)
                             content= userName + ' Update Order Sucess'                 
-                except Exception:
-                    content = 'Ex:\n#更吃 1(index) 燕窩魚翅 9999 不要辣 \n#更喝 5(index) 金薄珍珠奶茶 800 微糖少冰'
+                else:
+                    content = 'Ex:\n#更吃 1(index) 燕窩魚翅 PS 9999\n#更喝 5(index) 金薄珍珠奶茶 微糖少冰 800'
         return content
 
 def GetBcStory():
@@ -525,6 +526,12 @@ def bcstamp():
                 worksheet.update_acell(f'A{i}',timenow)
                 break
         return content
+
+def tryGetNum(value):
+    try:
+        return {'sucess':True,'num':int(value)}
+    except Exception:
+        return {'sucess':False}
     
 
 @handler.add(MessageEvent, message=TextMessage)

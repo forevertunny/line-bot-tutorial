@@ -370,7 +370,7 @@ def order(userName,text):
                         break
             #worksheet.append_row((userName,GetTime(), item,gold,remarks))
 
-            return content
+    return content
 
 def delorder(userName,text):
     pass
@@ -405,7 +405,6 @@ def uporder(userName,text):
                 content = 'Ex:\n#更吃 1(index) 燕窩魚翅 9999 不要辣 \n#更喝 5(index) 金薄珍珠奶茶 800 微糖少冰'
             else:
                 try:
-                    print("A")
                     index = int(splitText[1])
                     if 'eat' in text or '吃' in text:
                         cell = worksheet.cell(index,1)
@@ -431,7 +430,7 @@ def uporder(userName,text):
                 except Exception:
                     content = 'Ex:\n#更吃 1(index) 燕窩魚翅 9999 不要辣 \n#更喝 5(index) 金薄珍珠奶茶 800 微糖少冰'
 
-            return content
+    return content
 
 def GetBcStory():
     print('GetBcStory')

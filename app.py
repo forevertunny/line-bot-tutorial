@@ -12,12 +12,8 @@ from bs4 import BeautifulSoup
 from flask import Flask, request, abort
 from imgurpython import ImgurClient
 
-from linebot import (
-    LineBotApi, WebhookHandler
-)
-from linebot.exceptions import (
-    InvalidSignatureError
-)
+from linebot import (LineBotApi, WebhookHandler)
+from linebot.exceptions import (InvalidSignatureError)
 from linebot.models import *
 
 app = Flask(__name__)
@@ -30,8 +26,9 @@ client_id = config['imgur_api']['Client_ID']
 client_secret = config['imgur_api']['Client_Secret']
 album_id = config['imgur_api']['Album_ID']
 # API_Get_Image = config['other_api']['API_Get_Image']
-testArry=[]
-userDict={}
+testArry = []
+userDict = {}
+
 
 def main():
     pass
@@ -58,8 +55,18 @@ def callback():
 
 def pattern_mega(text):
     patterns = [
-        'mega', 'mg', 'mu', 'ＭＥＧＡ', 'ＭＥ', 'ＭＵ',
-        'ｍｅ', 'ｍｕ', 'ｍｅｇａ', 'GD', 'MG', 'google',
+        'mega',
+        'mg',
+        'mu',
+        'ＭＥＧＡ',
+        'ＭＥ',
+        'ＭＵ',
+        'ｍｅ',
+        'ｍｕ',
+        'ｍｅｇａ',
+        'GD',
+        'MG',
+        'google',
     ]
     for pattern in patterns:
         if re.search(pattern, text, re.IGNORECASE):
@@ -102,7 +109,7 @@ def apple_news():
 def get_page_number(content):
     start_index = content.find('index')
     end_index = content.find('.html')
-    page_number = content[start_index + 5: end_index]
+    page_number = content[start_index + 5:end_index]
     return int(page_number) + 1
 
 
@@ -162,10 +169,7 @@ def crawl_page_gossiping(res):
 
 def ptt_gossiping():
     rs = requests.session()
-    load = {
-        'from': '/bbs/Gossiping/index.html',
-        'yes': 'yes'
-    }
+    load = {'from': '/bbs/Gossiping/index.html', 'yes': 'yes'}
     res = rs.post('https://www.ptt.cc/ask/over18', verify=False, data=load)
     soup = BeautifulSoup(res.text, 'html.parser')
     all_page_url = soup.select('.btn.wide')[1]['href']
@@ -193,7 +197,8 @@ def ptt_gossiping():
     for index, article in enumerate(article_gossiping, 0):
         if index == 15:
             return content
-        data = '{}\n{}\n\n'.format(article.get('title', None), article.get('url_link', None))
+        data = '{}\n{}\n\n'.format(article.get('title', None),
+                                   article.get('url_link', None))
         content += data
     return content
 
@@ -227,7 +232,8 @@ def ptt_beauty():
             # time.sleep(0.05)
     content = ''
     for article in article_list:
-        data = '[{} push] {}\n{}\n\n'.format(article.get('rate', None), article.get('title', None),
+        data = '[{} push] {}\n{}\n\n'.format(article.get('rate', None),
+                                             article.get('title', None),
                                              article.get('url', None))
         content += data
     return content
@@ -304,183 +310,197 @@ def oil_price():
     res = rs.get(target_url, verify=False)
     soup = BeautifulSoup(res.text, 'html.parser')
     title = soup.select('#main')[0].text.replace('\n', '').split('(')[0]
-    gas_price = soup.select('#gas-price')[0].text.replace('\n\n\n', '').replace(' ', '')
+    gas_price = soup.select('#gas-price')[0].text.replace('\n\n\n',
+                                                          '').replace(' ', '')
     cpc = soup.select('#cpc')[0].text.replace(' ', '')
     content = '{}\n{}{}'.format(title, gas_price, cpc)
     return content
 
 
-def order(userName,text):
-    print('Order ',userName, text)
-    content= userName + ' Order Failure'
+def order(userName, text):
+    print('Order ', userName, text)
+    content = userName + ' Order Failure'
     GDriveJSON = 'RedInfoBot.json'
     GSpreadSheet = 'RedInfoOrder'
     while True:
         try:
-            scope = ["https://spreadsheets.google.com/feeds",'https://www.googleapis.com/auth/drive']
+            scope = [
+                "https://spreadsheets.google.com/feeds",
+                'https://www.googleapis.com/auth/drive'
+            ]
             key = SAC.from_json_keyfile_name(GDriveJSON, scope)
             gc = gspread.authorize(key)
             worksheet = gc.open(GSpreadSheet).sheet1
         except Exception as ex:
             print('無法連線Google試算表', ex)
-            sys.exit(1)        
-        if text!="":
+            sys.exit(1)
+        if text != "":
             splitText = text.split(' ')
             print(splitText)
-            data=[userName,GetTime(),'','','','']
-            if len(splitText) >=2:
-                data[2]=splitText[1]
-                if len(splitText) >=3:
+            data = [userName, GetTime(), '', '', '', '']
+            if len(splitText) >= 2:
+                data[2] = splitText[1]
+                if len(splitText) >= 3:
                     tryGet = tryGetNum(splitText[2])
-                    if(tryGet['sucess']):
-                        data[4]=tryGet['num']
-                        if len(splitText) >=4:
-                            data[3]=splitText[3]
-                    else:                        
-                        data[3]=splitText[2]
-                        if len(splitText) >=4:
+                    if (tryGet['sucess']):
+                        data[4] = tryGet['num']
+                        if len(splitText) >= 4:
+                            data[3] = splitText[3]
+                    else:
+                        data[3] = splitText[2]
+                        if len(splitText) >= 4:
                             tryGet = tryGetNum(splitText[3])
-                            if(tryGet['sucess']):                                
-                                data[4]=tryGet['num']
-            
-            if(splitText[1] == ''):
+                            if (tryGet['sucess']):
+                                data[4] = tryGet['num']
+
+            if (splitText[1] == ''):
                 content = 'Ex:\n#吃 燕窩魚翅 Ps 9999 \n#喝 金薄珍珠奶茶 微糖少冰 800'
-            elif 'eat' in text or '吃' in text:                
-                for i in range(3,100):
-                    cell =worksheet.cell(i,1)
-                    if(cell.value == ''):
+            elif 'eat' in text or '吃' in text:
+                for i in range(3, 100):
+                    cell = worksheet.cell(i, 1)
+                    if (cell.value == ''):
                         # print('Add Eat Value ',i)
                         row_format = f'A{i}:E{i}'
                         row = worksheet.range(row_format)
-                        for x,cell in enumerate(row):
+                        for x, cell in enumerate(row):
                             cell.value = data[x]
                         worksheet.update_cells(row)
-                        content= userName + ' Order Eat Sucess, No ' + str(i)
+                        content = userName + ' Order Eat Sucess, No ' + str(i)
                         break
             elif 'drink' in text or '喝' in text:
-                for i in range(3,100):   
-                    cell =worksheet.cell(i,8)
+                for i in range(3, 100):
+                    cell = worksheet.cell(i, 8)
                     # print(cell.value)
-                    if(cell.value == ''):
+                    if (cell.value == ''):
                         # print('Add Drink Value ',i)
                         row_format = f'H{i}:L{i}'
                         row = worksheet.range(row_format)
-                        for x,cell in enumerate(row):
+                        for x, cell in enumerate(row):
                             cell.value = data[x]
                         worksheet.update_cells(row)
-                        content= userName + ' Order Drink Sucess, No ' + str(i)
+                        content = userName + ' Order Drink Sucess, No ' + str(
+                            i)
                         break
             #worksheet.append_row((userName,GetTime(), item,gold,remarks))
 
         return content
 
-def delorder(userName,text):
-    content= userName + ' Del Order Failure'
+
+def delorder(userName, text):
+    content = userName + ' Del Order Failure'
     GDriveJSON = 'RedInfoBot.json'
     GSpreadSheet = 'RedInfoOrder'
     while True:
         try:
-            scope = ["https://spreadsheets.google.com/feeds",'https://www.googleapis.com/auth/drive']
+            scope = [
+                "https://spreadsheets.google.com/feeds",
+                'https://www.googleapis.com/auth/drive'
+            ]
             key = SAC.from_json_keyfile_name(GDriveJSON, scope)
             gc = gspread.authorize(key)
             worksheet = gc.open(GSpreadSheet).sheet1
         except Exception as ex:
             print('無法連線Google試算表', ex)
-            sys.exit(1)        
+            sys.exit(1)
 
-        data=['','','','','','']
+        data = ['', '', '', '', '', '']
 
-        if text!="":
+        if text != "":
             splitText = text.split(' ')
             print(splitText)
 
-            if(len(splitText) >=2):
+            if (len(splitText) >= 2):
                 tryGet = tryGetNum(splitText[1])
-                if(tryGet['sucess']):
+                if (tryGet['sucess']):
                     index = tryGet['num']
                     row = None
                     if 'eat' in text or '吃' in text:
-                        cell = worksheet.cell(index,1)
+                        cell = worksheet.cell(index, 1)
                         if cell.value == userName:
                             row_format = f'A{index}:E{index}'
                             row = worksheet.range(row_format)
-                            for x,cell in enumerate(row):
+                            for x, cell in enumerate(row):
                                 cell.value = data[x]
                             worksheet.update_cells(row)
-                            content= userName + ' Del Order Sucess'
+                            content = userName + ' Del Order Sucess'
                     elif 'drink' in text or '喝' in text:
-                        cell = worksheet.cell(index,8)
+                        cell = worksheet.cell(index, 8)
                         if cell.value == userName:
                             row_format = f'H{index}:L{index}'
                             row = worksheet.range(row_format)
-                            for x,cell in enumerate(row):
+                            for x, cell in enumerate(row):
                                 cell.value = data[x]
                             worksheet.update_cells(row)
-                            content= userName + ' Del Order Sucess'
+                            content = userName + ' Del Order Sucess'
                 else:
                     content = 'Ex:\n#刪吃 1(No)\n#刪喝 5(No)'
         return content
 
-def uporder(userName,text):    
-    content= userName + ' Up Order Failure'
+
+def uporder(userName, text):
+    content = userName + ' Up Order Failure'
     GDriveJSON = 'RedInfoBot.json'
     GSpreadSheet = 'RedInfoOrder'
     while True:
         try:
-            scope = ["https://spreadsheets.google.com/feeds",'https://www.googleapis.com/auth/drive']
+            scope = [
+                "https://spreadsheets.google.com/feeds",
+                'https://www.googleapis.com/auth/drive'
+            ]
             key = SAC.from_json_keyfile_name(GDriveJSON, scope)
             gc = gspread.authorize(key)
             worksheet = gc.open(GSpreadSheet).sheet1
         except Exception as ex:
             print('無法連線Google試算表', ex)
-            sys.exit(1)        
-        if text!="":
+            sys.exit(1)
+        if text != "":
             splitText = text.split(' ')
             print(splitText)
-            data=[userName,GetTime(),'','','','']
-            if len(splitText) >=3:
-                data[2]=splitText[2]
-                if len(splitText) >=4:
+            data = [userName, GetTime(), '', '', '', '']
+            if len(splitText) >= 3:
+                data[2] = splitText[2]
+                if len(splitText) >= 4:
                     tryGet = tryGetNum(splitText[3])
-                    if(tryGet['sucess']):
-                        data[4]=tryGet['num']
-                        if len(splitText) >=5:
-                            data[3]=splitText[4]
-                    else:                        
-                        data[3]=splitText[3]
-                        if len(splitText) >=5:
+                    if (tryGet['sucess']):
+                        data[4] = tryGet['num']
+                        if len(splitText) >= 5:
+                            data[3] = splitText[4]
+                    else:
+                        data[3] = splitText[3]
+                        if len(splitText) >= 5:
                             tryGet = tryGetNum(splitText[4])
-                            if(tryGet['sucess']):
-                                data[4]=tryGet['num']
+                            if (tryGet['sucess']):
+                                data[4] = tryGet['num']
 
-            if(splitText[1] == '' or splitText[2] == ''):
+            if (splitText[1] == '' or splitText[2] == ''):
                 content = 'Ex:\n#修吃 1(No) 燕窩魚翅 PS 9999\n#修喝 5(No) 金薄珍珠奶茶 微糖少冰 800'
             else:
                 tryGet = tryGetNum(splitText[1])
-                if(tryGet['sucess']):
+                if (tryGet['sucess']):
                     index = tryGet['num']
                     if 'eat' in text or '吃' in text:
-                        cell = worksheet.cell(index,1)
+                        cell = worksheet.cell(index, 1)
                         print(cell.value)
                         if cell.value == userName:
                             row_format = f'A{index}:E{index}'
                             row = worksheet.range(row_format)
-                            for x,cell in enumerate(row):
+                            for x, cell in enumerate(row):
                                 cell.value = data[x]
                             worksheet.update_cells(row)
-                            content= userName + ' Update Order Sucess'
+                            content = userName + ' Update Order Sucess'
                     elif 'drink' in text or '喝' in text:
-                        cell = worksheet.cell(index,8)
+                        cell = worksheet.cell(index, 8)
                         if cell.value == userName:
                             row_format = f'H{index}:L{index}'
                             row = worksheet.range(row_format)
-                            for x,cell in enumerate(row):
+                            for x, cell in enumerate(row):
                                 cell.value = data[x]
                             worksheet.update_cells(row)
-                            content= userName + ' Update Order Sucess'                 
+                            content = userName + ' Update Order Sucess'
                 else:
                     content = 'Ex:\n#修吃 1(No) 燕窩魚翅 PS 9999\n#修喝 5(No) 金薄珍珠奶茶 微糖少冰 800'
         return content
+
 
 def GetBcStory():
     print('GetBcStory')
@@ -489,243 +509,274 @@ def GetBcStory():
 
     while True:
         try:
-            scope = ["https://spreadsheets.google.com/feeds",'https://www.googleapis.com/auth/drive']
-            key = SAC.from_json_keyfile_name(GDriveJSON, scope)
-            gc = gspread.authorize(key)
-            worksheet = gc.open(GSpreadSheet).sheet1
-        except Exception as ex:
-            print('無法連線Google試算表', ex)
-            sys.exit(1)        
-        
-        #print('新增一列資料到試算表' ,GSpreadSheet)
-        values =worksheet.get_all_values()
-        # for data in values:
-        #     print(data)
-
-        index= random.randint(0,len(values)-1)
-        print(index)     
-        print(values[index][0])
-        return values[index][0]
-
-def test1():
-    target_url='https://ptt-beauty-images.herokuapp.com/'
-    print('Start test1')
-    rs = requests.session()
-    res = rs.get(target_url, verify=False)
-    soup = BeautifulSoup(res.text, 'html.parser')
-    temp=[]
-    content=""
-    for data in soup.select('div.row div.images a.img-thumbnail'):
-        link = data['href']
-        temp.append(link)    
-    content=temp[random.randint(0,len(temp))]
-    return content
-
-def test3():
-    target_url='https://argo-play.net/'
-    aa ='https://argo-play.net/album/2/6'
-    print('Start test3')
-    rs = requests.session()
-    res = rs.get(target_url, verify=False)
-    soup = BeautifulSoup(res.text, 'html.parser')
-    messages=[]
-    content=""
-    girlitems = soup.find('article').find('div','girl-list').find_all('div','girl-item')  
-    index = random.randint(0,len(girlitems)-1)  
-    #for i in range(3):
-    element = girlitems[index]
-    # print("0",element)
-    picUrl = element.find('div','bg-cover').get('style').replace('background-image: url(', target_url).replace(')','')
-    # print(element.find('div','bg-cover').get('style'))
-    print(picUrl)
-    print(element.find('div','girl-name').text)
-    print(element.find('div','price').text)
-    # details = element .find_all('div','detail-item')
-    # for detail in details:
-    #     print(detail.text)
-    title = element.find('div','girl-name').text+ ' ' + element.find('div','price').text
-    # content += '{}\n{}\n\n'.format(title, picUrl)
-        
-    messages.append(TextSendMessage(text=title))
-    messages.append(
-            ImageSendMessage(
-            original_content_url=picUrl,
-            preview_image_url=picUrl)
-            )
-
-    return messages
-
-def test2():
-    return 0
-
-def bcstamp():
-    timenow= GetTime()
-    content = "Bc Tag " + timenow
-    GDriveJSON = 'RedInfoBot.json'
-    GSpreadSheet = 'BCTag'
-    while True:
-        try:
-            scope = ["https://spreadsheets.google.com/feeds",'https://www.googleapis.com/auth/drive']
+            scope = [
+                "https://spreadsheets.google.com/feeds",
+                'https://www.googleapis.com/auth/drive'
+            ]
             key = SAC.from_json_keyfile_name(GDriveJSON, scope)
             gc = gspread.authorize(key)
             worksheet = gc.open(GSpreadSheet).sheet1
         except Exception as ex:
             print('無法連線Google試算表', ex)
             sys.exit(1)
-        #GetTime()    
-        for i in range(1,31):
+
+        #print('新增一列資料到試算表' ,GSpreadSheet)
+        values = worksheet.get_all_values()
+        # for data in values:
+        #     print(data)
+
+        index = random.randint(0, len(values) - 1)
+        print(index)
+        print(values[index][0])
+        return values[index][0]
+
+
+def test1():
+    target_url = 'https://ptt-beauty-images.herokuapp.com/'
+    print('Start test1')
+    rs = requests.session()
+    res = rs.get(target_url, verify=False)
+    soup = BeautifulSoup(res.text, 'html.parser')
+    temp = []
+    content = ""
+    for data in soup.select('div.row div.images a.img-thumbnail'):
+        link = data['href']
+        temp.append(link)
+    content = temp[random.randint(0, len(temp))]
+    return content
+
+
+def test3():
+    target_url = 'https://argo-play.net/'
+    aa = 'https://argo-play.net/album/2/6'
+    print('Start test3')
+    rs = requests.session()
+    res = rs.get(target_url, verify=False)
+    soup = BeautifulSoup(res.text, 'html.parser')
+    messages = []
+    content = ""
+    girlitems = soup.find('article').find('div', 'girl-list').find_all(
+        'div', 'girl-item')
+    index = random.randint(0, len(girlitems) - 1)
+    #for i in range(3):
+    element = girlitems[index]
+    # print("0",element)
+    picUrl = element.find('div', 'bg-cover').get('style').replace(
+        'background-image: url(', target_url).replace(')', '')
+    # print(element.find('div','bg-cover').get('style'))
+    print(picUrl)
+    print(element.find('div', 'girl-name').text)
+    print(element.find('div', 'price').text)
+    # details = element .find_all('div','detail-item')
+    # for detail in details:
+    #     print(detail.text)
+    title = element.find('div', 'girl-name').text + ' ' + element.find(
+        'div', 'price').text
+    # content += '{}\n{}\n\n'.format(title, picUrl)
+
+    messages.append(TextSendMessage(text=title))
+    messages.append(
+        ImageSendMessage(original_content_url=picUrl,
+                         preview_image_url=picUrl))
+
+    return messages
+
+
+def test2():
+    return 0
+
+
+def bcstamp():
+    timenow = GetTime()
+    content = "Bc Tag " + timenow
+    GDriveJSON = 'RedInfoBot.json'
+    GSpreadSheet = 'BCTag'
+    while True:
+        try:
+            scope = [
+                "https://spreadsheets.google.com/feeds",
+                'https://www.googleapis.com/auth/drive'
+            ]
+            key = SAC.from_json_keyfile_name(GDriveJSON, scope)
+            gc = gspread.authorize(key)
+            worksheet = gc.open(GSpreadSheet).sheet1
+        except Exception as ex:
+            print('無法連線Google試算表', ex)
+            sys.exit(1)
+        #GetTime()
+        for i in range(1, 31):
             # print(worksheet.cell(i,1).value)
-            if(worksheet.cell(i,1).value == ''):
-                worksheet.update_acell(f'A{i}',timenow)
+            if (worksheet.cell(i, 1).value == ''):
+                worksheet.update_acell(f'A{i}', timenow)
                 break
         return content
 
+
 def tryGetNum(value):
     try:
-        return {'sucess':True,'num':int(value)}
+        return {'sucess': True, 'num': int(value)}
     except Exception:
-        return {'sucess':False}
-    
+        return {'sucess': False}
+
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-    print("event ",event)
+    print("event ", event)
     print("user_id: ", event.source.user_id)
     # print("group_id: ", event.source.group_id)
     print("event.reply_token:", event.reply_token)
     print("event.message.text:", event.message.text)
-    
 
-    if(not event.source.user_id in userDict):
+    if (not event.source.user_id in userDict):
         print('UserId not in dict')
-        if(event.source.type == 'group' ):
+        if (event.source.type == 'group'):
             try:
-                profile = line_bot_api.get_group_member_profile(event.source.group_id ,event.source.user_id)
+                profile = line_bot_api.get_group_member_profile(
+                    event.source.group_id, event.source.user_id)
                 info = json.loads(str(profile))
                 # print('UserInfo ',info)
-                userDict[event.source.user_id]=info['displayName']        
+                userDict[event.source.user_id] = info['displayName']
             except Exception as ex:
                 print("Get UserId Err ", ex)
                 sys.exit(1)
-        else:    
+        else:
             try:
-                profile = line_bot_api.get_profile( event.source.user_id)
+                profile = line_bot_api.get_profile(event.source.user_id)
                 info = json.loads(str(profile))
-                userDict[event.source.user_id]=info['displayName']        
+                userDict[event.source.user_id] = info['displayName']
             except Exception as ex:
                 print("Get UserId Err ", ex)
-                sys.exit(1)            
+                sys.exit(1)
 
     # profile = line_bot_api.get_group_member_profile(<group_id>, <user_id>)
 
     if event.message.text.lower() == "test1":
-        content=test1()
+        content = test1()
         # image = requests.get(API_Get_Image)
         # url = image.json().get('Url')
-        url=content
-        image_message = ImageSendMessage(
-            original_content_url=url,
-            preview_image_url=url
-        )
-        line_bot_api.reply_message(
-            event.reply_token, image_message)
-        return 0
-    if event.message.text.lower() == "bcstamp":
-        content = bcstamp()               
-        line_bot_api.reply_message(
-            event.reply_token,
-            TextSendMessage(text=content))
-        return 0
-    if event.message.text.lower() == "lotteryargo":
-        content =  test3()
-        line_bot_api.reply_message(
-            event.reply_token, content)
-        return 0
-    if event.message.text.lower() == "test4":
-        line_bot_api.reply_message(
-                event.reply_token,[TextSendMessage(text= 'ABC'),ImageSendMessage(
-            original_content_url='https://argo-play.net//storage/upload/album/image/2019-10-04/gS13ixBTRpUrpf53X6m6C2AnSF8C7jjsFit2XbVV.jpeg',
-            preview_image_url='https://argo-play.net//storage/upload/album/image/2019-10-04/gS13ixBTRpUrpf53X6m6C2AnSF8C7jjsFit2XbVV.jpeg'
-        )])        
+        url = content
+        image_message = ImageSendMessage(original_content_url=url,
+                                         preview_image_url=url)
+        line_bot_api.reply_message(event.reply_token, image_message)
         return 0
 
-    if event.message.text.lower() =='redinfo' or event.message.text.lower() =='紅信' or event.message.text.lower() =='bot' or event.message.text.lower() =='機器人':
+    if event.message.text.lower() == "halloween":
+        content ='Hello World'
+        line_bot_api.reply_message(event.reply_token,
+                                   TextSendMessage(text=content))
+        return 0
+    if event.message.text.lower() == "萬聖節":
+        content ='IAN 快樂'
+        line_bot_api.reply_message(event.reply_token,
+                                   TextSendMessage(text=content))
+        return 0
+    if "給糖" in event.message.text.lower():
+        content ='給屁給 死屁孩'
+        line_bot_api.reply_message(event.reply_token,
+                                   TextSendMessage(text=content))
+        return 0
+    if event.message.text.lower() == "bcstamp":
+        content = bcstamp()
+        line_bot_api.reply_message(event.reply_token,
+                                   TextSendMessage(text=content))
+        return 0
+    if event.message.text.lower() == "lotteryargo":
+        content = test3()
+        line_bot_api.reply_message(event.reply_token, content)
+        return 0
+    if event.message.text.lower() == "test4":
+        line_bot_api.reply_message(event.reply_token, [
+            TextSendMessage(text='ABC'),
+            ImageSendMessage(
+                original_content_url=
+                'https://argo-play.net//storage/upload/album/image/2019-10-04/gS13ixBTRpUrpf53X6m6C2AnSF8C7jjsFit2XbVV.jpeg',
+                preview_image_url=
+                'https://argo-play.net//storage/upload/album/image/2019-10-04/gS13ixBTRpUrpf53X6m6C2AnSF8C7jjsFit2XbVV.jpeg'
+            )
+        ])
+        return 0
+
+    if event.message.text.lower() == 'redinfo' or event.message.text.lower() == '紅信' or event.message.text.lower(
+    ) == 'bot' or event.message.text.lower() == '機器人':
         content = "目前功能有:\n時間(now),\n點餐:\n#吃(#eat),#喝(#drink),\n#修吃(#upeat),#修喝(#updrink),\n#刪吃(#deleat),#刪喝(#deldrink)\n骰子(random)\n隨便來張正妹圖片\n蘋果即時新聞\n即時廢文"
-        line_bot_api.reply_message(
-            event.reply_token,
-            TextSendMessage(text=content))
+        line_bot_api.reply_message(event.reply_token,
+                                   TextSendMessage(text=content))
         return 0
-    if "#eat" in event.message.text.lower() or "#drink" in event.message.text.lower() or "#吃" in event.message.text.lower() or "#喝" in event.message.text.lower():
-        content = order(userDict[event.source.user_id],event.message.text)
-        line_bot_api.reply_message(
-            event.reply_token,
-            TextSendMessage(text=content))
+    if "#eat" in event.message.text.lower(
+    ) or "#drink" in event.message.text.lower(
+    ) or "#吃" in event.message.text.lower(
+    ) or "#喝" in event.message.text.lower():
+        content = order(userDict[event.source.user_id], event.message.text)
+        line_bot_api.reply_message(event.reply_token,
+                                   TextSendMessage(text=content))
         return 0
-    if "#upeat" in event.message.text.lower() or "#updrink" in event.message.text.lower() or "#修吃" in event.message.text.lower() or "#修喝" in event.message.text.lower():
-        content = uporder(userDict[event.source.user_id],event.message.text)
-        line_bot_api.reply_message(
-            event.reply_token,
-            TextSendMessage(text=content))
+    if "#upeat" in event.message.text.lower(
+    ) or "#updrink" in event.message.text.lower(
+    ) or "#修吃" in event.message.text.lower(
+    ) or "#修喝" in event.message.text.lower():
+        content = uporder(userDict[event.source.user_id], event.message.text)
+        line_bot_api.reply_message(event.reply_token,
+                                   TextSendMessage(text=content))
         return 0
-    if "#deleat" in event.message.text.lower() or "#deldrink" in event.message.text.lower() or "#刪吃" in event.message.text.lower() or "#刪喝" in event.message.text.lower():
-        content = delorder(userDict[event.source.user_id],event.message.text)
-        line_bot_api.reply_message(
-            event.reply_token,
-            TextSendMessage(text=content))
+    if "#deleat" in event.message.text.lower(
+    ) or "#deldrink" in event.message.text.lower(
+    ) or "#刪吃" in event.message.text.lower(
+    ) or "#刪喝" in event.message.text.lower():
+        content = delorder(userDict[event.source.user_id], event.message.text)
+        line_bot_api.reply_message(event.reply_token,
+                                   TextSendMessage(text=content))
         return 0
-    if event.message.text.lower() == "order" or event.message.text.lower() == "訂單":
+    if event.message.text.lower() == "order" or event.message.text.lower(
+    ) == "訂單":
         line_bot_api.reply_message(
-            event.reply_token,
-            TextSendMessage(text='https://reurl.cc/pDWQD4'))
+            event.reply_token, TextSendMessage(text='https://reurl.cc/pDWQD4'))
         return 0
-    if event.message.text.lower() == "bc故事" or event.message.text.lower() == "bcstory":
-        content=GetBcStory()
-        line_bot_api.reply_message(
-            event.reply_token,
-            TextSendMessage(text=content))
+    if event.message.text.lower() == "bc故事" or event.message.text.lower(
+    ) == "bcstory":
+        content = GetBcStory()
+        line_bot_api.reply_message(event.reply_token,
+                                   TextSendMessage(text=content))
         return 0
-    if event.message.text.lower() == "now" or event.message.text.lower() == "時間":
-        content=GetTime()
-        line_bot_api.reply_message(
-            event.reply_token,
-            TextSendMessage(text=content))
+    if event.message.text.lower() == "now" or event.message.text.lower(
+    ) == "時間":
+        content = GetTime()
+        line_bot_api.reply_message(event.reply_token,
+                                   TextSendMessage(text=content))
         return 0
-    if "random" in event.message.text.lower() or "骰子" in event.message.text.lower():        
-        content = 'Ex:\nRandom 0(Offset) To 2147483647\nRandom 要 不要' 
+    if "random" in event.message.text.lower(
+    ) or "骰子" in event.message.text.lower():
+        content = 'Ex:\nRandom 0(Offset) To 2147483647\nRandom 要 不要'
         isSucess = False
         splitText = event.message.text.split(' ')
         print(splitText)
         try:
-            if len(splitText) == 2:                
-                content = random.randint(0,int(splitText[1]))
+            if len(splitText) == 2:
+                content = random.randint(0, int(splitText[1]))
                 isSucess = True
             elif len(splitText) == 3:
-                num1=int(splitText[1])
-                num2=int(splitText[2])
-                content = random.randint(num1,num2)
+                num1 = int(splitText[1])
+                num2 = int(splitText[2])
+                content = random.randint(num1, num2)
                 isSucess = True
         except Exception:
             isSucess = False
 
         if (len(splitText) >= 2 and isSucess == False) or len(splitText) > 2:
-                index = random.randint(0,len(splitText)-2)+1
-                content = splitText[index]
+            index = random.randint(0, len(splitText) - 2) + 1
+            content = splitText[index]
 
-        line_bot_api.reply_message(
-            event.reply_token,
-            TextSendMessage(text=content))
+        line_bot_api.reply_message(event.reply_token,
+                                   TextSendMessage(text=content))
         return 0
     if event.message.text.lower() == "eyny":
         content = eyny_movie()
-        line_bot_api.reply_message(
-            event.reply_token,
-            TextSendMessage(text=content))
+        line_bot_api.reply_message(event.reply_token,
+                                   TextSendMessage(text=content))
         return 0
     if event.message.text == "蘋果即時新聞":
         content = apple_news()
-        line_bot_api.reply_message(
-            event.reply_token,
-            TextSendMessage(text=content))
+        line_bot_api.reply_message(event.reply_token,
+                                   TextSendMessage(text=content))
         return 0
     # if event.message.text == "PTT 表特版 近期大於 10 推的文章":
     #     content = ptt_beauty()
@@ -738,34 +789,26 @@ def handle_message(event):
         images = client.get_album_images(album_id)
         index = random.randint(0, len(images) - 1)
         url = images[index].link
-        image_message = ImageSendMessage(
-            original_content_url=url,
-            preview_image_url=url
-        )
-        line_bot_api.reply_message(
-            event.reply_token, image_message)
+        image_message = ImageSendMessage(original_content_url=url,
+                                         preview_image_url=url)
+        line_bot_api.reply_message(event.reply_token, image_message)
         return 0
     if event.message.text == "隨便來張正妹圖片":
-        content=test1()
-        url=content
-        image_message = ImageSendMessage(
-            original_content_url=url,
-            preview_image_url=url
-        )
-        line_bot_api.reply_message(
-            event.reply_token, image_message)
+        content = test1()
+        url = content
+        image_message = ImageSendMessage(original_content_url=url,
+                                         preview_image_url=url)
+        line_bot_api.reply_message(event.reply_token, image_message)
         return 0
     if event.message.text == "近期熱門廢文":
         content = ptt_hot()
-        line_bot_api.reply_message(
-            event.reply_token,
-            TextSendMessage(text=content))
+        line_bot_api.reply_message(event.reply_token,
+                                   TextSendMessage(text=content))
         return 0
     if event.message.text == "即時廢文":
         content = ptt_gossiping()
-        line_bot_api.reply_message(
-            event.reply_token,
-            TextSendMessage(text=content))
+        line_bot_api.reply_message(event.reply_token,
+                                   TextSendMessage(text=content))
         return 0
     # if event.message.text == "近期上映電影":
     #     content = movie()
@@ -778,24 +821,26 @@ def handle_message(event):
         rs = requests.session()
         res = rs.get(target_url, verify=False)
         soup = BeautifulSoup(res.text, 'html.parser')
-        seqs = ['https://www.youtube.com{}'.format(data.find('a')['href']) for data in soup.select('.yt-lockup-title')]
-        line_bot_api.reply_message(
-            event.reply_token, [
-                TextSendMessage(text=seqs[random.randint(0, len(seqs) - 1)]),
-                TextSendMessage(text=seqs[random.randint(0, len(seqs) - 1)])
-            ])
+        seqs = [
+            'https://www.youtube.com{}'.format(data.find('a')['href'])
+            for data in soup.select('.yt-lockup-title')
+        ]
+        line_bot_api.reply_message(event.reply_token, [
+            TextSendMessage(text=seqs[random.randint(0,
+                                                     len(seqs) - 1)]),
+            TextSendMessage(text=seqs[random.randint(0,
+                                                     len(seqs) - 1)])
+        ])
         return 0
     if event.message.text == "科技新報":
         content = technews()
-        line_bot_api.reply_message(
-            event.reply_token,
-            TextSendMessage(text=content))
+        line_bot_api.reply_message(event.reply_token,
+                                   TextSendMessage(text=content))
         return 0
     if event.message.text == "PanX泛科技":
         content = panx()
-        line_bot_api.reply_message(
-            event.reply_token,
-            TextSendMessage(text=content))
+        line_bot_api.reply_message(event.reply_token,
+                                   TextSendMessage(text=content))
         return 0
     # if event.message.text == "開始玩":
     #     buttons_template = TemplateSendMessage(
@@ -943,9 +988,8 @@ def handle_message(event):
     #     return 0
     if event.message.text == "油價查詢":
         content = oil_price()
-        line_bot_api.reply_message(
-            event.reply_token,
-            TextSendMessage(text=content))
+        line_bot_api.reply_message(event.reply_token,
+                                   TextSendMessage(text=content))
         return 0
 
     # carousel_template_message = TemplateSendMessage(
@@ -1022,14 +1066,18 @@ def GetTime():
     my_tz = timezone("Asia/Taipei")
     return utc_dt.astimezone(my_tz).strftime('%Y-%m-%d %H:%M:%S')
 
+
 @handler.add(MessageEvent, message=StickerMessage)
 def handle_sticker_message(event):
     print("package_id:", event.message.package_id)
     print("sticker_id:", event.message.sticker_id)
     # ref. https://developers.line.me/media/messaging-api/sticker_list.pdf
-    sticker_ids = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 21, 100, 101, 102, 103, 104, 105, 106,
-                   107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125,
-                   126, 127, 128, 129, 130, 131, 132, 133, 134, 135, 136, 137, 138, 139, 401, 402]
+    sticker_ids = [
+        1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 21, 100,
+        101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114,
+        115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 127, 128,
+        129, 130, 131, 132, 133, 134, 135, 136, 137, 138, 139, 401, 402
+    ]
     # index_id = random.randint(0, len(sticker_ids) - 1)
     # sticker_id = str(sticker_ids[index_id])
     # print(index_id)
